@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鯵（アジ） | ざうお目黒店</title>
+<style>
+  :root{
+    --main: #9fd8ff;
+    --accent: #3f8fc2;
+    --bg: #f3faff;
+    --text: #3b4a4f;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: "Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height:1.8;
+  }
+  .video-wrap{
+    background: #b03052 url("../波柄_pattern.webp") repeat;
+    background-size: 180px auto;
+    height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  video{
+    height:100%;
+    width:auto;
+    max-width:100%;
+  }
+  main{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  h1{
+    font-size: 2rem;
+    margin: 0 0 4px;
+    color: var(--accent);
+  }
+  h1 .ruby{
+    display:block;
+    font-size: .9rem;
+    color: #7a9298;
+    font-weight:normal;
+    margin-bottom:4px;
+  }
+  p.catch{
+    font-weight:bold;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow: 0 8px 24px rgba(63,143,194,0.12);
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .card h2{
+    margin-top:0;
+    font-size:1.15rem;
+    color: var(--accent);
+  }
+  .badge-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .badge{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .85rem;
+    font-weight:bold;
+  }
+  .trivia-list{
+    margin:0;
+    padding-left: 1.2em;
+  }
+  .trivia-list li{ margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="video-wrap">
+<video src="aji.mp4" controls autoplay muted loop playsinline>
+  お使いのブラウザは動画に対応していません。
+</video>
+</div>
+
+<main>
+  <h1><span class="ruby">あじ</span>鯵（アジ）</h1>
+  <p class="catch">その名の由来は「味が良いから」</p>
+
+  <div class="card">
+    <h2>どんな魚？</h2>
+    <p>
+      鯵（アジ）は青みがかった銀色の体が特徴の、日本の食卓でおなじみの魚。
+      名前の由来は諸説ありますが、「味が良いから鯵」といわれるほど昔から愛されてきました。
+    </p>
+    <div class="badge-row">
+      <span class="badge">体長 20〜40cm</span>
+      <span class="badge">青魚</span>
+      <span class="badge">ゼイゴが目印</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>どこにいる？／旬はいつ？</h2>
+    <p>
+      北海道南部から東シナ海まで、日本各地の比較的暖かく浅い海に広く生息。
+      外洋を群れで回遊するタイプと、湾内や特定の瀬に居つくタイプがいます。
+      旬は主に初夏から夏（6〜8月頃）で、脂がのって特に美味しくなります。
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>豆知識</h2>
+    <ul class="trivia-list">
+      <li>体の側面にある硬いトゲトゲの鱗「ゼイゴ（ぜんご）」はアジ科ならではの特徴で、見分けるポイントになる。</li>
+      <li>沖合を群れで回遊する「黒アジ」は体が青黒く引き締まった体型、瀬に居ついて動かない「金アジ（瀬付きアジ）」は黄色みがかった体色でよく脂がのっているとされる。</li>
+      <li>小さいアジは「豆アジ」、大きく育ったアジは「大アジ」と呼ばれ、大きさによって呼び名が変わる。</li>
+      <li>漢字「鰺」の旁（つくり）にある「参」は、群れになってたくさん泳ぐ様子を表しているという説がある。</li>
+    </ul>
+  </div>
+</main>
+
+</body>
+</html>

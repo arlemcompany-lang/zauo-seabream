@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>伊勢海老（イセエビ） | ざうお目黒店</title>
+<style>
+  :root{
+    --main: #ff8f7a;
+    --accent: #c23458;
+    --bg: #fff5f3;
+    --text: #4a3b3b;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: "Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height:1.8;
+  }
+  .video-wrap{
+    background: #b03052 url("../波柄_pattern.webp") repeat;
+    background-size: 180px auto;
+    height:80vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  video{
+    height:100%;
+    width:auto;
+    max-width:100%;
+  }
+  main{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  h1{
+    font-size: 2rem;
+    margin: 0 0 4px;
+    color: var(--accent);
+  }
+  h1 .ruby{
+    display:block;
+    font-size: .9rem;
+    color: #a08a8a;
+    font-weight:normal;
+    margin-bottom:4px;
+  }
+  p.catch{
+    font-weight:bold;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow: 0 8px 24px rgba(194,52,88,0.12);
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .card h2{
+    margin-top:0;
+    font-size:1.15rem;
+    color: var(--accent);
+  }
+  .badge-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .badge{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .85rem;
+    font-weight:bold;
+  }
+  .trivia-list{
+    margin:0;
+    padding-left: 1.2em;
+  }
+  .trivia-list li{ margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<div class="video-wrap">
+<video src="ise-ebi.mp4" controls autoplay muted loop playsinline>
+  お使いのブラウザは動画に対応していません。
+</video>
+</div>
+
+<main>
+  <h1><span class="ruby">いせえび</span>伊勢海老（イセエビ）</h1>
+  <p class="catch">長寿と出世を願う、お祝いの大御所</p>
+
+  <div class="card">
+    <h2>どんな海老？</h2>
+    <p>
+      伊勢海老は赤褐色の体に太くゴツゴツした殻、長い触角を持つ大型のエビ。
+      カニやロブスターのような大きなハサミは持たず、代わりに硬い棘だらけの殻を身を守る武器にしています。
+    </p>
+    <div class="badge-row">
+      <span class="badge">体長 20〜30cm</span>
+      <span class="badge">夜行性</span>
+      <span class="badge">縁起物</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>どこにいる？／旬はいつ？</h2>
+    <p>
+      関東以南の岩礁地帯に生息し、昼間は岩の隙間に隠れ、夜になると活動する夜行性。
+      旬は秋から初春（10〜4月頃）とされ、伊勢志摩をはじめ各地の産地でこの時期に多く水揚げされます。
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>豆知識</h2>
+    <ul class="trivia-list">
+      <li>長いひげと曲がった腰の姿が「腰が曲がるまで長生きする」お年寄りを連想させ、長寿の縁起物とされる。</li>
+      <li>成長の過程で何度も脱皮を繰り返して大きくなることから、立身出世の願いも込められている。</li>
+      <li>生まれてすぐは「フィロソーマ」という透明なプランクトン幼生の姿で、なんと1年近く海を漂いながら脱皮を繰り返し、成体になるまで約3年もかかる。</li>
+      <li>寿命は10年以上ともいわれ、外敵に襲われず30年近く生きた例も報告されている。</li>
+      <li>名前の由来は江戸時代の書物にも記載があり、「伊勢の名産だったから伊勢海老」という説が有力。</li>
+    </ul>
+  </div>
+</main>
+
+</body>
+</html>
