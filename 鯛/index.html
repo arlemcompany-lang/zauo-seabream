@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鯛（タイ） | ざうお目黒店</title>
+<style>
+  :root{
+    --main: #ffb3c1;
+    --accent: #e8607d;
+    --bg: #fff7f8;
+    --text: #4a3b3e;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: "Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height:1.8;
+  }
+  video{
+    width:100%;
+    height:auto;
+    display:block;
+    background:#000;
+  }
+  main{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  h1{
+    font-size: 2rem;
+    margin: 0 0 4px;
+    color: var(--accent);
+  }
+  h1 .ruby{
+    display:block;
+    font-size: .9rem;
+    color: #a08a8f;
+    font-weight:normal;
+    margin-bottom:4px;
+  }
+  p.catch{
+    font-weight:bold;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow: 0 8px 24px rgba(232,96,125,0.12);
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .card h2{
+    margin-top:0;
+    font-size:1.15rem;
+    color: var(--accent);
+  }
+  .badge-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .badge{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .85rem;
+    font-weight:bold;
+  }
+  .trivia-list{
+    margin:0;
+    padding-left: 1.2em;
+  }
+  .trivia-list li{ margin-bottom: 8px; }
+</style>
+</head>
+<body>
+
+<video src="tai.mp4" controls autoplay muted loop playsinline>
+  お使いのブラウザは動画に対応していません。
+</video>
+
+<main>
+  <h1><span class="ruby">たい</span>鯛（タイ）</h1>
+  <p class="catch">お祝いの席の主役、「魚の王様」</p>
+
+  <div class="card">
+    <h2>どんな魚？</h2>
+    <p>
+      鯛（タイ）は淡いピンク色の体と、しっかりとした引き締まった身が特徴の魚。
+      日本では古くから「めでたい」に通じる縁起の良い魚として、お祝いの席に欠かせない存在です。
+    </p>
+    <div class="badge-row">
+      <span class="badge">体長 30〜100cm</span>
+      <span class="badge">白身魚</span>
+      <span class="badge">縁起物</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>どこにいる？／旬はいつ？</h2>
+    <p>
+      日本各地の沿岸、水深10〜200mほどの岩場やその周辺の砂地に生息。
+      特に春（3〜5月）は「桜鯛」と呼ばれ、産卵前で脂がのり体色も鮮やかなピンクに染まる、もっとも美味しい時期です。
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>豆知識</h2>
+    <ul class="trivia-list">
+      <li>釣り上げられると興奮して体の色がより鮮やかなピンク色になる。</li>
+      <li>寿命は20年以上と長生きで、大きいものは1mを超えることも。</li>
+      <li>「腐っても鯛」ということわざの通り、良いものは多少状態が変わっても値打ちが変わらないたとえに使われる。</li>
+    </ul>
+  </div>
+</main>
+
+</body>
+</html>
