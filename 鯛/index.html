@@ -19,11 +19,18 @@
     color: var(--text);
     line-height:1.8;
   }
-  video{
-    width:100%;
-    height:auto;
-    display:block;
+  .video-wrap{
     background:#000;
+    height:38vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  video{
+    height:100%;
+    width:auto;
+    max-width:100%;
   }
   main{
     max-width: 720px;
@@ -83,9 +90,11 @@
 </head>
 <body>
 
+<div class="video-wrap">
 <video src="tai.mp4" controls autoplay muted loop playsinline>
   お使いのブラウザは動画に対応していません。
 </video>
+</div>
 
 <main>
   <h1><span class="ruby">たい</span>鯛（タイ）</h1>
