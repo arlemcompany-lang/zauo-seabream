@@ -87,6 +87,31 @@
     padding-left: 1.2em;
   }
   .trivia-list li{ margin-bottom: 8px; }
+  .badge.ok{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+  }
+  .badge.ng{
+    background: #fffbe6;
+    border: 1px solid #e6c200;
+    color: #9c8000;
+  }
+  .sub-label{
+    font-weight:bold;
+    margin: 16px 0 0;
+  }
+  .photo-placeholder{
+    margin-top: 16px;
+    height: 160px;
+    border: 2px dashed var(--main);
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: #a08a8f;
+    font-size: .9rem;
+  }
 </style>
 </head>
 <body>
@@ -100,6 +125,25 @@
 <main>
   <h1><span class="ruby">たい</span>鯛（タイ）</h1>
   <p class="catch">お祝いの席の主役、「魚の王様」</p>
+
+  <div class="card">
+    <h2>おすすめのざうお調理法</h2>
+    <p>鯛は万能でなんでもおいしくいただけます。</p>
+    <div class="badge-row">
+      <span class="badge ok">刺身 〇</span>
+      <span class="badge ok">焼き 〇</span>
+      <span class="badge ok">煮付け 〇</span>
+      <span class="badge ok">唐揚げ 〇</span>
+    </div>
+    <p class="sub-label">骨を使って（刺身に姿が付いているとき）</p>
+    <div class="badge-row">
+      <span class="badge ok">兜焼き 〇</span>
+      <span class="badge ok">あら炊き 〇</span>
+      <span class="badge ng">骨せんべい △</span>
+      <span class="badge ok">みそ汁 〇</span>
+    </div>
+    <div class="photo-placeholder">写真準備中</div>
+  </div>
 
   <div class="card">
     <h2>どんな魚？</h2>
@@ -125,9 +169,9 @@
   <div class="card">
     <h2>豆知識</h2>
     <ul class="trivia-list">
-      <li>天然のアイシャドウ：目の上にある輝く青いラインと体表の青い斑点は、新鮮なマダイだけに現れるチャームポイント。鮮度が落ちると急速に薄れて消えてしまう。</li>
-      <li>見た目とお口のギャップがすごい：「めでたい」とチヤホヤされる華やかさとは裏腹に、口の中には頑丈な歯が生えており、エビ・カニ・ウニを殻ごとバリバリ噛み砕いて食べる力技の美食家。</li>
-      <li>途中で性別が変わる：生まれた時はみんな「メス」として育ち、2歳前後になると多くの個体が「オス」へ性転換する。おめでたいお祝いの席の裏で、しれっと人生の路線変更が行われている。</li>
+      <li><strong>天然のアイシャドウ：</strong><br>目の上にある輝く青いラインと体表の青い斑点は、新鮮なマダイだけに現れるチャームポイント。鮮度が落ちると急速に薄れて消えてしまう。</li>
+      <li><strong>見た目とお口のギャップがすごい：</strong><br>「めでたい」とチヤホヤされる華やかさとは裏腹に、口の中には頑丈な歯が生えており、エビ・カニ・ウニを殻ごとバリバリ噛み砕いて食べる力技の美食家。</li>
+      <li><strong>途中で性別が変わる：</strong><br>生まれた時はみんな「メス」として育ち、2歳前後になると多くの個体が「オス」へ性転換する。おめでたいお祝いの席の裏で、しれっと人生の路線変更が行われている。</li>
     </ul>
   </div>
 </main>
