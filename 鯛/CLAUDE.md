@@ -5,4 +5,9 @@
 親フォルダのCLAUDE.mdも参照: `../CLAUDE.md`
 
 ## 状態
-未着手。ページ内容（デザイン・文章・構成）はこれから作成する。
+完成・公開済み。
+公開URL: https://arlemcompany-lang.github.io/zauo-seabream/鯛/
+
+## 構成
+- `index.html` — ページ本体（動画トップ＋波柄背景＋説明カード3枚：どんな魚？／どこにいる？旬はいつ？／豆知識）
+- `tai.mp4` — トップの縦長動画
