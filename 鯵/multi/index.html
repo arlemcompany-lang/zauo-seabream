@@ -11,7 +11,7 @@
     --bg: #f3faff;
     --text: #3b4a4f;
     /* 言語バーの高さ。動画の高さから差し引き、旧版と同じ位置でタイトルが見えるようにする */
-    --langbar-h: 69px;
+    --langbar-h: 111px;
   }
   *{ box-sizing: border-box; }
   body{
@@ -24,13 +24,14 @@
   html[lang="ko"] body{
     font-family: "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
   }
-  html[lang="zh-Hans"] body{
+  html[lang="zh"] body{
     font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
   }
-  html[lang="zh-Hant"] body{
-    font-family: "PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
-  }
-  html[lang="en"] body{
+  html[lang="en"] body,
+  html[lang="es"] body,
+  html[lang="it"] body,
+  html[lang="vi"] body,
+  html[lang="tl"] body{
     font-family: "Helvetica Neue",Arial,sans-serif;
   }
 
@@ -39,14 +40,18 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    flex-wrap:wrap;
-    gap: 4px;
-    padding: 8px 6px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    align-items: start;
+    gap: 2px;
+    padding: 7px 4px;
     background: #fff;
     box-shadow: 0 2px 10px rgba(63,143,194,0.18);
+  }
+  @media (min-width: 640px){
+    :root{ --langbar-h: 61px; }
+    .langbar{ grid-template-columns: repeat(8, auto); }
   }
   .lang-btn{
     display:flex;
@@ -56,7 +61,7 @@
     background: transparent;
     border: none;
     border-radius: 10px;
-    padding: 5px 6px;
+    padding: 4px 5px;
     cursor: pointer;
     font-family: inherit;
     line-height:1.2;
@@ -64,8 +69,8 @@
   }
   .lang-btn .flag{
     display:block;
-    width: 40px;
-    height: 27px;
+    width: 36px;
+    height: 24px;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 0 0 1px rgba(0,0,0,.15);
@@ -73,11 +78,12 @@
   }
   .lang-btn .flag svg{ display:block; width:100%; height:100%; }
   .lang-btn .lang-name{
-    font-size: .68rem;
+    font-size: .64rem;
     font-weight: bold;
     color: #8aa0a7;
     white-space: nowrap;
-    font-family: "Hiragino Maru Gothic ProN","Yu Gothic","Malgun Gothic","Microsoft JhengHei",sans-serif;
+    /* ベトナム語の「ế」等が合成表示にならないよう、ベトナム語対応のラテン系フォントを先頭に置く */
+    font-family: "Segoe UI",Arial,"Hiragino Maru Gothic ProN","Yu Gothic","Malgun Gothic","Microsoft YaHei",sans-serif;
   }
   .lang-btn.is-active{ background: var(--bg); }
   .lang-btn.is-active .flag{ box-shadow: 0 0 0 2px var(--accent); }
@@ -201,7 +207,7 @@
 </head>
 <body>
 
-<!-- ===== 言語切替（動画より上） ===== -->
+<!-- ===== 言語切替（動画より上）／釣りゲームと同じ8言語・同じ並び順 ===== -->
 <nav class="langbar" aria-label="Language / 言語切替">
   <button type="button" class="lang-btn is-active" data-lang="ja" aria-label="日本語">
     <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg></span>
@@ -211,17 +217,29 @@
     <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="30" height="1.54"/><rect y="4.62" width="30" height="1.54"/><rect y="7.69" width="30" height="1.54"/><rect y="10.77" width="30" height="1.54"/><rect y="13.85" width="30" height="1.54"/><rect y="16.92" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/><g fill="#fff"><circle cx="2" cy="1.6" r=".45"/><circle cx="5" cy="1.6" r=".45"/><circle cx="8" cy="1.6" r=".45"/><circle cx="11" cy="1.6" r=".45"/><circle cx="3.5" cy="3.6" r=".45"/><circle cx="6.5" cy="3.6" r=".45"/><circle cx="9.5" cy="3.6" r=".45"/><circle cx="2" cy="5.6" r=".45"/><circle cx="5" cy="5.6" r=".45"/><circle cx="8" cy="5.6" r=".45"/><circle cx="11" cy="5.6" r=".45"/><circle cx="3.5" cy="7.6" r=".45"/><circle cx="6.5" cy="7.6" r=".45"/><circle cx="9.5" cy="7.6" r=".45"/><circle cx="2" cy="9.6" r=".45"/><circle cx="5" cy="9.6" r=".45"/><circle cx="8" cy="9.6" r=".45"/><circle cx="11" cy="9.6" r=".45"/></g></svg></span>
     <span class="lang-name">English</span>
   </button>
-  <button type="button" class="lang-btn" data-lang="zh-Hans" aria-label="简体中文">
+  <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">
     <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="cnstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="20" fill="#de2910"/><g fill="#ffde00"><use href="#cnstar" transform="translate(5,5) scale(3)"/><use href="#cnstar" transform="translate(10,2)"/><use href="#cnstar" transform="translate(12,4.5)"/><use href="#cnstar" transform="translate(12,7.5)"/><use href="#cnstar" transform="translate(10,10)"/></g></svg></span>
-    <span class="lang-name">简体中文</span>
-  </button>
-  <button type="button" class="lang-btn" data-lang="zh-Hant" aria-label="繁體中文">
-    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fe0000"/><rect width="15" height="10" fill="#000095"/><polygon fill="#fff" points="10.9,5 9.335,5.492 10.444,6.7 8.843,6.343 9.2,7.944 7.992,6.835 7.5,8.4 7.008,6.835 5.8,7.944 6.157,6.343 4.556,6.7 5.665,5.492 4.1,5 5.665,4.508 4.556,3.3 6.157,3.657 5.8,2.056 7.008,3.165 7.5,1.6 7.992,3.165 9.2,2.056 8.843,3.657 10.444,3.3 9.335,4.508"/><circle cx="7.5" cy="5" r="1.55" fill="#000095"/><circle cx="7.5" cy="5" r="1.15" fill="#fff"/></svg></span>
-    <span class="lang-name">繁體中文</span>
+    <span class="lang-name">中文</span>
   </button>
   <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어">
     <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><g transform="rotate(-123 15 10)"><circle cx="15" cy="10" r="4" fill="#0047a0"/><path d="M15,6 A4,4 0 0,1 15,14 A2,2 0 0,0 15,10 A2,2 0 0,1 15,6 Z" fill="#cd2e3a"/></g><g fill="#000"><g transform="translate(5.5,4.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,4.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g><g transform="translate(5.5,15.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,15.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g></g></svg></span>
     <span class="lang-name">한국어</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="es" aria-label="Español">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></span>
+    <span class="lang-name">Español</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#008c45"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#cd212a"/></svg></span>
+    <span class="lang-name">Italiano</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da251d"/><polygon fill="#ffff00" transform="translate(15,10) scale(6.4)" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></svg></span>
+    <span class="lang-name">Tiếng Việt</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="tl" aria-label="Tagalog">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="phstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="10" fill="#0038a8"/><rect y="10" width="30" height="10" fill="#ce1126"/><polygon fill="#fff" points="0,0 16.5,10 0,20"/><g fill="#fcd116"><polygon points="8.1,10 6.347,10.268 7.397,11.697 5.968,10.647 5.7,12.4 5.432,10.647 4.003,11.697 5.053,10.268 3.3,10 5.053,9.732 4.003,8.303 5.432,9.353 5.7,7.6 5.968,9.353 7.397,8.303 6.347,9.732"/><circle cx="5.7" cy="10" r="1.15"/><use href="#phstar" transform="translate(2.6,3.2) scale(1.15)"/><use href="#phstar" transform="translate(2.6,16.8) scale(1.15)"/><use href="#phstar" transform="translate(13.4,10) scale(1.15)"/></g></svg></span>
+    <span class="lang-name">Tagalog</span>
   </button>
 </nav>
 
@@ -299,6 +317,8 @@
 </main>
 
 <script>
+/* 言語コードは釣りゲーム(ざうおスマホゲーム/index.html)と同じ ja/en/zh/ko/es/it/vi/tl。
+   魚の名称もゲームの FISH_NAMES.aji と揃えてある。 */
 var I18N = {
   "ja": {
     title: "鯵（アジ） | ざうお目黒店",
@@ -353,7 +373,7 @@ var I18N = {
     tr2: "<strong>All that armour, and humans strip it off first:</strong><br>Having gone to the trouble of putting on its zeigo armour, it is the very first thing the chef slices away, because it gets in the way of the texture. A rather unfortunate destiny.",
     tr3: "<strong>Stay-at-home types turn into luxury fish:</strong><br>Compared with the nomads roaming the open ocean (kuro-aji, black aji), the homebodies that settle inside bays (ki-aji, yellow aji, and branded aji) grow beautifully fatty. A rare case where staying in raises your value."
   },
-  "zh-Hans": {
+  "zh": {
     title: "竹荚鱼（Aji）| ZAUO 目黑店",
     video_fallback: "您的浏览器不支持视频播放。",
     ruby: "aji",
@@ -379,33 +399,6 @@ var I18N = {
     tr1: "<strong>身体侧面的「带刺铠甲」：</strong><br>从尾部到身体中央，装备着一列名为「棱鳞（zeigo）」的坚硬鳞片。这是在遭受攻击或急转弯时能派上用场的天然护甲。",
     tr2: "<strong>好不容易武装起来，却被人类第一个剥掉：</strong><br>特意穿上了「棱鳞」这身铠甲，下厨时却因为「影响口感」而被菜刀第一个削掉，背负着有点可怜的宿命。",
     tr3: "<strong>变成「宅型」就升级为高级鱼：</strong><br>相比在大海中旅行的游牧型（黑竹荚鱼），定居在海湾里不太活动的宅型（黄竹荚鱼・品牌竹荚鱼）脂肪更加丰厚。是少见的「宅在家反而更有价值」的类型。"
-  },
-  "zh-Hant": {
-    title: "竹莢魚（Aji）| ZAUO 目黑店",
-    video_fallback: "您的瀏覽器不支援影片播放。",
-    ruby: "aji",
-    name: "竹莢魚（Aji）",
-    catch: "名字的由來是「味道好」",
-    cook_h2: "推薦的 ZAUO 烹調方式",
-    cook_lead: "竹莢魚生食、油炸都出色，是十分萬能的魚。連魚骨都能美味享用。",
-    b_tataki: "拌生魚（Tataki）", b_sashimi: "生魚片", b_shioyaki: "鹽烤",
-    b_karaage: "唐揚炸", b_nitsuke: "燉煮", b_fry: "炸魚排（麵包粉）",
-    fry_extra: "（需另加費用）",
-    bones_label: "用魚骨來做（生魚片附整尾魚時）",
-    b_honesenbei: "香脆炸魚骨", b_misoshiru: "味噌湯",
-    note1: "最推薦加生薑和辛香蔬菜拌的 Tataki！",
-    note2: "小朋友推薦炸魚排！",
-    legend: "◎＝非常推薦　〇＝推薦　△＝可以做但不太推薦　✕＝無法提供",
-    cap_tataki: "拌生魚（Tataki）", cap_fry: "炸魚排",
-    what_h2: "這是什麼魚？",
-    what_text: "竹莢魚身體呈帶藍的銀色，是日本餐桌上十分常見的魚。關於名字的由來有多種說法，其中最有名的是「因為味道（aji）好，所以叫 aji」，自古以來備受喜愛。",
-    w_b1: "體長 20〜40cm", w_b2: "青皮魚", w_b3: "特徵是「稜鱗（zeigo）」",
-    where_h2: "棲息在哪裡？／什麼時候最當季？",
-    where_text: "從北海道南部到東海，廣泛棲息於日本各地較溫暖的淺海。有成群洄游於外海的類型，也有定居在海灣或特定礁區的類型。最佳時節主要是初夏到夏季（6〜8月左右），此時脂肪豐厚，格外美味。",
-    trivia_h2: "小知識",
-    tr1: "<strong>身體側面的「帶刺鎧甲」：</strong><br>從尾部到身體中央，裝備著一列名為「稜鱗（zeigo）」的堅硬鱗片。這是在遭受攻擊或急轉彎時能派上用場的天然護甲。",
-    tr2: "<strong>好不容易武裝起來，卻被人類第一個剝掉：</strong><br>特意穿上了「稜鱗」這身鎧甲，下廚時卻因為「影響口感」而被菜刀第一個削掉，背負著有點可憐的宿命。",
-    tr3: "<strong>變成「宅型」就升級為高級魚：</strong><br>相比在大海中旅行的游牧型（黑竹莢魚），定居在海灣裡不太活動的宅型（黃竹莢魚・品牌竹莢魚）脂肪更加豐厚。是少見的「宅在家反而更有價值」的類型。"
   },
   "ko": {
     title: "전갱이(아지) | ZAUO 메구로점",
@@ -433,6 +426,114 @@ var I18N = {
     tr1: "<strong>몸 옆면에 「가시 갑옷」:</strong><br>꼬리에서 몸 가운데까지 「제이고」라 불리는 단단한 비늘이 한 줄로 장착되어 있습니다. 적의 공격이나 급브레이크 때 도움이 되는 천연 보호구입니다.",
     tr2: "<strong>무장했는데 사람에게 가장 먼저 벗겨진다:</strong><br>모처럼 「제이고」라는 갑옷을 둘렀는데, 조리할 때는 식감에 방해된다는 이유로 칼에 가장 먼저 깎여 나가는 딱한 운명을 짊어지고 있습니다.",
     tr3: "<strong>집순이·집돌이가 되면 고급 어종으로 변신:</strong><br>넓은 바다를 여행하는 유목민(구로아지)에 비해, 만 안에 정착해 움직이지 않는 유형(기아지・브랜드 전갱이)은 기름이 잔뜩 오릅니다. 집에 있는 편이 가치가 올라가는 드문 타입입니다."
+  },
+  "es": {
+    title: "Chicharro (Aji) | ZAUO Meguro",
+    video_fallback: "Su navegador no admite la reproducción de vídeo.",
+    ruby: "aji",
+    name: "Chicharro (Aji)",
+    catch: "Su nombre viene de «aji», que en japonés significa buen sabor",
+    cook_h2: "Preparaciones recomendadas en ZAUO",
+    cook_lead: "El chicharro es muy versátil: excelente crudo y también frito. Incluso las espinas se aprovechan.",
+    b_tataki: "Tataki (picado con jengibre)", b_sashimi: "Sashimi", b_shioyaki: "A la parrilla con sal",
+    b_karaage: "Karaage (frito)", b_nitsuke: "Guisado", b_fry: "Empanado y frito",
+    fry_extra: " (coste adicional)",
+    bones_label: "Aprovechando las espinas (cuando el sashimi se sirve con el pescado entero)",
+    b_honesenbei: "Espinas crujientes fritas", b_misoshiru: "Sopa de miso",
+    note1: "Nuestra recomendación: el tataki con jengibre y hierbas aromáticas.",
+    note2: "Para los niños recomendamos el empanado.",
+    legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    cap_tataki: "Tataki", cap_fry: "Empanado",
+    what_h2: "¿Qué pescado es?",
+    what_text: "El chicharro (aji en japonés) es un pescado muy habitual en la mesa japonesa, fácil de reconocer por su cuerpo plateado con reflejos azulados. Sobre su nombre hay varias teorías, pero la más conocida dice que viene de «aji», la palabra japonesa para «sabor», sencillamente porque está buenísimo.",
+    w_b1: "Longitud 20-40 cm", w_b2: "Pescado azul", w_b3: "Fíjese en las escamas «zeigo»",
+    where_h2: "¿Dónde vive? / ¿Cuál es su temporada?",
+    where_text: "Vive en aguas templadas y poco profundas de todo Japón, desde el sur de Hokkaido hasta el mar de China Oriental. Algunos ejemplares recorren el mar abierto en bancos y otros se quedan en bahías o en determinados arrecifes. Su temporada va sobre todo del principio del verano al verano (de junio a agosto), cuando acumulan más grasa y están más sabrosos.",
+    trivia_h2: "Curiosidades",
+    tr1: "<strong>Lleva una armadura de púas en los costados:</strong><br>Desde la cola hasta el centro del cuerpo tiene una hilera de escamas duras llamadas zeigo: una armadura natural que le ayuda ante los ataques y los frenazos bruscos.",
+    tr2: "<strong>Tanta armadura y los humanos se la quitan lo primero:</strong><br>Con lo que le costó ponerse la armadura de zeigo, resulta que es lo primero que corta el cocinero, porque estropea la textura. Un destino algo desdichado.",
+    tr3: "<strong>Si es casero, se convierte en pescado de lujo:</strong><br>Frente a los nómadas que recorren el océano abierto (kuro-aji, «aji negro»), los que se quedan dentro de las bahías (ki-aji, «aji amarillo», y los aji de marca) engordan estupendamente. Un caso poco común en el que quedarse en casa aumenta tu valor."
+  },
+  "it": {
+    title: "Suro (Aji) | ZAUO Meguro",
+    video_fallback: "Il tuo browser non supporta la riproduzione dei video.",
+    ruby: "aji",
+    name: "Suro (Aji)",
+    catch: "Il suo nome viene da «aji», che in giapponese significa buon sapore",
+    cook_h2: "Preparazioni consigliate da ZAUO",
+    cook_lead: "Il suro è un pesce versatile: ottimo crudo e altrettanto buono fritto. Anche le lische diventano un piatto.",
+    b_tataki: "Tataki (tritato con zenzero)", b_sashimi: "Sashimi", b_shioyaki: "Alla griglia con sale",
+    b_karaage: "Karaage (fritto)", b_nitsuke: "In umido", b_fry: "Impanato e fritto",
+    fry_extra: " (supplemento)",
+    bones_label: "Usando le lische (quando il sashimi viene servito con il pesce intero)",
+    b_honesenbei: "Lische fritte croccanti", b_misoshiru: "Zuppa di miso",
+    note1: "Il nostro consiglio: il tataki con zenzero ed erbe aromatiche!",
+    note2: "Per i bambini consigliamo l'impanato fritto!",
+    legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    cap_tataki: "Tataki", cap_fry: "Impanato",
+    what_h2: "Che pesce è?",
+    what_text: "Il suro (in giapponese aji) è un pesce molto comune sulle tavole giapponesi, riconoscibile dal corpo argentato con riflessi bluastri. Sul nome esistono varie teorie, ma la più nota dice che deriva da «aji», la parola giapponese per «sapore», semplicemente perché è buonissimo.",
+    w_b1: "Lunghezza 20-40 cm", w_b2: "Pesce azzurro", w_b3: "Riconoscibile dalle scaglie «zeigo»",
+    where_h2: "Dove vive? / Qual è la stagione?",
+    where_text: "Vive nelle acque relativamente calde e poco profonde intorno al Giappone, dal sud dell'Hokkaido fino al Mar Cinese Orientale. Alcuni esemplari migrano in banchi nel mare aperto, altri restano nelle baie o su determinate secche. La stagione migliore va dall'inizio dell'estate all'estate piena (da giugno ad agosto), quando il pesce è più grasso e saporito.",
+    trivia_h2: "Curiosità",
+    tr1: "<strong>Porta un'armatura spinosa sui fianchi:</strong><br>Dalla coda fino al centro del corpo corre una fila di scaglie dure chiamate zeigo: un'armatura naturale utile contro gli attacchi e le frenate improvvise.",
+    tr2: "<strong>Tanta armatura, e l'uomo gliela toglie per prima cosa:</strong><br>Dopo essersi messo l'armatura di zeigo, è proprio la prima cosa che il cuoco taglia via, perché rovina la consistenza. Un destino un po' ingrato.",
+    tr3: "<strong>Se resta a casa diventa un pesce pregiato:</strong><br>Rispetto ai nomadi che percorrono il mare aperto (kuro-aji, «aji nero»), quelli che si stabiliscono nelle baie (ki-aji, «aji giallo», e gli aji di marca) diventano splendidamente grassi. Un raro caso in cui restare a casa fa aumentare il proprio valore."
+  },
+  "vi": {
+    title: "Cá nục (Aji) | ZAUO Meguro",
+    video_fallback: "Trình duyệt của bạn không hỗ trợ phát video.",
+    ruby: "aji",
+    name: "Cá nục (Aji)",
+    catch: "Tên gọi bắt nguồn từ «aji» - nghĩa là ngon trong tiếng Nhật",
+    cook_h2: "Các cách chế biến ZAUO gợi ý",
+    cook_lead: "Cá nục rất đa năng: ăn sống ngon mà chiên cũng ngon. Ngay cả xương cá cũng chế biến được.",
+    b_tataki: "Tataki (băm với gừng)", b_sashimi: "Sashimi (cá sống)", b_shioyaki: "Nướng muối",
+    b_karaage: "Karaage (chiên giòn)", b_nitsuke: "Kho", b_fry: "Chiên xù (tẩm bột)",
+    fry_extra: " (có phụ thu)",
+    bones_label: "Tận dụng xương cá (khi món sashimi được bày cả con)",
+    b_honesenbei: "Xương cá chiên giòn", b_misoshiru: "Canh miso",
+    note1: "Gợi ý của chúng tôi: tataki trộn gừng và rau thơm!",
+    note2: "Với trẻ em, chúng tôi khuyên dùng món chiên xù!",
+    legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    cap_tataki: "Tataki", cap_fry: "Chiên xù",
+    what_h2: "Đây là cá gì?",
+    what_text: "Cá nục (tiếng Nhật gọi là aji) là loài cá quen thuộc trên bàn ăn Nhật Bản, dễ nhận ra nhờ thân màu bạc ánh xanh. Có nhiều giả thuyết về tên gọi, nhưng nổi tiếng nhất là cách giải thích rằng tên bắt nguồn từ «aji» - nghĩa là «vị ngon» trong tiếng Nhật, đơn giản vì cá rất ngon.",
+    w_b1: "Dài 20-40 cm", w_b2: "Cá lưng xanh", w_b3: "Nhận biết qua vảy cứng «zeigo»",
+    where_h2: "Sống ở đâu? / Mùa ngon nhất là khi nào?",
+    where_text: "Cá sống rộng khắp vùng biển nông và tương đối ấm quanh Nhật Bản, từ phía nam Hokkaido đến biển Hoa Đông. Có đàn di cư ngoài khơi, cũng có đàn định cư trong vịnh hoặc quanh những rạn đá nhất định. Mùa ngon nhất chủ yếu từ đầu hè đến hè (khoảng tháng 6 đến tháng 8), khi cá béo và đậm vị nhất.",
+    trivia_h2: "Có thể bạn chưa biết",
+    tr1: "<strong>Mặc áo giáp gai ở hai bên thân:</strong><br>Từ đuôi đến giữa thân có một hàng vảy cứng gọi là zeigo - lớp giáp tự nhiên giúp cá chống đỡ khi bị tấn công hoặc khi phanh gấp.",
+    tr2: "<strong>Giáp trụ đầy mình nhưng bị con người lột đầu tiên:</strong><br>Dù đã kỳ công khoác lên bộ giáp zeigo, đây lại chính là phần đầu bếp gọt bỏ đầu tiên vì làm hỏng kết cấu món ăn. Một số phận hơi hẩm hiu.",
+    tr3: "<strong>Cứ ở yên một chỗ là thành cá cao cấp:</strong><br>So với những con du mục rong ruổi ngoài đại dương (kuro-aji, «aji đen»), những con định cư trong vịnh (ki-aji, «aji vàng», và các loại aji có thương hiệu) lại béo ngậy hơn hẳn. Một trường hợp hiếm hoi mà ở nhà lại làm tăng giá trị."
+  },
+  "tl": {
+    title: "Alumahan (Aji) | ZAUO Meguro",
+    video_fallback: "Hindi sinusuportahan ng iyong browser ang pag-play ng video.",
+    ruby: "aji",
+    name: "Alumahan (Aji)",
+    catch: "Ang pangalan nito ay mula sa «aji» - ang salitang Hapon para sa masarap",
+    cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
+    cook_lead: "Ang alumahan ay all-around: masarap na hilaw at masarap ding pinirito. Kahit ang mga tinik ay nagiging masarap na putahe.",
+    b_tataki: "Tataki (tinadtad na may luya)", b_sashimi: "Sashimi (hilaw)", b_shioyaki: "Inihaw na may asin",
+    b_karaage: "Karaage (pinirito)", b_nitsuke: "Nilaga sa toyo", b_fry: "Breaded fry",
+    fry_extra: " (may dagdag na bayad)",
+    bones_label: "Gamit ang mga tinik (kapag buo ang isda sa sashimi)",
+    b_honesenbei: "Malutong na piniritong tinik", b_misoshiru: "Miso soup",
+    note1: "Ang top pick namin: tataki na may luya at sariwang pampalasang gulay!",
+    note2: "Para sa mga bata, inirerekomenda namin ang breaded fry!",
+    legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    cap_tataki: "Tataki", cap_fry: "Breaded fry",
+    what_h2: "Anong klaseng isda ito?",
+    what_text: "Ang alumahan (aji sa Hapon) ay pamilyar na isda sa hapag ng mga Hapon, madaling makilala sa pilak na katawan nitong may bahid ng asul. May iba't ibang teorya tungkol sa pangalan nito, ngunit ang pinakakilala ay nagmula raw ito sa «aji», ang salitang Hapon para sa «lasa», dahil talagang masarap ito.",
+    w_b1: "Haba 20-40 cm", w_b2: "Isdang asul ang likod", w_b3: "Tingnan ang matitigas na kaliskis «zeigo»",
+    where_h2: "Saan ito nakatira? / Kailan ang panahon nito?",
+    where_text: "Matatagpuan ito sa mainit-init at mababaw na karagatan sa buong Japan, mula timog ng Hokkaido hanggang East China Sea. May mga pangkat na naglalakbay sa laot at may mga nananatili sa mga look o sa ilang bahura. Ang pinakamasarap na panahon ay mula unang bahagi ng tag-init hanggang tag-init (Hunyo hanggang Agosto), kung kailan pinakamataba at pinakamasarap ang mga ito.",
+    trivia_h2: "Alam mo ba?",
+    tr1: "<strong>May matinik na baluti sa mga gilid:</strong><br>Mula buntot hanggang gitna ng katawan ay may hanay ng matitigas na kaliskis na tinatawag na zeigo - likas na baluti laban sa atake at sa biglaang pagpreno.",
+    tr2: "<strong>Kahit may baluti, ito pa ang unang inaalis ng tao:</strong><br>Kahit nagsuot ito ng baluting zeigo, ito rin ang kauna-unahang inaalis ng kusinero dahil nakakasira ito sa texture. Medyo malungkot na kapalaran.",
+    tr3: "<strong>Ang mahilig manatili sa bahay ay nagiging mamahaling isda:</strong><br>Kumpara sa mga palaboy na naglalakbay sa laot (kuro-aji, «itim na aji»), ang mga nananatili sa loob ng look (ki-aji, «dilaw na aji», at branded aji) ay mas matabang-mataba. Bihirang kaso kung saan ang pananatili sa bahay ay nagpapataas ng halaga."
   }
 };
 
