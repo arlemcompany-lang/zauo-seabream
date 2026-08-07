@@ -10,6 +10,9 @@
     --accent: #e8607d;
     --bg: #fff7f8;
     --text: #4a3b3e;
+    --sub: #a08a8f;
+    /* 言語バーの高さ。動画の高さから差し引き、多言語化前と同じ位置でタイトルが見えるようにする */
+    --langbar-h: 111px;
   }
   *{ box-sizing: border-box; }
   body{
@@ -19,10 +22,80 @@
     color: var(--text);
     line-height:1.8;
   }
+  html[lang="ko"] body{
+    font-family: "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  }
+  html[lang="zh"] body{
+    font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  }
+  html[lang="en"] body,
+  html[lang="es"] body,
+  html[lang="it"] body,
+  html[lang="vi"] body,
+  html[lang="tl"] body{
+    font-family: "Helvetica Neue",Arial,sans-serif;
+  }
+
+  /* ===== 言語切替バー（動画より上・スクロールしても追従） ===== */
+  .langbar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    align-items: start;
+    gap: 2px;
+    padding: 7px 4px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(232,96,125,0.18);
+  }
+  @media (min-width: 640px){
+    :root{ --langbar-h: 61px; }
+    .langbar{ grid-template-columns: repeat(8, auto); }
+  }
+  .lang-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 5px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height:1.2;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lang-btn .flag{
+    display:block;
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+    transition: transform .15s;
+  }
+  .lang-btn .flag svg{ display:block; width:100%; height:100%; }
+  .lang-btn .lang-name{
+    font-size: .64rem;
+    font-weight: bold;
+    color: var(--sub);
+    white-space: nowrap;
+    /* ベトナム語の「ế」等が合成表示にならないよう、ベトナム語対応のラテン系フォントを先頭に置く */
+    font-family: "Segoe UI",Arial,"Hiragino Maru Gothic ProN","Yu Gothic","Malgun Gothic","Microsoft YaHei",sans-serif;
+  }
+  .lang-btn.is-active{ background: var(--bg); }
+  .lang-btn.is-active .flag{ box-shadow: 0 0 0 2px var(--accent); }
+  .lang-btn.is-active .lang-name{ color: var(--accent); }
+  .lang-btn:active .flag{ transform: scale(.92); }
+
   .video-wrap{
     background: #b03052 url("../波柄_pattern.webp") repeat;
     background-size: 180px auto;
-    height:80vh;
+    height: calc(80vh - var(--langbar-h));
+    min-height: 240px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -46,7 +119,7 @@
   h1 .ruby{
     display:block;
     font-size: .9rem;
-    color: #a08a8f;
+    color: var(--sub);
     font-weight:normal;
     margin-bottom:4px;
   }
@@ -103,7 +176,7 @@
   .legend{
     margin: 16px 0 0;
     font-size: .85rem;
-    color: #a08a8f;
+    color: var(--sub);
   }
   .photo-placeholder{
     margin-top: 16px;
@@ -113,73 +186,347 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    color: #a08a8f;
+    color: var(--sub);
     font-size: .9rem;
   }
 </style>
 </head>
 <body>
 
+<!-- ===== 言語切替（動画より上）／釣りゲームと同じ8言語・同じ並び順 ===== -->
+<nav class="langbar" aria-label="Language / 言語切替">
+  <button type="button" class="lang-btn is-active" data-lang="ja" aria-label="日本語">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg></span>
+    <span class="lang-name">日本語</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="en" aria-label="English">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="30" height="1.54"/><rect y="4.62" width="30" height="1.54"/><rect y="7.69" width="30" height="1.54"/><rect y="10.77" width="30" height="1.54"/><rect y="13.85" width="30" height="1.54"/><rect y="16.92" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/><g fill="#fff"><circle cx="2" cy="1.6" r=".45"/><circle cx="5" cy="1.6" r=".45"/><circle cx="8" cy="1.6" r=".45"/><circle cx="11" cy="1.6" r=".45"/><circle cx="3.5" cy="3.6" r=".45"/><circle cx="6.5" cy="3.6" r=".45"/><circle cx="9.5" cy="3.6" r=".45"/><circle cx="2" cy="5.6" r=".45"/><circle cx="5" cy="5.6" r=".45"/><circle cx="8" cy="5.6" r=".45"/><circle cx="11" cy="5.6" r=".45"/><circle cx="3.5" cy="7.6" r=".45"/><circle cx="6.5" cy="7.6" r=".45"/><circle cx="9.5" cy="7.6" r=".45"/><circle cx="2" cy="9.6" r=".45"/><circle cx="5" cy="9.6" r=".45"/><circle cx="8" cy="9.6" r=".45"/><circle cx="11" cy="9.6" r=".45"/></g></svg></span>
+    <span class="lang-name">English</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="cnstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="20" fill="#de2910"/><g fill="#ffde00"><use href="#cnstar" transform="translate(5,5) scale(3)"/><use href="#cnstar" transform="translate(10,2)"/><use href="#cnstar" transform="translate(12,4.5)"/><use href="#cnstar" transform="translate(12,7.5)"/><use href="#cnstar" transform="translate(10,10)"/></g></svg></span>
+    <span class="lang-name">中文</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><g transform="rotate(-123 15 10)"><circle cx="15" cy="10" r="4" fill="#0047a0"/><path d="M15,6 A4,4 0 0,1 15,14 A2,2 0 0,0 15,10 A2,2 0 0,1 15,6 Z" fill="#cd2e3a"/></g><g fill="#000"><g transform="translate(5.5,4.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,4.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g><g transform="translate(5.5,15.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,15.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g></g></svg></span>
+    <span class="lang-name">한국어</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="es" aria-label="Español">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></span>
+    <span class="lang-name">Español</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#008c45"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#cd212a"/></svg></span>
+    <span class="lang-name">Italiano</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da251d"/><polygon fill="#ffff00" transform="translate(15,10) scale(6.4)" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></svg></span>
+    <span class="lang-name">Tiếng Việt</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="tl" aria-label="Tagalog">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="phstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="10" fill="#0038a8"/><rect y="10" width="30" height="10" fill="#ce1126"/><polygon fill="#fff" points="0,0 16.5,10 0,20"/><g fill="#fcd116"><polygon points="8.1,10 6.347,10.268 7.397,11.697 5.968,10.647 5.7,12.4 5.432,10.647 4.003,11.697 5.053,10.268 3.3,10 5.053,9.732 4.003,8.303 5.432,9.353 5.7,7.6 5.968,9.353 7.397,8.303 6.347,9.732"/><circle cx="5.7" cy="10" r="1.15"/><use href="#phstar" transform="translate(2.6,3.2) scale(1.15)"/><use href="#phstar" transform="translate(2.6,16.8) scale(1.15)"/><use href="#phstar" transform="translate(13.4,10) scale(1.15)"/></g></svg></span>
+    <span class="lang-name">Tagalog</span>
+  </button>
+</nav>
+
 <div class="video-wrap">
 <video src="tai.mp4" controls autoplay muted loop playsinline>
-  お使いのブラウザは動画に対応していません。
+  <span data-i18n="video_fallback">お使いのブラウザは動画に対応していません。</span>
 </video>
 </div>
 
 <main>
-  <h1><span class="ruby">たい</span>鯛（タイ）</h1>
-  <p class="catch">お祝いの席の主役、「魚の王様」</p>
+  <h1><span class="ruby" data-i18n="ruby">たい</span><span data-i18n="name">鯛（タイ）</span></h1>
+  <p class="catch" data-i18n="catch">お祝いの席の主役、「魚の王様」</p>
 
   <div class="card">
-    <h2>おすすめのざうお調理法</h2>
-    <p>鯛は万能でなんでもおいしくいただけます(半身ずつの調理もできます)</p>
+    <h2 data-i18n="cook_h2">おすすめのざうお調理法</h2>
+    <p data-i18n="cook_lead">鯛は万能でなんでもおいしくいただけます(半身ずつの調理もできます)</p>
     <div class="badge-row">
-      <span class="badge ok">刺身 ◎</span>
-      <span class="badge ok">焼き 〇</span>
-      <span class="badge ok">煮付け 〇</span>
-      <span class="badge ok">唐揚げ 〇</span>
+      <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> ◎</span>
+      <span class="badge ok"><span data-i18n="b_yaki">焼き</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_nitsuke">煮付け</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_karaage">唐揚げ</span> 〇</span>
     </div>
-    <p class="sub-label">骨を使って（刺身に姿が付いているとき）</p>
+    <p class="sub-label" data-i18n="bones_label">骨を使って（刺身に姿が付いているとき）</p>
     <div class="badge-row">
-      <span class="badge ok">兜焼き 〇</span>
-      <span class="badge ok">あら炊き 〇</span>
-      <span class="badge ng">骨せんべい △</span>
-      <span class="badge ok">みそ汁 〇</span>
+      <span class="badge ok"><span data-i18n="b_kabuto">兜焼き</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_aradaki">あら炊き</span> 〇</span>
+      <span class="badge ng"><span data-i18n="b_honesenbei">骨せんべい</span> △</span>
+      <span class="badge ok"><span data-i18n="b_misoshiru">みそ汁</span> 〇</span>
     </div>
-    <p class="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
-    <div class="photo-placeholder">写真準備中</div>
+    <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
+    <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
   </div>
 
   <div class="card">
-    <h2>どんな魚？</h2>
-    <p>
+    <h2 data-i18n="what_h2">どんな魚？</h2>
+    <p data-i18n="what_text">
       鯛（タイ）は淡いピンク色の体と、しっかりとした引き締まった身が特徴の魚。
       日本では古くから「めでたい」に通じる縁起の良い魚として、お祝いの席に欠かせない存在です。
     </p>
     <div class="badge-row">
-      <span class="badge">体長 30〜100cm</span>
-      <span class="badge">白身魚</span>
-      <span class="badge">縁起物</span>
+      <span class="badge" data-i18n="w_b1">体長 30〜100cm</span>
+      <span class="badge" data-i18n="w_b2">白身魚</span>
+      <span class="badge" data-i18n="w_b3">縁起物</span>
     </div>
   </div>
 
   <div class="card">
-    <h2>どこにいる？／旬はいつ？</h2>
-    <p>
+    <h2 data-i18n="where_h2">どこにいる？／旬はいつ？</h2>
+    <p data-i18n="where_text">
       日本各地の沿岸、水深10〜200mほどの岩場やその周辺の砂地に生息。
       特に春（3〜5月）は「桜鯛」と呼ばれ、産卵前で脂がのり体色も鮮やかなピンクに染まる、もっとも美味しい時期です。
     </p>
   </div>
 
   <div class="card">
-    <h2>豆知識</h2>
+    <h2 data-i18n="trivia_h2">豆知識</h2>
     <ul class="trivia-list">
-      <li><strong>天然のアイシャドウ：</strong><br>目の上にある輝く青いラインと体表の青い斑点は、新鮮なマダイだけに現れるチャームポイント。鮮度が落ちると急速に薄れて消えてしまう。</li>
-      <li><strong>見た目とお口のギャップがすごい：</strong><br>「めでたい」とチヤホヤされる華やかさとは裏腹に、口の中には頑丈な歯が生えており、エビ・カニ・ウニを殻ごとバリバリ噛み砕いて食べる力技の美食家。</li>
-      <li><strong>途中で性別が変わる：</strong><br>生まれた時はみんな「メス」として育ち、2歳前後になると多くの個体が「オス」へ性転換する。おめでたいお祝いの席の裏で、しれっと人生の路線変更が行われている。</li>
+      <li data-i18n-html="tr1"><strong>天然のアイシャドウ：</strong><br>目の上にある輝く青いラインと体表の青い斑点は、新鮮なマダイだけに現れるチャームポイント。鮮度が落ちると急速に薄れて消えてしまう。</li>
+      <li data-i18n-html="tr2"><strong>見た目とお口のギャップがすごい：</strong><br>「めでたい」とチヤホヤされる華やかさとは裏腹に、口の中には頑丈な歯が生えており、エビ・カニ・ウニを殻ごとバリバリ噛み砕いて食べる力技の美食家。</li>
+      <li data-i18n-html="tr3"><strong>途中で性別が変わる：</strong><br>生まれた時はみんな「メス」として育ち、2歳前後になると多くの個体が「オス」へ性転換する。おめでたいお祝いの席の裏で、しれっと人生の路線変更が行われている。</li>
     </ul>
   </div>
 </main>
+
+<script>
+/* 言語コードは釣りゲーム(ざうおスマホゲーム/index.html)と同じ ja/en/zh/ko/es/it/vi/tl。
+   魚の名称もゲームの FISH_NAMES.tai と揃えてある。 */
+var I18N = {
+  "ja": {
+    title: "鯛（タイ） | ざうお目黒店",
+    video_fallback: "お使いのブラウザは動画に対応していません。",
+    ruby: "たい",
+    name: "鯛（タイ）",
+    catch: "お祝いの席の主役、「魚の王様」",
+    cook_h2: "おすすめのざうお調理法",
+    cook_lead: "鯛は万能でなんでもおいしくいただけます(半身ずつの調理もできます)",
+    b_sashimi: "刺身", b_yaki: "焼き", b_nitsuke: "煮付け", b_karaage: "唐揚げ",
+    bones_label: "骨を使って（刺身に姿が付いているとき）",
+    b_kabuto: "兜焼き", b_aradaki: "あら炊き", b_honesenbei: "骨せんべい", b_misoshiru: "みそ汁",
+    legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    photo_soon: "写真準備中",
+    what_h2: "どんな魚？",
+    what_text: "鯛（タイ）は淡いピンク色の体と、しっかりとした引き締まった身が特徴の魚。日本では古くから「めでたい」に通じる縁起の良い魚として、お祝いの席に欠かせない存在です。",
+    w_b1: "体長 30〜100cm", w_b2: "白身魚", w_b3: "縁起物",
+    where_h2: "どこにいる？／旬はいつ？",
+    where_text: "日本各地の沿岸、水深10〜200mほどの岩場やその周辺の砂地に生息。特に春（3〜5月）は「桜鯛」と呼ばれ、産卵前で脂がのり体色も鮮やかなピンクに染まる、もっとも美味しい時期です。",
+    trivia_h2: "豆知識",
+    tr1: "<strong>天然のアイシャドウ：</strong><br>目の上にある輝く青いラインと体表の青い斑点は、新鮮なマダイだけに現れるチャームポイント。鮮度が落ちると急速に薄れて消えてしまう。",
+    tr2: "<strong>見た目とお口のギャップがすごい：</strong><br>「めでたい」とチヤホヤされる華やかさとは裏腹に、口の中には頑丈な歯が生えており、エビ・カニ・ウニを殻ごとバリバリ噛み砕いて食べる力技の美食家。",
+    tr3: "<strong>途中で性別が変わる：</strong><br>生まれた時はみんな「メス」として育ち、2歳前後になると多くの個体が「オス」へ性転換する。おめでたいお祝いの席の裏で、しれっと人生の路線変更が行われている。"
+  },
+  "en": {
+    title: "Sea Bream (Tai) | ZAUO Meguro",
+    video_fallback: "Your browser does not support video playback.",
+    ruby: "tai",
+    name: "Sea Bream (Tai)",
+    catch: "The star of every celebration - the king of fish",
+    cook_h2: "Recommended ZAUO Cooking Styles",
+    cook_lead: "Sea bream is versatile and delicious however you cook it (each half can even be prepared a different way).",
+    b_sashimi: "Sashimi", b_yaki: "Grilled", b_nitsuke: "Simmered", b_karaage: "Karaage (deep-fried)",
+    bones_label: "Using the bones (when sashimi is served with the whole fish)",
+    b_kabuto: "Grilled head (kabuto-yaki)", b_aradaki: "Simmered head & bones (ara-daki)",
+    b_honesenbei: "Crispy bone crackers", b_misoshiru: "Miso soup",
+    legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    photo_soon: "Photo coming soon",
+    what_h2: "What kind of fish is it?",
+    what_text: "Sea bream (tai) has a pale pink body and firm, well-textured flesh. In Japan it has long been treated as a lucky fish, because its name echoes medetai (auspicious), and it is a must at any celebration.",
+    w_b1: "Length 30-100 cm", w_b2: "White-fleshed fish", w_b3: "A symbol of good fortune",
+    where_h2: "Where does it live? / When is it in season?",
+    where_text: "It lives around the coasts of Japan, on rocky ground and the sandy areas nearby at depths of roughly 10-200 m. Spring (March to May) is the finest season: known then as sakura-dai (cherry-blossom bream), the fish are fat before spawning and their colour deepens to a vivid pink.",
+    trivia_h2: "Fun Facts",
+    tr1: "<strong>Natural eyeshadow:</strong><br>The glittering blue line above the eye and the blue speckles on the body appear only on a really fresh red sea bream. As the fish loses freshness they quickly fade and vanish.",
+    tr2: "<strong>A huge gap between its looks and its mouth:</strong><br>For all the fuss made of how auspicious and elegant it is, inside its mouth are sturdy teeth that crunch straight through prawns, crabs and sea urchins, shells and all. A gourmet who wins by brute force.",
+    tr3: "<strong>It changes sex partway through life:</strong><br>Every sea bream is born and raised female, and at around two years old many of them turn male. Behind all those happy celebrations, a quiet change of course is quietly taking place."
+  },
+  "zh": {
+    title: "鲷鱼（Tai）| ZAUO 目黑店",
+    video_fallback: "您的浏览器不支持视频播放。",
+    ruby: "tai",
+    name: "鲷鱼（Tai）",
+    catch: "喜宴上的主角，「鱼中之王」",
+    cook_h2: "推荐的 ZAUO 烹饪方式",
+    cook_lead: "鲷鱼十分万能，怎么做都好吃（也可以半边一种做法）。",
+    b_sashimi: "生鱼片", b_yaki: "烧烤", b_nitsuke: "炖煮", b_karaage: "唐扬炸",
+    bones_label: "用鱼骨来做（生鱼片附整鱼时）",
+    b_kabuto: "烤鱼头（兜烧）", b_aradaki: "炖鱼头鱼骨（荒炊）",
+    b_honesenbei: "香脆炸鱼骨", b_misoshiru: "味噌汤",
+    legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    photo_soon: "照片准备中",
+    what_h2: "这是什么鱼？",
+    what_text: "鲷鱼有着淡粉色的身体和紧实的肉质。在日本，因为读音与「めでたい（吉庆）」相通，自古被视为吉祥的鱼，是喜宴上不可缺少的存在。",
+    w_b1: "体长 30〜100cm", w_b2: "白肉鱼", w_b3: "吉祥物",
+    where_h2: "栖息在哪里？／什么时候最当季？",
+    where_text: "栖息于日本各地沿岸水深10〜200米左右的岩礁及其周边沙地。尤其春季（3〜5月）被称为「樱鲷」，产卵前脂肪丰厚、体色染上鲜艳的粉红，是最美味的时期。",
+    trivia_h2: "小知识",
+    tr1: "<strong>天然眼影：</strong><br>眼睛上方闪耀的蓝色线条和体表的蓝色斑点，只有新鲜的真鲷才会显现。鲜度一旦下降就会迅速变淡消失。",
+    tr2: "<strong>外表与嘴里的反差极大：</strong><br>与被众人捧为「吉庆」的华丽形象相反，它口中长着坚固的牙齿，能把虾、蟹、海胆连壳嚼碎，是靠蛮力的美食家。",
+    tr3: "<strong>中途会改变性别：</strong><br>出生时全都作为「雌性」长大，到两岁前后，许多个体会转变为「雄性」。在喜庆的宴席背后，正悄悄进行着人生路线的变更。"
+  },
+  "ko": {
+    title: "도미(타이) | ZAUO 메구로점",
+    video_fallback: "사용 중인 브라우저는 동영상을 지원하지 않습니다.",
+    ruby: "타이",
+    name: "도미(타이)",
+    catch: "잔칫상의 주인공, 「생선의 왕」",
+    cook_h2: "추천 ZAUO 조리법",
+    cook_lead: "도미는 만능이라 어떻게 조리해도 맛있습니다(반쪽씩 다르게 조리하는 것도 가능합니다).",
+    b_sashimi: "회", b_yaki: "구이", b_nitsuke: "조림", b_karaage: "가라아게(튀김)",
+    bones_label: "뼈를 활용해서 (회에 생선 모양이 함께 나올 때)",
+    b_kabuto: "머리 구이(가부토야키)", b_aradaki: "머리·뼈 조림(아라다키)",
+    b_honesenbei: "뼈 센베(뼈 튀김)", b_misoshiru: "된장국",
+    legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    photo_soon: "사진 준비 중",
+    what_h2: "어떤 생선인가요?",
+    what_text: "도미는 연한 분홍빛 몸과 탄탄하게 조여진 살이 특징인 생선입니다. 일본에서는 예로부터 「메데타이(경사스럽다)」와 발음이 통해 상서로운 생선으로 여겨져, 잔칫상에 빠지지 않는 존재입니다.",
+    w_b1: "몸길이 30〜100cm", w_b2: "흰살생선", w_b3: "길한 상징",
+    where_h2: "어디에 살까? / 제철은 언제?",
+    where_text: "일본 각지 연안의 수심 10〜200m 정도의 암초와 그 주변 모래바닥에 서식합니다. 특히 봄(3〜5월)에는 「사쿠라다이(벚꽃 도미)」라 불리며, 산란 전이라 기름이 오르고 몸 색도 선명한 분홍빛으로 물드는 가장 맛있는 시기입니다.",
+    trivia_h2: "토막 상식",
+    tr1: "<strong>천연 아이섀도:</strong><br>눈 위에 빛나는 푸른 선과 몸 표면의 푸른 반점은 신선한 참돔에게만 나타나는 매력 포인트. 신선도가 떨어지면 빠르게 옅어져 사라집니다.",
+    tr2: "<strong>겉모습과 입속의 반전이 대단하다:</strong><br>「경사스럽다」며 떠받들어지는 화려함과 달리, 입 안에는 튼튼한 이빨이 있어 새우·게·성게를 껍질째 아작아작 씹어 먹는 힘으로 승부하는 미식가입니다.",
+    tr3: "<strong>도중에 성별이 바뀐다:</strong><br>태어날 때는 모두 「암컷」으로 자라고, 두 살 전후가 되면 많은 개체가 「수컷」으로 성전환합니다. 경사스러운 잔칫상 뒤에서 슬쩍 인생의 노선 변경이 이루어지고 있는 셈입니다."
+  },
+  "es": {
+    title: "Besugo (Tai) | ZAUO Meguro",
+    video_fallback: "Su navegador no admite la reproducción de vídeo.",
+    ruby: "tai",
+    name: "Besugo (Tai)",
+    catch: "El protagonista de las celebraciones: «el rey de los pescados»",
+    cook_h2: "Preparaciones recomendadas en ZAUO",
+    cook_lead: "El besugo es tan versátil que está bueno de cualquier forma (incluso se puede preparar cada mitad de una manera distinta).",
+    b_sashimi: "Sashimi", b_yaki: "A la parrilla", b_nitsuke: "Guisado", b_karaage: "Karaage (frito)",
+    bones_label: "Aprovechando las espinas (cuando el sashimi se sirve con el pescado entero)",
+    b_kabuto: "Cabeza a la parrilla (kabuto-yaki)", b_aradaki: "Cabeza y espinas guisadas (ara-daki)",
+    b_honesenbei: "Espinas crujientes fritas", b_misoshiru: "Sopa de miso",
+    legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    photo_soon: "Foto próximamente",
+    what_h2: "¿Qué pescado es?",
+    what_text: "El besugo (tai) tiene el cuerpo de un rosa suave y una carne firme y prieta. En Japón se considera desde antiguo un pescado de buena suerte, porque su nombre recuerda a medetai («de buen augurio»), y resulta imprescindible en las celebraciones.",
+    w_b1: "Longitud 30-100 cm", w_b2: "Pescado blanco", w_b3: "Símbolo de buena suerte",
+    where_h2: "¿Dónde vive? / ¿Cuál es su temporada?",
+    where_text: "Vive en las costas de todo Japón, en zonas rocosas y en los fondos arenosos cercanos, a unos 10-200 m de profundidad. La primavera (de marzo a mayo) es su mejor momento: entonces se le llama sakura-dai («besugo de los cerezos»), porque antes del desove acumula grasa y su color se vuelve de un rosa intenso.",
+    trivia_h2: "Curiosidades",
+    tr1: "<strong>Sombra de ojos natural:</strong><br>La brillante línea azul sobre el ojo y los puntos azules del cuerpo solo aparecen en el besugo japonés bien fresco. En cuanto pierde frescura, se apagan y desaparecen enseguida.",
+    tr2: "<strong>Menudo contraste entre su aspecto y su boca:</strong><br>Por mucho que se le celebre por elegante y de buen augurio, dentro de la boca tiene dientes robustos con los que tritura gambas, cangrejos y erizos con caparazón incluido. Un gourmet a base de fuerza bruta.",
+    tr3: "<strong>Cambia de sexo a mitad de vida:</strong><br>Todos nacen y crecen como hembras y, hacia los dos años, muchos ejemplares se convierten en machos. Detrás de tanta celebración se produce, con discreción, un buen cambio de rumbo."
+  },
+  "it": {
+    title: "Orata (Tai) | ZAUO Meguro",
+    video_fallback: "Il tuo browser non supporta la riproduzione dei video.",
+    ruby: "tai",
+    name: "Orata (Tai)",
+    catch: "La protagonista delle feste: «il re dei pesci»",
+    cook_h2: "Preparazioni consigliate da ZAUO",
+    cook_lead: "L'orata è versatile ed è buona in qualsiasi preparazione (si può anche cucinare ciascuna metà in modo diverso).",
+    b_sashimi: "Sashimi", b_yaki: "Alla griglia", b_nitsuke: "In umido", b_karaage: "Karaage (fritto)",
+    bones_label: "Usando le lische (quando il sashimi viene servito con il pesce intero)",
+    b_kabuto: "Testa alla griglia (kabuto-yaki)", b_aradaki: "Testa e lische in umido (ara-daki)",
+    b_honesenbei: "Lische fritte croccanti", b_misoshiru: "Zuppa di miso",
+    legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    photo_soon: "Foto in arrivo",
+    what_h2: "Che pesce è?",
+    what_text: "L'orata giapponese (tai) ha un corpo rosa tenue e carni sode e compatte. In Giappone è considerata da sempre un pesce portafortuna, perché il suo nome richiama medetai («di buon auspicio»), ed è immancabile nelle occasioni di festa.",
+    w_b1: "Lunghezza 30-100 cm", w_b2: "Pesce a carne bianca", w_b3: "Simbolo di buon augurio",
+    where_h2: "Dove vive? / Qual è la stagione?",
+    where_text: "Vive lungo le coste di tutto il Giappone, sui fondali rocciosi e sulle sabbie vicine, a una profondità di circa 10-200 m. La primavera (da marzo a maggio) è il periodo migliore: in quei mesi viene chiamata sakura-dai («orata dei ciliegi»), perché prima della deposizione delle uova è più grassa e il colore diventa di un rosa acceso.",
+    trivia_h2: "Curiosità",
+    tr1: "<strong>Ombretto naturale:</strong><br>La linea azzurra brillante sopra l'occhio e i puntini blu sul corpo compaiono solo nell'orata giapponese freschissima. Appena la freschezza cala, sbiadiscono e scompaiono in fretta.",
+    tr2: "<strong>Che differenza tra l'aspetto e la bocca:</strong><br>Nonostante tutte le lodi per la sua eleganza di buon auspicio, in bocca ha denti robusti con cui frantuma gamberi, granchi e ricci di mare, guscio compreso. Una buongustaia a forza bruta.",
+    tr3: "<strong>Cambia sesso strada facendo:</strong><br>Tutti gli esemplari nascono e crescono come femmine e, intorno ai due anni, molti diventano maschi. Dietro tante feste di buon augurio si consuma, con discrezione, un bel cambio di rotta."
+  },
+  "vi": {
+    title: "Cá tráp (Tai) | ZAUO Meguro",
+    video_fallback: "Trình duyệt của bạn không hỗ trợ phát video.",
+    ruby: "tai",
+    name: "Cá tráp (Tai)",
+    catch: "Nhân vật chính của các bữa tiệc mừng - «vua của các loài cá»",
+    cook_h2: "Các cách chế biến ZAUO gợi ý",
+    cook_lead: "Cá tráp rất đa năng, chế biến kiểu nào cũng ngon (có thể làm mỗi nửa con một kiểu).",
+    b_sashimi: "Sashimi (cá sống)", b_yaki: "Nướng", b_nitsuke: "Kho", b_karaage: "Karaage (chiên giòn)",
+    bones_label: "Tận dụng xương cá (khi món sashimi được bày cả con)",
+    b_kabuto: "Nướng đầu cá (kabuto-yaki)", b_aradaki: "Kho đầu và xương cá (ara-daki)",
+    b_honesenbei: "Xương cá chiên giòn", b_misoshiru: "Canh miso",
+    legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    photo_soon: "Ảnh sắp có",
+    what_h2: "Đây là cá gì?",
+    what_text: "Cá tráp (tai) có thân màu hồng nhạt và thịt chắc, săn. Ở Nhật Bản, từ xa xưa cá tráp được xem là loài cá mang lại may mắn vì tên gọi gợi liên tưởng đến medetai («điều tốt lành»), và không thể thiếu trong các bữa tiệc mừng.",
+    w_b1: "Dài 30-100 cm", w_b2: "Cá thịt trắng", w_b3: "Biểu tượng may mắn",
+    where_h2: "Sống ở đâu? / Mùa ngon nhất là khi nào?",
+    where_text: "Cá sống ven biển khắp Nhật Bản, ở các rạn đá và vùng cát lân cận có độ sâu khoảng 10-200 m. Mùa xuân (tháng 3 đến tháng 5) là thời điểm ngon nhất: khi đó cá được gọi là sakura-dai («cá tráp mùa hoa anh đào») vì trước kỳ đẻ trứng cá béo lên và thân chuyển sang màu hồng rực rỡ.",
+    trivia_h2: "Có thể bạn chưa biết",
+    tr1: "<strong>Phấn mắt tự nhiên:</strong><br>Đường xanh lấp lánh phía trên mắt và những đốm xanh trên thân chỉ xuất hiện ở cá tráp đỏ còn tươi. Khi độ tươi giảm, chúng nhanh chóng nhạt dần rồi biến mất.",
+    tr2: "<strong>Vẻ ngoài và cái miệng khác nhau một trời một vực:</strong><br>Dù được ca tụng là sang trọng và may mắn, trong miệng cá lại là hàm răng chắc khỏe, nhai rau ráu cả vỏ tôm, cua và nhím biển. Một tay sành ăn dùng sức mạnh.",
+    tr3: "<strong>Giữa đời còn đổi giới tính:</strong><br>Khi sinh ra tất cả đều là cá cái, và đến khoảng hai tuổi thì nhiều con chuyển thành cá đực. Đằng sau những bữa tiệc mừng, một cú rẽ hướng cuộc đời đang lặng lẽ diễn ra."
+  },
+  "tl": {
+    title: "Isdang Tai (Sea Bream) | ZAUO Meguro",
+    video_fallback: "Hindi sinusuportahan ng iyong browser ang pag-play ng video.",
+    ruby: "tai",
+    name: "Isdang Tai (Sea Bream)",
+    catch: "Ang bida sa mga handaan - «hari ng mga isda»",
+    cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
+    cook_lead: "Napaka-versatile ng isdang tai at masarap ito sa anumang paraan ng pagluluto (puwede ring magkaiba ang luto ng bawat kalahati).",
+    b_sashimi: "Sashimi (hilaw)", b_yaki: "Inihaw", b_nitsuke: "Nilaga sa toyo", b_karaage: "Karaage (pinirito)",
+    bones_label: "Gamit ang mga tinik (kapag buo ang isda sa sashimi)",
+    b_kabuto: "Inihaw na ulo (kabuto-yaki)", b_aradaki: "Nilagang ulo at tinik (ara-daki)",
+    b_honesenbei: "Malutong na piniritong tinik", b_misoshiru: "Miso soup",
+    legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    photo_soon: "Malapit nang mailagay ang larawan",
+    what_h2: "Anong klaseng isda ito?",
+    what_text: "Ang isdang tai ay may mapusyaw na kulay rosas na katawan at matigas at siksik na laman. Sa Japan, matagal na itong itinuturing na isdang mapagpalad dahil kahawig ang pangalan nito ng medetai («mapalad»), at hindi ito nawawala sa mga handaan.",
+    w_b1: "Haba 30-100 cm", w_b2: "Isdang puti ang laman", w_b3: "Simbolo ng suwerte",
+    where_h2: "Saan ito nakatira? / Kailan ang panahon nito?",
+    where_text: "Nakatira ito sa baybayin sa buong Japan, sa mabatong bahagi at sa kalapit na mabuhanging pusod ng dagat na may lalim na mga 10-200 m. Ang tagsibol (Marso hanggang Mayo) ang pinakamainam na panahon: tinatawag itong sakura-dai («sea bream ng cherry blossom») dahil bago mangitlog ay tumataba ito at nagiging matingkad na rosas ang kulay.",
+    trivia_h2: "Alam mo ba?",
+    tr1: "<strong>Likas na eyeshadow:</strong><br>Ang kumikinang na asul na guhit sa itaas ng mata at ang mga asul na batik sa katawan ay lumilitaw lamang sa sariwang red sea bream. Kapag humupa ang sariwa, mabilis itong lumalabo at nawawala.",
+    tr2: "<strong>Malaki ang agwat ng itsura at ng bibig nito:</strong><br>Kahit pinupuri bilang marangya at mapagpalad, sa loob ng bibig nito ay may matitibay na ngipin na dumudurog ng hipon, alimango at sea urchin pati na ang balat. Isang gourmet na puro lakas.",
+    tr3: "<strong>Nagpapalit ito ng kasarian sa kalagitnaan ng buhay:</strong><br>Lahat ay isinisilang at lumalaki bilang babae, at pagsapit ng mga dalawang taong gulang, marami ang nagiging lalaki. Sa likod ng masasayang handaan, tahimik na nagaganap ang isang pagbabago ng landas."
+  }
+};
+
+function setLang(lang){
+  var dict = I18N[lang];
+  if(!dict){ return; }
+
+  document.documentElement.setAttribute("lang", lang);
+  document.title = dict.title;
+
+  var i, key;
+  var nodes = document.querySelectorAll("[data-i18n]");
+  for(i = 0; i < nodes.length; i++){
+    key = nodes[i].getAttribute("data-i18n");
+    if(dict[key] !== undefined){ nodes[i].textContent = dict[key]; }
+  }
+  var htmlNodes = document.querySelectorAll("[data-i18n-html]");
+  for(i = 0; i < htmlNodes.length; i++){
+    key = htmlNodes[i].getAttribute("data-i18n-html");
+    if(dict[key] !== undefined){ htmlNodes[i].innerHTML = dict[key]; }
+  }
+
+  var btns = document.querySelectorAll(".lang-btn");
+  for(i = 0; i < btns.length; i++){
+    if(btns[i].getAttribute("data-lang") === lang){
+      btns[i].classList.add("is-active");
+    } else {
+      btns[i].classList.remove("is-active");
+    }
+  }
+}
+
+(function(){
+  var btns = document.querySelectorAll(".lang-btn");
+  for(var i = 0; i < btns.length; i++){
+    btns[i].addEventListener("click", function(){
+      setLang(this.getAttribute("data-lang"));
+    });
+  }
+  /* 開いたときは常に日本語（選択は保存しない） */
+  setLang("ja");
+})();
+</script>
 
 </body>
 </html>

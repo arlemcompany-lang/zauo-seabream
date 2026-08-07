@@ -10,6 +10,9 @@
     --accent: #c23458;
     --bg: #fff5f3;
     --text: #4a3b3b;
+    --sub: #a08a8a;
+    /* 言語バーの高さ。動画の高さから差し引き、多言語化前と同じ位置でタイトルが見えるようにする */
+    --langbar-h: 111px;
   }
   *{ box-sizing: border-box; }
   body{
@@ -19,10 +22,80 @@
     color: var(--text);
     line-height:1.8;
   }
+  html[lang="ko"] body{
+    font-family: "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  }
+  html[lang="zh"] body{
+    font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  }
+  html[lang="en"] body,
+  html[lang="es"] body,
+  html[lang="it"] body,
+  html[lang="vi"] body,
+  html[lang="tl"] body{
+    font-family: "Helvetica Neue",Arial,sans-serif;
+  }
+
+  /* ===== 言語切替バー（動画より上・スクロールしても追従） ===== */
+  .langbar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    align-items: start;
+    gap: 2px;
+    padding: 7px 4px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(194,52,88,0.18);
+  }
+  @media (min-width: 640px){
+    :root{ --langbar-h: 61px; }
+    .langbar{ grid-template-columns: repeat(8, auto); }
+  }
+  .lang-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 5px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height:1.2;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lang-btn .flag{
+    display:block;
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+    transition: transform .15s;
+  }
+  .lang-btn .flag svg{ display:block; width:100%; height:100%; }
+  .lang-btn .lang-name{
+    font-size: .64rem;
+    font-weight: bold;
+    color: var(--sub);
+    white-space: nowrap;
+    /* ベトナム語の「ế」等が合成表示にならないよう、ベトナム語対応のラテン系フォントを先頭に置く */
+    font-family: "Segoe UI",Arial,"Hiragino Maru Gothic ProN","Yu Gothic","Malgun Gothic","Microsoft YaHei",sans-serif;
+  }
+  .lang-btn.is-active{ background: var(--bg); }
+  .lang-btn.is-active .flag{ box-shadow: 0 0 0 2px var(--accent); }
+  .lang-btn.is-active .lang-name{ color: var(--accent); }
+  .lang-btn:active .flag{ transform: scale(.92); }
+
   .video-wrap{
     background: #b03052 url("../波柄_pattern.webp") repeat;
     background-size: 180px auto;
-    height:80vh;
+    height: calc(80vh - var(--langbar-h));
+    min-height: 240px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -46,7 +119,7 @@
   h1 .ruby{
     display:block;
     font-size: .9rem;
-    color: #a08a8a;
+    color: var(--sub);
     font-weight:normal;
     margin-bottom:4px;
   }
@@ -109,7 +182,7 @@
   .legend{
     margin: 16px 0 0;
     font-size: .85rem;
-    color: #a08a8a;
+    color: var(--sub);
   }
   .photo-placeholder{
     margin-top: 16px;
@@ -119,7 +192,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    color: #a08a8a;
+    color: var(--sub);
     font-size: .9rem;
   }
   .photo-grid{
@@ -146,62 +219,329 @@
 </head>
 <body>
 
+<!-- ===== 言語切替（動画より上）／釣りゲームと同じ8言語・同じ並び順 ===== -->
+<nav class="langbar" aria-label="Language / 言語切替">
+  <button type="button" class="lang-btn is-active" data-lang="ja" aria-label="日本語">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg></span>
+    <span class="lang-name">日本語</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="en" aria-label="English">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="30" height="1.54"/><rect y="4.62" width="30" height="1.54"/><rect y="7.69" width="30" height="1.54"/><rect y="10.77" width="30" height="1.54"/><rect y="13.85" width="30" height="1.54"/><rect y="16.92" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/><g fill="#fff"><circle cx="2" cy="1.6" r=".45"/><circle cx="5" cy="1.6" r=".45"/><circle cx="8" cy="1.6" r=".45"/><circle cx="11" cy="1.6" r=".45"/><circle cx="3.5" cy="3.6" r=".45"/><circle cx="6.5" cy="3.6" r=".45"/><circle cx="9.5" cy="3.6" r=".45"/><circle cx="2" cy="5.6" r=".45"/><circle cx="5" cy="5.6" r=".45"/><circle cx="8" cy="5.6" r=".45"/><circle cx="11" cy="5.6" r=".45"/><circle cx="3.5" cy="7.6" r=".45"/><circle cx="6.5" cy="7.6" r=".45"/><circle cx="9.5" cy="7.6" r=".45"/><circle cx="2" cy="9.6" r=".45"/><circle cx="5" cy="9.6" r=".45"/><circle cx="8" cy="9.6" r=".45"/><circle cx="11" cy="9.6" r=".45"/></g></svg></span>
+    <span class="lang-name">English</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="cnstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="20" fill="#de2910"/><g fill="#ffde00"><use href="#cnstar" transform="translate(5,5) scale(3)"/><use href="#cnstar" transform="translate(10,2)"/><use href="#cnstar" transform="translate(12,4.5)"/><use href="#cnstar" transform="translate(12,7.5)"/><use href="#cnstar" transform="translate(10,10)"/></g></svg></span>
+    <span class="lang-name">中文</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><g transform="rotate(-123 15 10)"><circle cx="15" cy="10" r="4" fill="#0047a0"/><path d="M15,6 A4,4 0 0,1 15,14 A2,2 0 0,0 15,10 A2,2 0 0,1 15,6 Z" fill="#cd2e3a"/></g><g fill="#000"><g transform="translate(5.5,4.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,4.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g><g transform="translate(5.5,15.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,15.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g></g></svg></span>
+    <span class="lang-name">한국어</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="es" aria-label="Español">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></span>
+    <span class="lang-name">Español</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#008c45"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#cd212a"/></svg></span>
+    <span class="lang-name">Italiano</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da251d"/><polygon fill="#ffff00" transform="translate(15,10) scale(6.4)" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></svg></span>
+    <span class="lang-name">Tiếng Việt</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="tl" aria-label="Tagalog">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="phstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="10" fill="#0038a8"/><rect y="10" width="30" height="10" fill="#ce1126"/><polygon fill="#fff" points="0,0 16.5,10 0,20"/><g fill="#fcd116"><polygon points="8.1,10 6.347,10.268 7.397,11.697 5.968,10.647 5.7,12.4 5.432,10.647 4.003,11.697 5.053,10.268 3.3,10 5.053,9.732 4.003,8.303 5.432,9.353 5.7,7.6 5.968,9.353 7.397,8.303 6.347,9.732"/><circle cx="5.7" cy="10" r="1.15"/><use href="#phstar" transform="translate(2.6,3.2) scale(1.15)"/><use href="#phstar" transform="translate(2.6,16.8) scale(1.15)"/><use href="#phstar" transform="translate(13.4,10) scale(1.15)"/></g></svg></span>
+    <span class="lang-name">Tagalog</span>
+  </button>
+</nav>
+
 <div class="video-wrap">
 <video src="ise-ebi.mp4" controls autoplay muted loop playsinline>
-  お使いのブラウザは動画に対応していません。
+  <span data-i18n="video_fallback">お使いのブラウザは動画に対応していません。</span>
 </video>
 </div>
 
 <main>
-  <h1><span class="ruby">いせえび</span>伊勢海老（イセエビ）</h1>
-  <p class="catch">長寿と出世を願う、お祝いの大御所</p>
+  <h1><span class="ruby" data-i18n="ruby">いせえび</span><span data-i18n="name">伊勢海老（イセエビ）</span></h1>
+  <p class="catch" data-i18n="catch">長寿と出世を願う、お祝いの大御所</p>
 
   <div class="card">
-    <h2>おすすめのざうお調理法</h2>
-    <p>伊勢海老は殻ごと豪快に。刺身でも焼いても濃厚な甘みが楽しめます</p>
+    <h2 data-i18n="cook_h2">おすすめのざうお調理法</h2>
+    <p data-i18n="cook_lead">伊勢海老は殻ごと豪快に。刺身でも焼いても濃厚な甘みが楽しめます</p>
     <div class="badge-row">
-      <span class="badge ok">刺身 ◎</span>
-      <span class="badge ok">塩焼き 〇</span>
-      <span class="badge ok">マヨネーズ焼き 〇</span>
+      <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> ◎</span>
+      <span class="badge ok"><span data-i18n="b_shioyaki">塩焼き</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_mayo">マヨネーズ焼き</span> 〇</span>
     </div>
-    <p class="sub-label">刺身の後は</p>
+    <p class="sub-label" data-i18n="after_sashimi">刺身の後は</p>
     <div class="badge-row">
-      <span class="badge ok">みそ汁 ◎</span>
+      <span class="badge ok"><span data-i18n="b_misoshiru">みそ汁</span> ◎</span>
     </div>
-    <p class="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
-    <div class="photo-placeholder">写真準備中</div>
+    <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
+    <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
   </div>
 
   <div class="card">
-    <h2>どんな海老？</h2>
-    <p>
+    <h2 data-i18n="what_h2">どんな海老？</h2>
+    <p data-i18n="what_text">
       伊勢海老は赤褐色の体に太くゴツゴツした殻、長い触角を持つ大型のエビ。
       カニやロブスターのような大きなハサミは持たず、代わりに硬い棘だらけの殻を身を守る武器にしています。
     </p>
     <div class="badge-row">
-      <span class="badge">体長 20〜30cm</span>
-      <span class="badge">夜行性</span>
-      <span class="badge">縁起物</span>
+      <span class="badge" data-i18n="w_b1">体長 20〜30cm</span>
+      <span class="badge" data-i18n="w_b2">夜行性</span>
+      <span class="badge" data-i18n="w_b3">縁起物</span>
     </div>
   </div>
 
   <div class="card">
-    <h2>どこにいる？／旬はいつ？</h2>
-    <p>
+    <h2 data-i18n="where_h2">どこにいる？／旬はいつ？</h2>
+    <p data-i18n="where_text">
       関東以南の岩礁地帯に生息し、昼間は岩の隙間に隠れ、夜になると活動する夜行性。
       旬は秋から初春（10〜4月頃）とされ、伊勢志摩をはじめ各地の産地でこの時期に多く水揚げされます。
     </p>
   </div>
 
   <div class="card">
-    <h2>豆知識</h2>
+    <h2 data-i18n="trivia_h2">豆知識</h2>
     <ul class="trivia-list">
-      <li><strong>赤ちゃん時代は「クラゲタクシー」で旅をする：</strong><br>幼生（フィロソーマ）の時期は平たくて透明。自力で長く泳げないため、海を漂うクラゲの傘に乗って移動し、餌までちゃっかり横取りして育ちます。</li>
-      <li><strong>実は「鳴く」エビ：</strong><br>第2触角の付け根に洗濯板のような発音器を持っていて、こすり合わせて「ギーギー」と音を出します。縄張りに入ってきた相手への威嚇で、体が大きい個体ほど大音量になります。</li>
-      <li><strong>脱皮に命をかけすぎて自滅する：</strong><br>成長のために全身の硬い殻を脱ぎ捨てますが、あまりにパワーを使うため、途中で殻から抜け出せなくなってそのまま力尽きてしまう、切なくもおっちょこちょいな一面があります。</li>
+      <li data-i18n-html="tr1"><strong>赤ちゃん時代は「クラゲタクシー」で旅をする：</strong><br>幼生（フィロソーマ）の時期は平たくて透明。自力で長く泳げないため、海を漂うクラゲの傘に乗って移動し、餌までちゃっかり横取りして育ちます。</li>
+      <li data-i18n-html="tr2"><strong>実は「鳴く」エビ：</strong><br>第2触角の付け根に洗濯板のような発音器を持っていて、こすり合わせて「ギーギー」と音を出します。縄張りに入ってきた相手への威嚇で、体が大きい個体ほど大音量になります。</li>
+      <li data-i18n-html="tr3"><strong>脱皮に命をかけすぎて自滅する：</strong><br>成長のために全身の硬い殻を脱ぎ捨てますが、あまりにパワーを使うため、途中で殻から抜け出せなくなってそのまま力尽きてしまう、切なくもおっちょこちょいな一面があります。</li>
     </ul>
   </div>
 </main>
+
+<script>
+/* 言語コードは釣りゲーム(ざうおスマホゲーム/index.html)と同じ ja/en/zh/ko/es/it/vi/tl。
+   名称もゲームの FISH_NAMES.ise と揃えてある。 */
+var I18N = {
+  "ja": {
+    title: "伊勢海老（イセエビ） | ざうお目黒店",
+    video_fallback: "お使いのブラウザは動画に対応していません。",
+    ruby: "いせえび",
+    name: "伊勢海老（イセエビ）",
+    catch: "長寿と出世を願う、お祝いの大御所",
+    cook_h2: "おすすめのざうお調理法",
+    cook_lead: "伊勢海老は殻ごと豪快に。刺身でも焼いても濃厚な甘みが楽しめます",
+    b_sashimi: "刺身", b_shioyaki: "塩焼き", b_mayo: "マヨネーズ焼き",
+    after_sashimi: "刺身の後は",
+    b_misoshiru: "みそ汁",
+    legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    photo_soon: "写真準備中",
+    what_h2: "どんな海老？",
+    what_text: "伊勢海老は赤褐色の体に太くゴツゴツした殻、長い触角を持つ大型のエビ。カニやロブスターのような大きなハサミは持たず、代わりに硬い棘だらけの殻を身を守る武器にしています。",
+    w_b1: "体長 20〜30cm", w_b2: "夜行性", w_b3: "縁起物",
+    where_h2: "どこにいる？／旬はいつ？",
+    where_text: "関東以南の岩礁地帯に生息し、昼間は岩の隙間に隠れ、夜になると活動する夜行性。旬は秋から初春（10〜4月頃）とされ、伊勢志摩をはじめ各地の産地でこの時期に多く水揚げされます。",
+    trivia_h2: "豆知識",
+    tr1: "<strong>赤ちゃん時代は「クラゲタクシー」で旅をする：</strong><br>幼生（フィロソーマ）の時期は平たくて透明。自力で長く泳げないため、海を漂うクラゲの傘に乗って移動し、餌までちゃっかり横取りして育ちます。",
+    tr2: "<strong>実は「鳴く」エビ：</strong><br>第2触角の付け根に洗濯板のような発音器を持っていて、こすり合わせて「ギーギー」と音を出します。縄張りに入ってきた相手への威嚇で、体が大きい個体ほど大音量になります。",
+    tr3: "<strong>脱皮に命をかけすぎて自滅する：</strong><br>成長のために全身の硬い殻を脱ぎ捨てますが、あまりにパワーを使うため、途中で殻から抜け出せなくなってそのまま力尽きてしまう、切なくもおっちょこちょいな一面があります。"
+  },
+  "en": {
+    title: "Spiny Lobster (Ise-ebi) | ZAUO Meguro",
+    video_fallback: "Your browser does not support video playback.",
+    ruby: "ise-ebi",
+    name: "Spiny Lobster (Ise-ebi)",
+    catch: "A grand presence at celebrations, wishing long life and success",
+    cook_h2: "Recommended ZAUO Cooking Styles",
+    cook_lead: "Enjoy the spiny lobster in all its glory, shell and all. Rich, sweet flavour whether raw or grilled.",
+    b_sashimi: "Sashimi", b_shioyaki: "Salt-grilled", b_mayo: "Grilled with mayonnaise",
+    after_sashimi: "After the sashimi",
+    b_misoshiru: "Miso soup",
+    legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    photo_soon: "Photo coming soon",
+    what_h2: "What kind of shellfish is it?",
+    what_text: "The Japanese spiny lobster has a reddish-brown body, a thick and rugged shell and very long antennae. Unlike crabs or true lobsters it has no large claws; instead, that hard shell covered in spines is its weapon of defence.",
+    w_b1: "Length 20-30 cm", w_b2: "Nocturnal", w_b3: "A symbol of good fortune",
+    where_h2: "Where does it live? / When is it in season?",
+    where_text: "It lives on rocky reefs from the Kanto region southwards, hiding in crevices during the day and coming out at night. The season runs from autumn to early spring (October to April), when catches are landed in Ise-Shima and other producing areas.",
+    trivia_h2: "Fun Facts",
+    tr1: "<strong>As a baby it travels by jellyfish taxi:</strong><br>In its larval stage (phyllosoma) it is flat and transparent. Unable to swim far on its own, it rides on the bell of drifting jellyfish - and helps itself to their food along the way.",
+    tr2: "<strong>A lobster that actually squeaks:</strong><br>At the base of its second antennae sits an organ rather like a washboard. Rubbing it produces a creaking sound, used to warn off intruders in its territory. The bigger the individual, the louder the noise.",
+    tr3: "<strong>It throws so much into moulting that it does itself in:</strong><br>To grow, it sheds its entire hard shell - but the effort is so great that some get stuck halfway out and simply run out of strength. A sad, slightly clumsy side to this grand creature."
+  },
+  "zh": {
+    title: "龙虾（伊势海老）| ZAUO 目黑店",
+    video_fallback: "您的浏览器不支持视频播放。",
+    ruby: "ise-ebi",
+    name: "龙虾（伊势海老）",
+    catch: "祈求长寿与出人头地的喜庆大人物",
+    cook_h2: "推荐的 ZAUO 烹饪方式",
+    cook_lead: "伊势海老连壳一起豪迈享用。无论生吃还是烧烤，都能品尝到浓郁的甜味。",
+    b_sashimi: "生鱼片（刺身）", b_shioyaki: "盐烤", b_mayo: "蛋黄酱烤",
+    after_sashimi: "吃完刺身之后",
+    b_misoshiru: "味噌汤",
+    legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    photo_soon: "照片准备中",
+    what_h2: "这是什么虾？",
+    what_text: "伊势海老是身体呈红褐色、外壳粗糙厚实、触角很长的大型虾。它没有蟹或螯龙虾那样的大螯，而是以布满硬刺的外壳作为保护自己的武器。",
+    w_b1: "体长 20〜30cm", w_b2: "夜行性", w_b3: "吉祥物",
+    where_h2: "栖息在哪里？／什么时候最当季？",
+    where_text: "栖息于关东以南的岩礁地带，白天躲在岩石缝隙里，到了夜晚才活动，是夜行性生物。最佳时节被认为是秋季到初春（10〜4月左右），以伊势志摩为首的各产地在这一时期捕获量最多。",
+    trivia_h2: "小知识",
+    tr1: "<strong>婴儿时期乘「水母出租车」旅行：</strong><br>幼体（叶状幼体 phyllosoma）时期身体扁平透明。由于无法长时间自行游动，便搭在漂流的水母伞上移动，还顺便抢食水母的食物长大。",
+    tr2: "<strong>其实是会「叫」的虾：</strong><br>第二触角根部长有类似搓衣板的发音器，摩擦时会发出「吱吱」的声音。这是对闯入领地者的威吓，体型越大的个体声音越响。",
+    tr3: "<strong>蜕壳太拼命反而把自己害了：</strong><br>为了成长，它会脱下全身坚硬的外壳，但因为太耗体力，有的中途卡在壳里出不来，就这样力竭而亡，是既让人心疼又有点冒失的一面。"
+  },
+  "ko": {
+    title: "닭새우(이세에비) | ZAUO 메구로점",
+    video_fallback: "사용 중인 브라우저는 동영상을 지원하지 않습니다.",
+    ruby: "이세에비",
+    name: "닭새우(이세에비)",
+    catch: "장수와 출세를 기원하는, 잔칫상의 큰 어른",
+    cook_h2: "추천 ZAUO 조리법",
+    cook_lead: "이세에비는 껍질째 호쾌하게. 회로도 구이로도 진한 단맛을 즐길 수 있습니다.",
+    b_sashimi: "회", b_shioyaki: "소금구이", b_mayo: "마요네즈 구이",
+    after_sashimi: "회를 드신 뒤에는",
+    b_misoshiru: "된장국",
+    legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    photo_soon: "사진 준비 중",
+    what_h2: "어떤 새우인가요?",
+    what_text: "이세에비는 적갈색 몸에 굵고 울퉁불퉁한 껍질, 긴 더듬이를 가진 대형 새우입니다. 게나 랍스터 같은 큰 집게발은 없고, 대신 딱딱한 가시투성이 껍질을 몸을 지키는 무기로 삼고 있습니다.",
+    w_b1: "몸길이 20〜30cm", w_b2: "야행성", w_b3: "길한 상징",
+    where_h2: "어디에 살까? / 제철은 언제?",
+    where_text: "간토 이남의 암초 지대에 서식하며, 낮에는 바위 틈에 숨어 있다가 밤이 되면 활동하는 야행성입니다. 제철은 가을부터 초봄(10〜4월경)으로, 이세시마를 비롯한 각 산지에서 이 시기에 많이 잡힙니다.",
+    trivia_h2: "토막 상식",
+    tr1: "<strong>아기 때는 「해파리 택시」로 여행한다:</strong><br>유생(필로소마) 시기에는 납작하고 투명합니다. 스스로 멀리 헤엄치지 못하기 때문에, 떠다니는 해파리의 갓에 올라타 이동하고 먹이까지 슬쩍 가로채며 자랍니다.",
+    tr2: "<strong>사실은 「우는」 새우:</strong><br>제2더듬이 밑동에 빨래판 같은 발음 기관이 있어, 문질러서 「끼익끼익」 소리를 냅니다. 영역에 들어온 상대를 위협하는 것으로, 몸이 큰 개체일수록 소리가 큽니다.",
+    tr3: "<strong>탈피에 너무 힘을 쏟다가 스스로 무너진다:</strong><br>성장을 위해 온몸의 단단한 껍질을 벗지만, 워낙 힘을 많이 쓰는 탓에 도중에 껍질에서 빠져나오지 못하고 그대로 힘이 다해버리는, 안타깝고도 어수룩한 면이 있습니다."
+  },
+  "es": {
+    title: "Langosta espinosa (Ise-ebi) | ZAUO Meguro",
+    video_fallback: "Su navegador no admite la reproducción de vídeo.",
+    ruby: "ise-ebi",
+    name: "Langosta espinosa (Ise-ebi)",
+    catch: "La gran figura de las celebraciones: augurio de larga vida y prosperidad",
+    cook_h2: "Preparaciones recomendadas en ZAUO",
+    cook_lead: "Disfrute de la langosta a lo grande, con caparazón incluido. Cruda o a la parrilla, su dulzor es intenso.",
+    b_sashimi: "Sashimi", b_shioyaki: "A la parrilla con sal", b_mayo: "Gratinada con mayonesa",
+    after_sashimi: "Después del sashimi",
+    b_misoshiru: "Sopa de miso",
+    legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    photo_soon: "Foto próximamente",
+    what_h2: "¿Qué crustáceo es?",
+    what_text: "La langosta espinosa japonesa tiene el cuerpo pardo rojizo, un caparazón grueso y rugoso y unas antenas muy largas. No tiene las grandes pinzas de los cangrejos ni de los bogavantes: su arma defensiva es ese caparazón duro y lleno de espinas.",
+    w_b1: "Longitud 20-30 cm", w_b2: "De hábitos nocturnos", w_b3: "Símbolo de buena suerte",
+    where_h2: "¿Dónde vive? / ¿Cuál es su temporada?",
+    where_text: "Vive en los fondos rocosos desde la región de Kanto hacia el sur; de día se esconde entre las rocas y de noche sale a moverse. Su temporada va del otoño al principio de la primavera (de octubre a abril), cuando se producen las mayores capturas en Ise-Shima y otras zonas productoras.",
+    trivia_h2: "Curiosidades",
+    tr1: "<strong>De pequeña viaja en «taxi medusa»:</strong><br>En su fase larvaria (filosoma) es plana y transparente. Como no puede nadar largas distancias por sí sola, se sube a la campana de las medusas a la deriva y, de paso, les birla la comida.",
+    tr2: "<strong>Es una langosta que «canta»:</strong><br>En la base de sus segundas antenas tiene un órgano parecido a una tabla de lavar; al frotarlo emite un chirrido. Sirve para amenazar a quien entra en su territorio, y cuanto mayor es el ejemplar, más fuerte suena.",
+    tr3: "<strong>Se emplea tanto en la muda que a veces sucumbe:</strong><br>Para crecer se desprende de todo su caparazón duro, pero el esfuerzo es tal que algunos ejemplares se quedan atascados a medio salir y acaban sin fuerzas. Un lado triste y algo torpe."
+  },
+  "it": {
+    title: "Aragosta (Ise-ebi) | ZAUO Meguro",
+    video_fallback: "Il tuo browser non supporta la riproduzione dei video.",
+    ruby: "ise-ebi",
+    name: "Aragosta (Ise-ebi)",
+    catch: "La grande protagonista delle feste: auspicio di lunga vita e successo",
+    cook_h2: "Preparazioni consigliate da ZAUO",
+    cook_lead: "Gustate l'aragosta in tutta la sua generosità, guscio compreso. Cruda o alla griglia, ha una dolcezza intensa.",
+    b_sashimi: "Sashimi", b_shioyaki: "Alla griglia con sale", b_mayo: "Gratinata con maionese",
+    after_sashimi: "Dopo il sashimi",
+    b_misoshiru: "Zuppa di miso",
+    legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    photo_soon: "Foto in arrivo",
+    what_h2: "Che crostaceo è?",
+    what_text: "L'aragosta giapponese ha il corpo bruno-rossastro, un guscio spesso e ruvido e antenne molto lunghe. Non ha le grandi chele dei granchi o degli astici: la sua arma di difesa è proprio quel guscio duro e pieno di spine.",
+    w_b1: "Lunghezza 20-30 cm", w_b2: "Abitudini notturne", w_b3: "Simbolo di buon augurio",
+    where_h2: "Dove vive? / Qual è la stagione?",
+    where_text: "Vive sulle scogliere rocciose dal Kanto verso sud; di giorno si nasconde nelle fessure delle rocce e di notte esce a muoversi. La stagione va dall'autunno all'inizio della primavera (da ottobre ad aprile), quando le catture sono più abbondanti a Ise-Shima e nelle altre zone di pesca.",
+    trivia_h2: "Curiosità",
+    tr1: "<strong>Da piccola viaggia in «taxi-medusa»:</strong><br>Nello stadio larvale (fillosoma) è piatta e trasparente. Non riuscendo a nuotare a lungo da sola, sale sull'ombrello delle meduse alla deriva e, già che c'è, ne sgraffigna anche il cibo.",
+    tr2: "<strong>È un'aragosta che «stride»:</strong><br>Alla base delle seconde antenne ha un organo simile a un'asse per lavare: sfregandolo produce un suono stridente. Serve a minacciare chi entra nel suo territorio e, più grande è l'esemplare, più forte è il rumore.",
+    tr3: "<strong>Nella muta si impegna così tanto da rimetterci:</strong><br>Per crescere si sfila l'intero guscio duro, ma lo sforzo è tale che alcuni restano incastrati a metà e finiscono le forze. Un lato triste e un po' maldestro."
+  },
+  "vi": {
+    title: "Tôm hùm gai (Ise-ebi) | ZAUO Meguro",
+    video_fallback: "Trình duyệt của bạn không hỗ trợ phát video.",
+    ruby: "ise-ebi",
+    name: "Tôm hùm gai (Ise-ebi)",
+    catch: "Nhân vật lớn của các bữa tiệc mừng, cầu trường thọ và thăng tiến",
+    cook_h2: "Các cách chế biến ZAUO gợi ý",
+    cook_lead: "Tôm hùm gai ăn cả vỏ mới đã. Dù ăn sống hay nướng đều có vị ngọt đậm đà.",
+    b_sashimi: "Sashimi (ăn sống)", b_shioyaki: "Nướng muối", b_mayo: "Nướng sốt mayonnaise",
+    after_sashimi: "Sau khi ăn sashimi",
+    b_misoshiru: "Canh miso",
+    legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    photo_soon: "Ảnh sắp có",
+    what_h2: "Đây là loài tôm gì?",
+    what_text: "Tôm hùm gai là loài tôm lớn, thân màu nâu đỏ, vỏ dày sần sùi và râu rất dài. Nó không có càng lớn như cua hay tôm hùm càng, mà dùng chính lớp vỏ cứng đầy gai làm vũ khí bảo vệ mình.",
+    w_b1: "Dài 20-30 cm", w_b2: "Hoạt động về đêm", w_b3: "Biểu tượng may mắn",
+    where_h2: "Sống ở đâu? / Mùa ngon nhất là khi nào?",
+    where_text: "Tôm sống ở các rạn đá từ vùng Kanto trở về phía nam; ban ngày ẩn trong khe đá, ban đêm mới ra hoạt động. Mùa ngon nhất được cho là từ mùa thu đến đầu xuân (khoảng tháng 10 đến tháng 4), khi các vùng như Ise-Shima đánh bắt được nhiều nhất.",
+    trivia_h2: "Có thể bạn chưa biết",
+    tr1: "<strong>Hồi bé đi du lịch bằng «taxi sứa»:</strong><br>Ở giai đoạn ấu trùng (phyllosoma), tôm dẹt và trong suốt. Vì không tự bơi xa được, nó leo lên tán của những con sứa trôi dạt để di chuyển, tiện thể ăn ké luôn thức ăn của sứa.",
+    tr2: "<strong>Thực ra là loài tôm biết «kêu»:</strong><br>Ở gốc râu thứ hai có một cơ quan phát âm giống bàn giặt, cọ vào nhau sẽ tạo ra tiếng «két két». Đây là cách đe dọa kẻ xâm phạm lãnh thổ, con càng to thì tiếng càng lớn.",
+    tr3: "<strong>Lột xác quá sức đến mức tự hại mình:</strong><br>Để lớn lên, tôm trút bỏ toàn bộ lớp vỏ cứng, nhưng vì tốn quá nhiều sức nên có con mắc kẹt giữa chừng rồi kiệt sức. Một khía cạnh vừa đáng thương vừa hậu đậu."
+  },
+  "tl": {
+    title: "Banagan (Ise-ebi) | ZAUO Meguro",
+    video_fallback: "Hindi sinusuportahan ng iyong browser ang pag-play ng video.",
+    ruby: "ise-ebi",
+    name: "Banagan (Ise-ebi)",
+    catch: "Ang malaking bida sa mga handaan, hiling ng mahabang buhay at pag-unlad",
+    cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
+    cook_lead: "Tamasahin ang banagan nang buo, pati balat. Malinamnam at matamis ang sarap nito, hilaw man o inihaw.",
+    b_sashimi: "Sashimi (hilaw)", b_shioyaki: "Inihaw na may asin", b_mayo: "Inihaw na may mayonnaise",
+    after_sashimi: "Pagkatapos ng sashimi",
+    b_misoshiru: "Miso soup",
+    legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    photo_soon: "Malapit nang mailagay ang larawan",
+    what_h2: "Anong klaseng hipon ito?",
+    what_text: "Ang banagan ay malaking crustacean na may mapula-pulang kayumangging katawan, makapal at magaspang na balat, at napakahahabang sungot. Wala itong malalaking sipit tulad ng alimango o lobster; sa halip, ang matigas at matinik nitong balat ang sandata nito sa pagtatanggol sa sarili.",
+    w_b1: "Haba 20-30 cm", w_b2: "Gumagala kapag gabi", w_b3: "Simbolo ng suwerte",
+    where_h2: "Saan ito nakatira? / Kailan ang panahon nito?",
+    where_text: "Nakatira ito sa mabatong bahura mula sa rehiyon ng Kanto pababa sa timog; sa araw ay nagtatago sa siwang ng mga bato at lumalabas kapag gabi. Ang panahon nito ay mula taglagas hanggang unang bahagi ng tagsibol (Oktubre hanggang Abril), kung kailan pinakamarami ang nahuhuli sa Ise-Shima at iba pang lugar.",
+    trivia_h2: "Alam mo ba?",
+    tr1: "<strong>Noong sanggol pa, «dikya» ang sinasakyan nito:</strong><br>Sa yugtong larva (phyllosoma) ay lapad at aninaw ito. Dahil hindi pa nito kayang lumangoy nang malayo, sumasakay ito sa payong ng mga dikyang anod-anod - at nakikigamit pa sa pagkain nila.",
+    tr2: "<strong>Isang hipon na «umiingit»:</strong><br>Sa puno ng ikalawang sungot nito ay may organong parang labahan; kapag ikiniskis ay lumilikha ito ng tunog na parang langitngit. Pananakot ito sa sinumang pumasok sa teritoryo nito, at kapag mas malaki ang hayop, mas malakas ang tunog.",
+    tr3: "<strong>Sobrang pilit sa paghuhunos kaya minsan ito pa ang natatalo:</strong><br>Upang lumaki, hinuhubad nito ang buong matigas na balat, ngunit napakalaki ng pagod kaya may mga naiipit sa kalagitnaan at nauubusan na lang ng lakas. Isang malungkot at medyo kawawang bahagi ng buhay nito."
+  }
+};
+
+function setLang(lang){
+  var dict = I18N[lang];
+  if(!dict){ return; }
+
+  document.documentElement.setAttribute("lang", lang);
+  document.title = dict.title;
+
+  var i, key;
+  var nodes = document.querySelectorAll("[data-i18n]");
+  for(i = 0; i < nodes.length; i++){
+    key = nodes[i].getAttribute("data-i18n");
+    if(dict[key] !== undefined){ nodes[i].textContent = dict[key]; }
+  }
+  var htmlNodes = document.querySelectorAll("[data-i18n-html]");
+  for(i = 0; i < htmlNodes.length; i++){
+    key = htmlNodes[i].getAttribute("data-i18n-html");
+    if(dict[key] !== undefined){ htmlNodes[i].innerHTML = dict[key]; }
+  }
+
+  var btns = document.querySelectorAll(".lang-btn");
+  for(i = 0; i < btns.length; i++){
+    if(btns[i].getAttribute("data-lang") === lang){
+      btns[i].classList.add("is-active");
+    } else {
+      btns[i].classList.remove("is-active");
+    }
+  }
+}
+
+(function(){
+  var btns = document.querySelectorAll(".lang-btn");
+  for(var i = 0; i < btns.length; i++){
+    btns[i].addEventListener("click", function(){
+      setLang(this.getAttribute("data-lang"));
+    });
+  }
+  /* 開いたときは常に日本語（選択は保存しない） */
+  setLang("ja");
+})();
+</script>
 
 </body>
 </html>
