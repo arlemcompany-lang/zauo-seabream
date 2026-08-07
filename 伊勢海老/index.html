@@ -87,6 +87,61 @@
     padding-left: 1.2em;
   }
   .trivia-list li{ margin-bottom: 8px; }
+  .badge.ok{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+  }
+  .badge.ng{
+    background: #fffbe6;
+    border: 1px solid #e6c200;
+    color: #9c8000;
+  }
+  .sub-label{
+    margin: 16px 0 0;
+  }
+  .note{
+    margin: 16px 0 0;
+    font-weight:bold;
+    color: var(--accent);
+  }
+  .note + .note{ margin-top: 4px; }
+  .legend{
+    margin: 16px 0 0;
+    font-size: .85rem;
+    color: #a08a8a;
+  }
+  .photo-placeholder{
+    margin-top: 16px;
+    height: 160px;
+    border: 2px dashed var(--main);
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: #a08a8a;
+    font-size: .9rem;
+  }
+  .photo-grid{
+    margin-top: 16px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .photo-grid figure{ margin:0; }
+  .photo-grid img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:12px;
+  }
+  .photo-grid figcaption{
+    margin-top:6px;
+    text-align:center;
+    font-size:.85rem;
+    font-weight:bold;
+    color: var(--accent);
+  }
 </style>
 </head>
 <body>
@@ -100,6 +155,22 @@
 <main>
   <h1><span class="ruby">いせえび</span>伊勢海老（イセエビ）</h1>
   <p class="catch">長寿と出世を願う、お祝いの大御所</p>
+
+  <div class="card">
+    <h2>おすすめのざうお調理法</h2>
+    <p>伊勢海老は殻ごと豪快に。刺身でも焼いても濃厚な甘みが楽しめます</p>
+    <div class="badge-row">
+      <span class="badge ok">刺身 ◎</span>
+      <span class="badge ok">塩焼き 〇</span>
+      <span class="badge ok">マヨネーズ焼き 〇</span>
+    </div>
+    <p class="sub-label">刺身の後は</p>
+    <div class="badge-row">
+      <span class="badge ok">みそ汁 ◎</span>
+    </div>
+    <p class="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
+    <div class="photo-placeholder">写真準備中</div>
+  </div>
 
   <div class="card">
     <h2>どんな海老？</h2>
@@ -125,11 +196,9 @@
   <div class="card">
     <h2>豆知識</h2>
     <ul class="trivia-list">
-      <li>長いひげと曲がった腰の姿が「腰が曲がるまで長生きする」お年寄りを連想させ、長寿の縁起物とされる。</li>
-      <li>成長の過程で何度も脱皮を繰り返して大きくなることから、立身出世の願いも込められている。</li>
-      <li>生まれてすぐは「フィロソーマ」という透明なプランクトン幼生の姿で、なんと1年近く海を漂いながら脱皮を繰り返し、成体になるまで約3年もかかる。</li>
-      <li>寿命は10年以上ともいわれ、外敵に襲われず30年近く生きた例も報告されている。</li>
-      <li>名前の由来は江戸時代の書物にも記載があり、「伊勢の名産だったから伊勢海老」という説が有力。</li>
+      <li><strong>実は「鳴く」エビ：</strong><br>第2触角の付け根に洗濯板のような発音器を持っていて、こすり合わせて「ギーギー」と音を出します。縄張りに入ってきた相手への威嚇で、体が大きい個体ほど大音量になります。</li>
+      <li><strong>子どもの頃はまるで別人：</strong><br>生まれてすぐは「フィロソーマ」という紙のように薄い透明な幼生。あのゴツい姿からは想像もつかない見た目で、約300日も海を漂います。立派な成体になるまで約3年の下積み生活です。</li>
+      <li><strong>ハサミがない武闘派：</strong><br>ロブスターのような立派なハサミは一切なし。代わりに全身トゲだらけの硬い殻と、長く鋭い触角で武装しています。飛び道具（鳴き声）まで持った、装備過多のエビです。</li>
     </ul>
   </div>
 </main>
