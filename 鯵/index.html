@@ -87,6 +87,52 @@
     padding-left: 1.2em;
   }
   .trivia-list li{ margin-bottom: 8px; }
+  .badge.ok{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+  }
+  .badge.ng{
+    background: #fffbe6;
+    border: 1px solid #e6c200;
+    color: #9c8000;
+  }
+  .sub-label{
+    margin: 16px 0 0;
+  }
+  .note{
+    margin: 16px 0 0;
+    font-weight:bold;
+    color: var(--accent);
+  }
+  .note + .note{ margin-top: 4px; }
+  .legend{
+    margin: 16px 0 0;
+    font-size: .85rem;
+    color: #7a9298;
+  }
+  .photo-grid{
+    margin-top: 16px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .photo-grid figure{
+    margin:0;
+  }
+  .photo-grid img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:12px;
+  }
+  .photo-grid figcaption{
+    margin-top:6px;
+    text-align:center;
+    font-size:.85rem;
+    font-weight:bold;
+    color: var(--accent);
+  }
 </style>
 </head>
 <body>
@@ -100,6 +146,37 @@
 <main>
   <h1><span class="ruby">あじ</span>鯵（アジ）</h1>
   <p class="catch">その名の由来は「味が良いから」</p>
+
+  <div class="card">
+    <h2>おすすめのざうお調理法</h2>
+    <p>アジは刺身も揚げ物もいける万能選手。骨まで美味しくいただけます</p>
+    <div class="badge-row">
+      <span class="badge ok">タタキ ◎</span>
+      <span class="badge ok">刺身 〇</span>
+      <span class="badge ok">塩焼き 〇</span>
+      <span class="badge ok">唐揚げ 〇</span>
+      <span class="badge ng">煮付け △</span>
+      <span class="badge ok">フライ ◎（追加料金あり）</span>
+    </div>
+    <p class="sub-label">骨を使って（刺身に姿が付いているとき）</p>
+    <div class="badge-row">
+      <span class="badge ok">骨せんべい ◎</span>
+      <span class="badge ng">みそ汁 △</span>
+    </div>
+    <p class="note">生姜と薬味で合わせたタタキがおすすめ！</p>
+    <p class="note">お子様はフライもおすすめ！</p>
+    <p class="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
+    <div class="photo-grid">
+      <figure>
+        <img src="aji-tataki.jpg" alt="鯵のタタキ" loading="lazy">
+        <figcaption>タタキ</figcaption>
+      </figure>
+      <figure>
+        <img src="aji-fry.jpg" alt="鯵のフライ" loading="lazy">
+        <figcaption>フライ</figcaption>
+      </figure>
+    </div>
+  </div>
 
   <div class="card">
     <h2>どんな魚？</h2>
@@ -126,10 +203,9 @@
   <div class="card">
     <h2>豆知識</h2>
     <ul class="trivia-list">
-      <li>体の側面にある硬いトゲトゲの鱗「ゼイゴ（ぜんご）」はアジ科ならではの特徴で、見分けるポイントになる。</li>
-      <li>沖合を群れで回遊する「黒アジ」は体が青黒く引き締まった体型、瀬に居ついて動かない「金アジ（瀬付きアジ）」は黄色みがかった体色でよく脂がのっているとされる。</li>
-      <li>小さいアジは「豆アジ」、大きく育ったアジは「大アジ」と呼ばれ、大きさによって呼び名が変わる。</li>
-      <li>漢字「鰺」の旁（つくり）にある「参」は、群れになってたくさん泳ぐ様子を表しているという説がある。</li>
+      <li><strong>体の側面に「トゲトゲの鎧」：</strong><br>尾から体の中央にかけて「ゼイゴ」と呼ばれる硬いウロコを一列に装備。敵の攻撃や急ブレーキ時に役立つ天然のプロテクターです。</li>
+      <li><strong>武装したのに人間に真っ先にはがされる：</strong><br>せっかく「ゼイゴ」という甲冑を身に纏ったのに、調理の際は「食感が邪魔」という理由で、包丁で真っ先に削ぎ落とされる不憫な宿命を背負っています。</li>
+      <li><strong>インドア派になると高級魚へ化ける：</strong><br>大海原を旅するノマド（黒アジ）に対し、湾内に居ついて動かないインドア派（黄アジ・ブランドアジ）は脂がノリノリに。引きこもった方が価値が上がる珍しいタイプです。</li>
     </ul>
   </div>
 </main>
