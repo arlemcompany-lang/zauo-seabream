@@ -179,37 +179,6 @@
     color: var(--accent);
   }
   .note + .note{ margin-top: 4px; }
-  .app-link{
-    display: block;
-    margin: 18px 0 0;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 999px;
-    padding: 14px 18px;
-    font-size: .95rem;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-  }
-  .app-link:active{ opacity: .7; }
-  .fish-links{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 4px;
-  }
-  .fish-links a{
-    display: inline-block;
-    background: var(--bg);
-    border: 1px solid var(--main);
-    color: var(--accent);
-    border-radius: 999px;
-    padding: 8px 16px;
-    font-size: .9rem;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  .fish-links a:active{ opacity: .6; }
   .legend{
     margin: 16px 0 0;
     font-size: .85rem;
@@ -341,19 +310,6 @@
       <li data-i18n-html="tr3"><strong>脱皮に命をかけすぎて自滅する：</strong><br>成長のために全身の硬い殻を脱ぎ捨てますが、あまりにパワーを使うため、途中で殻から抜け出せなくなってそのまま力尽きてしまう、切なくもおっちょこちょいな一面があります。</li>
     </ul>
   </div>
-
-  <div class="card">
-    <h2 data-i18n="links_h2">ほかの魚介も見てみる</h2>
-    <div class="fish-links">
-      <a href="../鯛/"><span data-i18n="l_tai">鯛（タイ）</span></a>
-      <a href="../鯵/"><span data-i18n="l_aji">鯵（アジ）</span></a>
-      <a href="../平目/"><span data-i18n="l_hirame">平目（ヒラメ）</span></a>
-      <a href="../栄螺/"><span data-i18n="l_sazae">栄螺（サザエ）</span></a>
-      <a href="../鮑/"><span data-i18n="l_awabi">鮑（アワビ）</span></a>
-      <a href="../車海老/"><span data-i18n="l_ebi">車海老（クルマエビ）</span></a>
-    </div>
-    <a class="app-link" href="https://arlemcompany-lang.github.io/zauo-fish-id/" target="_blank" rel="noopener" data-i18n="app_link">水槽の魚をカメラで判別してみる</a>
-  </div>
 </main>
 
 <script>
@@ -372,8 +328,6 @@ var I18N = {
     after_sashimi: "刺身の後は",
     b_misoshiru: "みそ汁",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
-    links_h2: "ほかの魚介も見てみる", l_tai: "鯛（タイ）", l_aji: "鯵（アジ）", l_hirame: "平目（ヒラメ）", l_sazae: "栄螺（サザエ）", l_awabi: "鮑（アワビ）", l_ebi: "車海老（クルマエビ）",
-    app_link: "水槽の魚をカメラで判別してみる",
     photo_soon: "写真準備中",
     what_h2: "どんな海老？",
     what_text: "伊勢海老は赤褐色の体に太くゴツゴツした殻、長い触角を持つ大型のエビ。カニやロブスターのような大きなハサミは持たず、代わりに硬い棘だらけの殻を身を守る武器にしています。",
@@ -397,8 +351,6 @@ var I18N = {
     after_sashimi: "After the sashimi",
     b_misoshiru: "Miso soup",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
-    links_h2: "See the other catches", l_tai: "Sea Bream (Tai)", l_aji: "Horse Mackerel (Aji)", l_hirame: "Flounder (Hirame)", l_sazae: "Turban Shell (Sazae)", l_awabi: "Abalone (Awabi)", l_ebi: "Tiger Prawn (Kuruma-ebi)",
-    app_link: "Point your camera at the tank to ID the fish",
     photo_soon: "Photo coming soon",
     what_h2: "What kind of shellfish is it?",
     what_text: "The Japanese spiny lobster has a reddish-brown body, a thick and rugged shell and very long antennae. Unlike crabs or true lobsters it has no large claws; instead, that hard shell covered in spines is its weapon of defence.",
@@ -422,8 +374,6 @@ var I18N = {
     after_sashimi: "吃完刺身之后",
     b_misoshiru: "味噌汤",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
-    links_h2: "看看其他鱼贝", l_tai: "鲷鱼（Tai）", l_aji: "竹荚鱼（Aji）", l_hirame: "比目鱼（Hirame）", l_sazae: "海螺（Sazae）", l_awabi: "鲍鱼（Awabi）", l_ebi: "斑节虾（车海老）",
-    app_link: "用相机识别水槽里的鱼",
     photo_soon: "照片准备中",
     what_h2: "这是什么虾？",
     what_text: "伊势海老是身体呈红褐色、外壳粗糙厚实、触角很长的大型虾。它没有蟹或螯龙虾那样的大螯，而是以布满硬刺的外壳作为保护自己的武器。",
@@ -447,8 +397,6 @@ var I18N = {
     after_sashimi: "회를 드신 뒤에는",
     b_misoshiru: "된장국",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
-    links_h2: "다른 해산물도 보기", l_tai: "도미(타이)", l_aji: "전갱이(아지)", l_hirame: "광어(히라메)", l_sazae: "소라(사자에)", l_awabi: "전복(아와비)", l_ebi: "보리새우(구루마에비)",
-    app_link: "카메라로 수조의 물고기를 판별해 보기",
     photo_soon: "사진 준비 중",
     what_h2: "어떤 새우인가요?",
     what_text: "이세에비는 적갈색 몸에 굵고 울퉁불퉁한 껍질, 긴 더듬이를 가진 대형 새우입니다. 게나 랍스터 같은 큰 집게발은 없고, 대신 딱딱한 가시투성이 껍질을 몸을 지키는 무기로 삼고 있습니다.",
@@ -472,8 +420,6 @@ var I18N = {
     after_sashimi: "Después del sashimi",
     b_misoshiru: "Sopa de miso",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
-    links_h2: "Ver las demás capturas", l_tai: "Besugo (Tai)", l_aji: "Chicharro (Aji)", l_hirame: "Platija (Hirame)", l_sazae: "Caracola (Sazae)", l_awabi: "Oreja de mar (Awabi)", l_ebi: "Langostino tigre (Kuruma-ebi)",
-    app_link: "Identifica los peces del acuario con tu cámara",
     photo_soon: "Foto próximamente",
     what_h2: "¿Qué crustáceo es?",
     what_text: "La langosta espinosa japonesa tiene el cuerpo pardo rojizo, un caparazón grueso y rugoso y unas antenas muy largas. No tiene las grandes pinzas de los cangrejos ni de los bogavantes: su arma defensiva es ese caparazón duro y lleno de espinas.",
@@ -497,8 +443,6 @@ var I18N = {
     after_sashimi: "Dopo il sashimi",
     b_misoshiru: "Zuppa di miso",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
-    links_h2: "Scopri gli altri pescati", l_tai: "Orata (Tai)", l_aji: "Suro (Aji)", l_hirame: "Passera (Hirame)", l_sazae: "Chiocciola di mare (Sazae)", l_awabi: "Abalone (Awabi)", l_ebi: "Gambero tigre (Kuruma-ebi)",
-    app_link: "Identifica i pesci della vasca con la fotocamera",
     photo_soon: "Foto in arrivo",
     what_h2: "Che crostaceo è?",
     what_text: "L'aragosta giapponese ha il corpo bruno-rossastro, un guscio spesso e ruvido e antenne molto lunghe. Non ha le grandi chele dei granchi o degli astici: la sua arma di difesa è proprio quel guscio duro e pieno di spine.",
@@ -522,8 +466,6 @@ var I18N = {
     after_sashimi: "Sau khi ăn sashimi",
     b_misoshiru: "Canh miso",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
-    links_h2: "Xem các loài khác", l_tai: "Cá tráp (Tai)", l_aji: "Cá nục (Aji)", l_hirame: "Cá bơn (Hirame)", l_sazae: "Ốc đụn (Sazae)", l_awabi: "Bào ngư (Awabi)", l_ebi: "Tôm sú (Kuruma-ebi)",
-    app_link: "Dùng camera để nhận diện cá trong bể",
     photo_soon: "Ảnh sắp có",
     what_h2: "Đây là loài tôm gì?",
     what_text: "Tôm hùm gai là loài tôm lớn, thân màu nâu đỏ, vỏ dày sần sùi và râu rất dài. Nó không có càng lớn như cua hay tôm hùm càng, mà dùng chính lớp vỏ cứng đầy gai làm vũ khí bảo vệ mình.",
@@ -547,8 +489,6 @@ var I18N = {
     after_sashimi: "Pagkatapos ng sashimi",
     b_misoshiru: "Miso soup",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
-    links_h2: "Tingnan ang iba pang huli", l_tai: "Isdang Tai (Sea Bream)", l_aji: "Alumahan (Aji)", l_hirame: "Dapa (Hirame)", l_sazae: "Susong-dagat (Sazae)", l_awabi: "Abalon (Awabi)", l_ebi: "Hipong Tigre (Kuruma-ebi)",
-    app_link: "Tukuyin ang isda sa tangke gamit ang camera",
     photo_soon: "Malapit nang mailagay ang larawan",
     what_h2: "Anong klaseng hipon ito?",
     what_text: "Ang banagan ay malaking crustacean na may mapula-pulang kayumangging katawan, makapal at magaspang na balat, at napakahahabang sungot. Wala itong malalaking sipit tulad ng alimango o lobster; sa halip, ang matigas at matinik nitong balat ang sandata nito sa pagtatanggol sa sarili.",

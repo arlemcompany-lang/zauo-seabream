@@ -173,37 +173,6 @@
   .sub-label{
     margin: 16px 0 0;
   }
-  .app-link{
-    display: block;
-    margin: 18px 0 0;
-    background: var(--accent);
-    color: #fff;
-    border-radius: 999px;
-    padding: 14px 18px;
-    font-size: .95rem;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-  }
-  .app-link:active{ opacity: .7; }
-  .fish-links{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 4px;
-  }
-  .fish-links a{
-    display: inline-block;
-    background: var(--bg);
-    border: 1px solid var(--main);
-    color: var(--accent);
-    border-radius: 999px;
-    padding: 8px 16px;
-    font-size: .9rem;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  .fish-links a:active{ opacity: .6; }
   .legend{
     margin: 16px 0 0;
     font-size: .85rem;
@@ -326,19 +295,6 @@
       <li><span data-i18n-html="tr3"><strong>「肝の色」で性別が丸分かり：</strong><br>つぼ焼きで食べる一番奥のクルクル（内臓）。実は濃い緑色がメスで、白〜クリーム色がオス。食べる瞬間に性別が判明します。</span><a class="src" href="https://osakana.suisankai.or.jp/s-other/9598" target="_blank" rel="noopener" data-i18n="src3">※情報元：魚食普及推進センター（大日本水産会）</a></li>
     </ul>
   </div>
-
-  <div class="card">
-    <h2 data-i18n="links_h2">ほかの魚介も見てみる</h2>
-    <div class="fish-links">
-      <a href="../鯛/"><span data-i18n="l_tai">鯛（タイ）</span></a>
-      <a href="../鯵/"><span data-i18n="l_aji">鯵（アジ）</span></a>
-      <a href="../平目/"><span data-i18n="l_hirame">平目（ヒラメ）</span></a>
-      <a href="../鮑/"><span data-i18n="l_awabi">鮑（アワビ）</span></a>
-      <a href="../車海老/"><span data-i18n="l_ebi">車海老（クルマエビ）</span></a>
-      <a href="../伊勢海老/"><span data-i18n="l_ise">伊勢海老（イセエビ）</span></a>
-    </div>
-    <a class="app-link" href="https://arlemcompany-lang.github.io/zauo-fish-id/" target="_blank" rel="noopener" data-i18n="app_link">水槽の魚をカメラで判別してみる</a>
-  </div>
 </main>
 
 <script>
@@ -357,8 +313,6 @@ var I18N = {
     tip1: "お子様にはつぼ焼きをおすすめします！",
     tip2: "刺身には九州醤油＋レモン汁を試してみてください！",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
-    links_h2: "ほかの魚介も見てみる", l_tai: "鯛（タイ）", l_aji: "鯵（アジ）", l_hirame: "平目（ヒラメ）", l_awabi: "鮑（アワビ）", l_ebi: "車海老（クルマエビ）", l_ise: "伊勢海老（イセエビ）",
-    app_link: "水槽の魚をカメラで判別してみる",
     photo_soon: "写真準備中",
     what_h2: "どんな貝？",
     what_text: "岩場でくらす大きな巻貝。海藻を食べて育ち、コリコリした歯ごたえの身と、渦を巻いた奥にある「肝」の独特なほろ苦さが持ち味です。石灰質の分厚いフタで殻をぴたりと閉じ、外敵から身を守ります。",
@@ -383,8 +337,6 @@ var I18N = {
     tip1: "For children, we recommend the tsubo-yaki!",
     tip2: "With the sashimi, try sweet Kyushu-style soy sauce and a squeeze of lemon!",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
-    links_h2: "See the other catches", l_tai: "Sea Bream (Tai)", l_aji: "Horse Mackerel (Aji)", l_hirame: "Flounder (Hirame)", l_awabi: "Abalone (Awabi)", l_ebi: "Tiger Prawn (Kuruma-ebi)", l_ise: "Spiny Lobster (Ise-ebi)",
-    app_link: "Point your camera at the tank to ID the fish",
     photo_soon: "Photo coming soon",
     what_h2: "What kind of shellfish is it?",
     what_text: "A large sea snail that lives among the rocks. It grows on a diet of seaweed, and is prized for its firm, springy meat and for the distinctive bitterness of the spiral \u201cliver\u201d deep inside the shell. A thick, chalky operculum seals the shell shut against predators.",
@@ -409,8 +361,6 @@ var I18N = {
     tip1: "小朋友推荐点壶烧！",
     tip2: "生螺片不妨试试九州甜酱油＋柠檬汁！",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
-    links_h2: "看看其他鱼贝", l_tai: "鲷鱼（Tai）", l_aji: "竹荚鱼（Aji）", l_hirame: "比目鱼（Hirame）", l_awabi: "鲍鱼（Awabi）", l_ebi: "斑节虾（车海老）", l_ise: "龙虾（伊势海老）",
-    app_link: "用相机识别水槽里的鱼",
     photo_soon: "照片准备中",
     what_h2: "这是什么贝？",
     what_text: "栖息在岩礁间的大型螺类。以海藻为食，肉质爽脆弹牙，螺壳深处卷曲的「肝」带有独特的微苦味，正是它的妙处。它用厚实的石灰质厣（盖）把壳口紧紧封住，抵御天敌。",
@@ -435,8 +385,6 @@ var I18N = {
     tip1: "어린이 손님께는 쓰보야키를 추천합니다!",
     tip2: "회는 규슈식 단간장에 레몬즙을 곁들여 드셔 보세요!",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
-    links_h2: "다른 해산물도 보기", l_tai: "도미(타이)", l_aji: "전갱이(아지)", l_hirame: "광어(히라메)", l_awabi: "전복(아와비)", l_ebi: "보리새우(구루마에비)", l_ise: "닭새우(이세에비)",
-    app_link: "카메라로 수조의 물고기를 판별해 보기",
     photo_soon: "사진 준비 중",
     what_h2: "어떤 조개인가요?",
     what_text: "갯바위에 사는 큰 고둥입니다. 해조류를 먹고 자라며, 쫄깃한 살과 껍데기 안쪽 소용돌이 부분의 「내장」이 지닌 독특한 쌉싸름함이 매력입니다. 두툼한 석회질 뚜껑으로 껍데기를 꼭 닫아 천적으로부터 몸을 지킵니다.",
@@ -461,8 +409,6 @@ var I18N = {
     tip1: "¡Para los niños recomendamos el tsubo-yaki!",
     tip2: "¡Con el sashimi, pruebe la salsa de soja dulce de Kyushu con unas gotas de limón!",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
-    links_h2: "Ver las demás capturas", l_tai: "Besugo (Tai)", l_aji: "Chicharro (Aji)", l_hirame: "Platija (Hirame)", l_awabi: "Oreja de mar (Awabi)", l_ebi: "Langostino tigre (Kuruma-ebi)", l_ise: "Langosta espinosa (Ise-ebi)",
-    app_link: "Identifica los peces del acuario con tu cámara",
     photo_soon: "Foto próximamente",
     what_h2: "¿Qué molusco es?",
     what_text: "Es un gran caracol marino que vive entre las rocas. Se alimenta de algas y destaca por su carne firme y por el amargor característico del «hígado» que se enrosca al fondo de la concha. Un grueso opérculo calcáreo cierra la concha por completo y la protege de los depredadores.",
@@ -487,8 +433,6 @@ var I18N = {
     tip1: "Ai bambini consigliamo il tsubo-yaki!",
     tip2: "Con il sashimi provate la salsa di soia dolce di Kyushu con qualche goccia di limone!",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
-    links_h2: "Scopri gli altri pescati", l_tai: "Orata (Tai)", l_aji: "Suro (Aji)", l_hirame: "Passera (Hirame)", l_awabi: "Abalone (Awabi)", l_ebi: "Gambero tigre (Kuruma-ebi)", l_ise: "Aragosta (Ise-ebi)",
-    app_link: "Identifica i pesci della vasca con la fotocamera",
     photo_soon: "Foto in arrivo",
     what_h2: "Che mollusco è?",
     what_text: "È una grossa chiocciola di mare che vive tra gli scogli. Si nutre di alghe e si fa apprezzare per la carne soda e per l'amarognolo tipico del «fegato» che si avvolge in fondo al guscio. Un opercolo calcareo e spesso chiude ermeticamente il guscio e la difende dai predatori.",
@@ -513,8 +457,6 @@ var I18N = {
     tip1: "Với các bé, chúng tôi gợi ý món tsubo-yaki!",
     tip2: "Món sashimi ngon hơn khi chấm nước tương ngọt kiểu Kyushu vắt thêm chanh!",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
-    links_h2: "Xem các loài khác", l_tai: "Cá tráp (Tai)", l_aji: "Cá nục (Aji)", l_hirame: "Cá bơn (Hirame)", l_awabi: "Bào ngư (Awabi)", l_ebi: "Tôm sú (Kuruma-ebi)", l_ise: "Tôm hùm gai (Ise-ebi)",
-    app_link: "Dùng camera để nhận diện cá trong bể",
     photo_soon: "Ảnh sắp có",
     what_h2: "Đây là loại ốc gì?",
     what_text: "Đây là loài ốc biển lớn sống ở vùng ghềnh đá. Nó ăn rong biển, thịt giòn dai, còn phần «gan» xoắn ốc nằm sâu trong vỏ lại có vị hơi nhẫn rất đặc trưng. Chiếc nắp vôi dày giúp ốc đóng kín miệng vỏ để tự vệ trước kẻ thù.",
@@ -539,8 +481,6 @@ var I18N = {
     tip1: "Para sa mga bata, inirerekomenda namin ang tsubo-yaki!",
     tip2: "Sa sashimi, subukan ang matamis na toyo ng Kyushu na may pigang lemon!",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
-    links_h2: "Tingnan ang iba pang huli", l_tai: "Isdang Tai (Sea Bream)", l_aji: "Alumahan (Aji)", l_hirame: "Dapa (Hirame)", l_awabi: "Abalon (Awabi)", l_ebi: "Hipong Tigre (Kuruma-ebi)", l_ise: "Banagan (Ise-ebi)",
-    app_link: "Tukuyin ang isda sa tangke gamit ang camera",
     photo_soon: "Malapit nang mailagay ang larawan",
     what_h2: "Anong klaseng shellfish ito?",
     what_text: "Isa itong malaking susong-dagat na naninirahan sa mabatong bahagi ng dagat. Kumakain ito ng damong-dagat, malutong ang laman, at natatangi ang bahagyang pait ng «atay» na nakapulupot sa kaloob-looban ng talukab. Sinasarhan nito nang mahigpit ang talukab gamit ang makapal na takip na parang apog para maprotektahan ang sarili sa mga maninila.",
