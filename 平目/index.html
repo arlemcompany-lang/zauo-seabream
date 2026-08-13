@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>平目（ヒラメ） | ざうお目黒店</title>
+<style>
+  :root{
+    --main: #d8c49a;
+    --accent: #8a6a2f;
+    --bg: #fbf7ee;
+    --text: #45403a;
+    --sub: #9a8f7d;
+    /* 言語バーの高さ。動画の高さから差し引き、多言語化前と同じ位置でタイトルが見えるようにする */
+    --langbar-h: 111px;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: "Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height:1.8;
+  }
+  html[lang="ko"] body{
+    font-family: "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  }
+  html[lang="zh"] body{
+    font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  }
+  html[lang="en"] body,
+  html[lang="es"] body,
+  html[lang="it"] body,
+  html[lang="vi"] body,
+  html[lang="tl"] body{
+    font-family: "Helvetica Neue",Arial,sans-serif;
+  }
+
+  /* ===== 言語切替バー（動画より上・スクロールしても追従） ===== */
+  .langbar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    align-items: start;
+    gap: 2px;
+    padding: 7px 4px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(138,106,47,0.18);
+  }
+  @media (min-width: 640px){
+    :root{ --langbar-h: 61px; }
+    .langbar{ grid-template-columns: repeat(8, auto); }
+  }
+  .lang-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 5px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height:1.2;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lang-btn .flag{
+    display:block;
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+    transition: transform .15s;
+  }
+  .lang-btn .flag svg{ display:block; width:100%; height:100%; }
+  .lang-btn .lang-name{
+    font-size: .64rem;
+    font-weight: bold;
+    color: var(--sub);
+    white-space: nowrap;
+    /* ベトナム語の「ế」等が合成表示にならないよう、ベトナム語対応のラテン系フォントを先頭に置く */
+    font-family: "Segoe UI",Arial,"Hiragino Maru Gothic ProN","Yu Gothic","Malgun Gothic","Microsoft YaHei",sans-serif;
+  }
+  .lang-btn.is-active{ background: var(--bg); }
+  .lang-btn.is-active .flag{ box-shadow: 0 0 0 2px var(--accent); }
+  .lang-btn.is-active .lang-name{ color: var(--accent); }
+  .lang-btn:active .flag{ transform: scale(.92); }
+
+  .video-wrap{
+    background: #b03052 url("../波柄_pattern.webp") repeat;
+    background-size: 180px auto;
+    height: calc(80vh - var(--langbar-h));
+    min-height: 240px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  video{
+    height:100%;
+    width:auto;
+    max-width:100%;
+  }
+  main{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  h1{
+    font-size: 2rem;
+    margin: 0 0 4px;
+    color: var(--accent);
+  }
+  h1 .ruby{
+    display:block;
+    font-size: .9rem;
+    color: var(--sub);
+    font-weight:normal;
+    margin-bottom:4px;
+  }
+  p.catch{
+    font-weight:bold;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow: 0 8px 24px rgba(138,106,47,0.12);
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .card h2{
+    margin-top:0;
+    font-size:1.15rem;
+    color: var(--accent);
+  }
+  .badge-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .badge{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .85rem;
+    font-weight:bold;
+  }
+  .trivia-list{
+    margin:0;
+    padding-left: 1.2em;
+  }
+  .trivia-list li{ margin-bottom: 8px; }
+  .badge.ok{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+  }
+  .badge.ng{
+    background: #fffbe6;
+    border: 1px solid #e6c200;
+    color: #9c8000;
+  }
+  .sub-label{
+    margin: 16px 0 0;
+  }
+  .legend{
+    margin: 16px 0 0;
+    font-size: .85rem;
+    color: var(--sub);
+  }
+  .photo-placeholder{
+    margin-top: 16px;
+    height: 160px;
+    border: 2px dashed var(--main);
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--sub);
+    font-size: .9rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 言語切替（動画より上）／釣りゲームと同じ8言語・同じ並び順 ===== -->
+<nav class="langbar" aria-label="Language / 言語切替">
+  <button type="button" class="lang-btn is-active" data-lang="ja" aria-label="日本語">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg></span>
+    <span class="lang-name">日本語</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="en" aria-label="English">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="30" height="1.54"/><rect y="4.62" width="30" height="1.54"/><rect y="7.69" width="30" height="1.54"/><rect y="10.77" width="30" height="1.54"/><rect y="13.85" width="30" height="1.54"/><rect y="16.92" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/><g fill="#fff"><circle cx="2" cy="1.6" r=".45"/><circle cx="5" cy="1.6" r=".45"/><circle cx="8" cy="1.6" r=".45"/><circle cx="11" cy="1.6" r=".45"/><circle cx="3.5" cy="3.6" r=".45"/><circle cx="6.5" cy="3.6" r=".45"/><circle cx="9.5" cy="3.6" r=".45"/><circle cx="2" cy="5.6" r=".45"/><circle cx="5" cy="5.6" r=".45"/><circle cx="8" cy="5.6" r=".45"/><circle cx="11" cy="5.6" r=".45"/><circle cx="3.5" cy="7.6" r=".45"/><circle cx="6.5" cy="7.6" r=".45"/><circle cx="9.5" cy="7.6" r=".45"/><circle cx="2" cy="9.6" r=".45"/><circle cx="5" cy="9.6" r=".45"/><circle cx="8" cy="9.6" r=".45"/><circle cx="11" cy="9.6" r=".45"/></g></svg></span>
+    <span class="lang-name">English</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="cnstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="20" fill="#de2910"/><g fill="#ffde00"><use href="#cnstar" transform="translate(5,5) scale(3)"/><use href="#cnstar" transform="translate(10,2)"/><use href="#cnstar" transform="translate(12,4.5)"/><use href="#cnstar" transform="translate(12,7.5)"/><use href="#cnstar" transform="translate(10,10)"/></g></svg></span>
+    <span class="lang-name">中文</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><g transform="rotate(-123 15 10)"><circle cx="15" cy="10" r="4" fill="#0047a0"/><path d="M15,6 A4,4 0 0,1 15,14 A2,2 0 0,0 15,10 A2,2 0 0,1 15,6 Z" fill="#cd2e3a"/></g><g fill="#000"><g transform="translate(5.5,4.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,4.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g><g transform="translate(5.5,15.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,15.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g></g></svg></span>
+    <span class="lang-name">한국어</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="es" aria-label="Español">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></span>
+    <span class="lang-name">Español</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#008c45"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#cd212a"/></svg></span>
+    <span class="lang-name">Italiano</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da251d"/><polygon fill="#ffff00" transform="translate(15,10) scale(6.4)" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></svg></span>
+    <span class="lang-name">Tiếng Việt</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="tl" aria-label="Tagalog">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="phstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="10" fill="#0038a8"/><rect y="10" width="30" height="10" fill="#ce1126"/><polygon fill="#fff" points="0,0 16.5,10 0,20"/><g fill="#fcd116"><polygon points="8.1,10 6.347,10.268 7.397,11.697 5.968,10.647 5.7,12.4 5.432,10.647 4.003,11.697 5.053,10.268 3.3,10 5.053,9.732 4.003,8.303 5.432,9.353 5.7,7.6 5.968,9.353 7.397,8.303 6.347,9.732"/><circle cx="5.7" cy="10" r="1.15"/><use href="#phstar" transform="translate(2.6,3.2) scale(1.15)"/><use href="#phstar" transform="translate(2.6,16.8) scale(1.15)"/><use href="#phstar" transform="translate(13.4,10) scale(1.15)"/></g></svg></span>
+    <span class="lang-name">Tagalog</span>
+  </button>
+</nav>
+
+<div class="video-wrap">
+<video src="hirame.mp4" controls autoplay muted loop playsinline>
+  <span data-i18n="video_fallback">お使いのブラウザは動画に対応していません。</span>
+</video>
+</div>
+
+<main>
+  <h1><span class="ruby" data-i18n="ruby">ひらめ</span><span data-i18n="name">平目（ヒラメ）</span></h1>
+  <p class="catch" data-i18n="catch">砂に化ける、海底のハンター</p>
+
+  <div class="card">
+    <h2 data-i18n="cook_h2">おすすめのざうお調理法</h2>
+    <p data-i18n="cook_lead">白身のうまみと歯ごたえを楽しめる調理法をご用意しています</p>
+    <div class="badge-row">
+      <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> ◎</span>
+      <span class="badge ng"><span data-i18n="b_yaki">焼き</span> △</span>
+      <span class="badge ok"><span data-i18n="b_nitsuke">煮付け</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_karaage">唐揚げ</span> 〇</span>
+    </div>
+    <p class="sub-label" data-i18n="bones_label">骨を使って（刺身に姿が付いているとき）</p>
+    <div class="badge-row">
+      <span class="badge ng"><span data-i18n="b_aradaki">あら炊き</span> △</span>
+      <span class="badge ok"><span data-i18n="b_honesenbei">骨せんべい</span> ◎</span>
+      <span class="badge ng"><span data-i18n="b_misoshiru">みそ汁</span> △</span>
+    </div>
+    <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
+    <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="what_h2">どんな魚？</h2>
+    <p data-i18n="what_text">
+      平べったい体と、左側に寄った二つの目が目印。海底の砂の上で暮らし、体の色を砂そっくりに変えて身をひそめ、
+      近づいてきた小魚を一瞬で襲うハンターです。身は透き通った白身で、コリコリとした歯ごたえと上品な甘みがあります。
+    </p>
+    <div class="badge-row">
+      <span class="badge" data-i18n="w_b1">体長 30〜80cm</span>
+      <span class="badge" data-i18n="w_b2">白身魚</span>
+      <span class="badge" data-i18n="w_b3">高級魚</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="where_h2">どこにいる？／旬はいつ？</h2>
+    <p data-i18n="where_text">
+      北海道から九州までの沿岸、砂や砂泥の海底に生息。旬は秋の終わりから冬にかけてで、
+      この時期のものは「寒ビラメ」と呼ばれ、身に脂がのって格別の味わいになります。
+      産卵期は南ほど早く、本州中部より南の太平洋側で2〜5月ごろ、日本海側では5〜6月ごろです。
+    </p>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="trivia_h2">豆知識</h2>
+    <ul class="trivia-list">
+      <li data-i18n-html="tr1"><strong>生まれたては「ふつうの魚」：</strong><br>稚魚のころは目が左右に一つずつあり、他の魚と同じようにまっすぐ泳いでいる。体長1cmほどに育つ間に右目が頭を越えて左側へ移動し、体を横に倒して砂の上の暮らしへ切り替える。</li>
+      <li data-i18n-html="tr2"><strong>えんがわは1匹から4貫だけ：</strong><br>寿司でおなじみの「えんがわ」は、ヒレを動かすための筋肉。日本家屋の縁側に似た見た目が名前の由来で、ヒラメ1匹からは4貫ほどしか取れない希少部位（回転寿司のえんがわは、多くが別のカレイの仲間）。</li>
+      <li data-i18n-html="tr3"><strong>裏を見れば育ちがわかる：</strong><br>目のない側が真っ白なら天然もの。養殖や放流ものは黒っぽいまだら模様が出ることがあり、その姿から「パンダビラメ」と呼ばれる。稚魚のころ砂ではなく水槽の底で育った名残と考えられている。</li>
+    </ul>
+  </div>
+</main>
+
+<script>
+/* 言語コードは釣りゲーム(ざうおスマホゲーム/index.html)と同じ ja/en/zh/ko/es/it/vi/tl。
+   魚の名称もゲームの FISH_NAMES.tai と揃えてある。 */
+var I18N = {
+  "ja": {
+    title: "平目（ヒラメ） | ざうお目黒店",
+    video_fallback: "お使いのブラウザは動画に対応していません。",
+    ruby: "ひらめ",
+    name: "平目（ヒラメ）",
+    catch: "砂に化ける、海底のハンター",
+    cook_h2: "おすすめのざうお調理法",
+    cook_lead: "コリコリした歯ごたえの刺身が一番のおすすめ。骨は骨せんべいが絶品です",
+    b_sashimi: "刺身", b_yaki: "焼き", b_nitsuke: "煮付け", b_karaage: "唐揚げ",
+    bones_label: "骨を使って（刺身に姿が付いているとき）",
+    b_aradaki: "あら炊き", b_honesenbei: "骨せんべい", b_misoshiru: "みそ汁",
+    legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    photo_soon: "写真準備中",
+    what_h2: "どんな魚？",
+    what_text: "平べったい体と、左側に寄った二つの目が目印。海底の砂の上で暮らし、体の色を砂そっくりに変えて身をひそめ、近づいてきた小魚を一瞬で襲うハンターです。身は透き通った白身で、コリコリとした歯ごたえと上品な甘みがあります。",
+    w_b1: "体長 30〜80cm", w_b2: "白身魚", w_b3: "高級魚",
+    where_h2: "どこにいる？／旬はいつ？",
+    where_text: "北海道から九州までの沿岸、砂や砂泥の海底に生息。旬は秋の終わりから冬にかけてで、この時期のものは「寒ビラメ」と呼ばれ、身に脂がのって格別の味わいになります。産卵期は南ほど早く、本州中部より南の太平洋側で2〜5月ごろ、日本海側では5〜6月ごろです。",
+    trivia_h2: "豆知識",
+    tr1: "<strong>生まれたては「ふつうの魚」：</strong><br>稚魚のころは目が左右に一つずつあり、他の魚と同じようにまっすぐ泳いでいる。体長1cmほどに育つ間に右目が頭を越えて左側へ移動し、体を横に倒して砂の上の暮らしへ切り替える。",
+    tr2: "<strong>えんがわは1匹から4貫だけ：</strong><br>寿司でおなじみの「えんがわ」は、ヒレを動かすための筋肉。日本家屋の縁側に似た見た目が名前の由来で、ヒラメ1匹からは4貫ほどしか取れない希少部位（回転寿司のえんがわは、多くが別のカレイの仲間）。",
+    tr3: "<strong>裏を見れば育ちがわかる：</strong><br>目のない側が真っ白なら天然もの。養殖や放流ものは黒っぽいまだら模様が出ることがあり、その姿から「パンダビラメ」と呼ばれる。稚魚のころ砂ではなく水槽の底で育った名残と考えられている。"
+  },
+  "en": {
+    title: "Flounder (Hirame) | ZAUO Meguro",
+    video_fallback: "Your browser does not support video playback.",
+    ruby: "hirame",
+    name: "Flounder (Hirame)",
+    catch: "The seabed hunter that disappears into the sand",
+    cook_h2: "Recommended ZAUO Cooking Styles",
+    cook_lead: "Sashimi is the top choice for its firm, springy bite, and the bones make superb crispy bone crackers.",
+    b_sashimi: "Sashimi", b_yaki: "Grilled", b_nitsuke: "Simmered", b_karaage: "Karaage (deep-fried)",
+    bones_label: "Using the bones (when sashimi is served with the whole fish)",
+    b_aradaki: "Simmered head & bones (ara-daki)", b_honesenbei: "Crispy bone crackers", b_misoshiru: "Miso soup",
+    legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    photo_soon: "Photo coming soon",
+    what_h2: "What kind of fish is it?",
+    what_text: "The flounder is easy to spot: a flat body, with both eyes set on the left side. It lives on the sandy seabed, changing its colour to match the sand so it can lie hidden and ambush small fish that swim too close. Its translucent white flesh has a firm, springy bite and a refined sweetness.",
+    w_b1: "Length 30-80 cm", w_b2: "White-fleshed fish", w_b3: "A prized fish",
+    where_h2: "Where does it live? / When is it in season?",
+    where_text: "It lives along the coasts of Japan from Hokkaido to Kyushu, on sandy and muddy seabeds. The season runs from late autumn through winter; fish caught in the cold months are called kan-birame and are at their fattest and finest. Spawning comes earlier the further south you go: around February to May on the Pacific side of central and southern Honshu, and around May to June on the Sea of Japan side.",
+    trivia_h2: "Fun Facts",
+    tr1: "<strong>It is born as an ordinary fish:</strong><br>As a larva it has one eye on each side and swims upright like any other fish. By the time it grows to about 1 cm, the right eye travels over the head to the left side, and the fish tips onto its side to begin life on the sand.",
+    tr2: "<strong>Only four pieces of engawa per fish:</strong><br>Engawa, the prized cut in sushi, is the muscle that drives the fin. The name comes from the engawa veranda of a traditional Japanese house, which it resembles. A single flounder yields only about four pieces (the engawa at conveyor-belt sushi usually comes from other flatfish).",
+    tr3: "<strong>Turn it over and you can tell how it grew up:</strong><br>If the blind side is pure white, the fish is wild. Farmed and released fish often show dark blotches there, which earns them the nickname panda-birame. The marks are thought to be a trace of growing up on a tank floor instead of sand."
+  },
+  "zh": {
+    title: "比目鱼（Hirame）| ZAUO 目黑店",
+    video_fallback: "您的浏览器不支持视频播放。",
+    ruby: "hirame",
+    name: "比目鱼（Hirame）",
+    catch: "潜入沙中的海底猎手",
+    cook_h2: "推荐的 ZAUO 烹饪方式",
+    cook_lead: "最推荐口感爽脆弹牙的生鱼片，鱼骨则做成香脆炸鱼骨最美味。",
+    b_sashimi: "生鱼片", b_yaki: "烧烤", b_nitsuke: "炖煮", b_karaage: "唐扬炸",
+    bones_label: "用鱼骨来做（生鱼片附整鱼时）",
+    b_aradaki: "炖鱼头鱼骨（荒炊）", b_honesenbei: "香脆炸鱼骨", b_misoshiru: "味噌汤",
+    legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    photo_soon: "照片准备中",
+    what_h2: "这是什么鱼？",
+    what_text: "扁平的身体、两只眼睛都长在左侧，是比目鱼最好认的特征。它生活在海底的沙地上，把体色变得和沙子一模一样藏起来，等小鱼靠近便一口袭击。鱼肉是通透的白肉，口感爽脆弹牙，带着上品的甘甜。",
+    w_b1: "体长 30〜80cm", w_b2: "白肉鱼", w_b3: "高级鱼",
+    where_h2: "栖息在哪里？／什么时候最当季？",
+    where_text: "分布于北海道至九州的沿岸，栖息在沙质或泥沙质的海底。旬期为晚秋到冬季，寒冷时节捕获的被称为「寒比目鱼」，脂肪肥美、风味最佳。产卵期越往南越早：本州中部以南的太平洋一侧约为2〜5月，日本海一侧约为5〜6月。",
+    trivia_h2: "小知识",
+    tr1: "<strong>刚出生时是「普通的鱼」：</strong><br>幼鱼时期两只眼睛左右各一只，像其他鱼一样直立游泳。长到约1厘米的过程中，右眼会越过头顶移到左侧，身体随之侧倒，开始在沙地上生活。",
+    tr2: "<strong>一条鱼只有四贯「缘侧」：</strong><br>寿司中人气很高的「えんがわ（缘侧）」，其实是驱动鱼鳍的肌肉。名字来自它形似日本房屋的外廊。一条比目鱼只能取出约四贯，十分珍贵（回转寿司的缘侧多半取自其他鲽科鱼）。",
+    tr3: "<strong>翻过来就知道它是怎么长大的：</strong><br>无眼的一面纯白的是天然鱼；养殖或放流的常会出现黑色斑块，因此被称为「熊猫比目鱼」。据说这是幼鱼时期不是在沙地、而是在水槽底部长大的痕迹。"
+  },
+  "ko": {
+    title: "광어(히라메) | ZAUO 메구로점",
+    video_fallback: "사용 중인 브라우저는 동영상을 지원하지 않습니다.",
+    ruby: "히라메",
+    name: "광어(히라메)",
+    catch: "모래로 변신하는 바다 밑바닥의 사냥꾼",
+    cook_h2: "추천 ZAUO 조리법",
+    cook_lead: "쫄깃한 식감의 회를 가장 추천하며, 뼈는 뼈 센베로 만들면 일품입니다.",
+    b_sashimi: "회", b_yaki: "구이", b_nitsuke: "조림", b_karaage: "가라아게(튀김)",
+    bones_label: "뼈를 활용해서 (회에 생선 모양이 함께 나올 때)",
+    b_aradaki: "머리·뼈 조림(아라다키)", b_honesenbei: "뼈 센베(뼈 튀김)", b_misoshiru: "된장국",
+    legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    photo_soon: "사진 준비 중",
+    what_h2: "어떤 생선인가요?",
+    what_text: "납작한 몸과 왼쪽으로 몰린 두 눈이 특징입니다. 바닥의 모래 위에서 살며 몸 색깔을 모래와 똑같이 바꿔 숨어 있다가, 가까이 다가온 작은 물고기를 순식간에 덮치는 사냥꾼입니다. 살은 투명한 흰살로 쫄깃한 식감과 은은한 단맛이 있습니다.",
+    w_b1: "몸길이 30〜80cm", w_b2: "흰살생선", w_b3: "고급 생선",
+    where_h2: "어디에 살까? / 제철은 언제?",
+    where_text: "홋카이도부터 규슈까지의 연안, 모래나 뻘이 섞인 바닥에 삽니다. 제철은 늦가을부터 겨울까지로, 이 시기의 광어는 「간비라메(寒ビラメ)」라 불리며 기름이 올라 가장 맛있습니다. 산란기는 남쪽일수록 빨라서 혼슈 중부 이남의 태평양 쪽은 2〜5월경, 동해 쪽은 5〜6월경입니다.",
+    trivia_h2: "토막 상식",
+    tr1: "<strong>태어났을 때는 「평범한 물고기」:</strong><br>치어 때는 눈이 좌우에 하나씩 있고 다른 물고기처럼 똑바로 헤엄칩니다. 몸길이 1cm 정도로 자라는 사이에 오른쪽 눈이 머리를 넘어 왼쪽으로 이동하고, 몸을 옆으로 눕혀 모래 위 생활로 바꿉니다.",
+    tr2: "<strong>엔가와는 한 마리에 4점뿐:</strong><br>초밥으로 인기 있는 「엔가와」는 지느러미를 움직이는 근육입니다. 일본 가옥의 툇마루(엔가와)를 닮아서 붙은 이름으로, 광어 한 마리에서 4점 정도밖에 나오지 않는 귀한 부위입니다(회전초밥의 엔가와는 대부분 다른 가자미류입니다).",
+    tr3: "<strong>뒤집어 보면 자란 환경을 알 수 있다:</strong><br>눈이 없는 쪽이 새하얗다면 자연산입니다. 양식이나 방류된 개체는 검은 얼룩이 생기는 경우가 있어 「판다 광어」라고 불립니다. 치어 시절 모래가 아닌 수조 바닥에서 자란 흔적으로 여겨집니다."
+  },
+  "es": {
+    title: "Platija (Hirame) | ZAUO Meguro",
+    video_fallback: "Su navegador no admite la reproducción de vídeo.",
+    ruby: "hirame",
+    name: "Platija (Hirame)",
+    catch: "El cazador del fondo marino que se camufla en la arena",
+    cook_h2: "Preparaciones recomendadas en ZAUO",
+    cook_lead: "El sashimi es la mejor opción por su mordida firme, y con las espinas salen unas espinas crujientes fritas excelentes.",
+    b_sashimi: "Sashimi", b_yaki: "A la parrilla", b_nitsuke: "Guisado", b_karaage: "Karaage (frito)",
+    bones_label: "Aprovechando las espinas (cuando el sashimi se sirve con el pescado entero)",
+    b_aradaki: "Cabeza y espinas guisadas (ara-daki)", b_honesenbei: "Espinas crujientes fritas", b_misoshiru: "Sopa de miso",
+    legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    photo_soon: "Foto próximamente",
+    what_h2: "¿Qué pescado es?",
+    what_text: "Se reconoce al instante por su cuerpo plano y por sus dos ojos, ambos en el lado izquierdo. Vive sobre los fondos de arena, donde cambia de color hasta confundirse con ella para esconderse y emboscar a los peces pequeños que se acercan. Su carne blanca y translúcida tiene una mordida firme y un dulzor delicado.",
+    w_b1: "Longitud 30-80 cm", w_b2: "Pescado blanco", w_b3: "Pescado de alta categoría",
+    where_h2: "¿Dónde vive? / ¿Cuál es su temporada?",
+    where_text: "Vive en las costas de Japón, desde Hokkaido hasta Kyushu, sobre fondos de arena y fango. Su temporada va del final del otoño al invierno: los ejemplares de los meses fríos se llaman kan-birame y son los más grasos y sabrosos. El desove se adelanta cuanto más al sur: de febrero a mayo en la vertiente del Pacífico del centro y sur de Honshu, y de mayo a junio en la vertiente del mar de Japón.",
+    trivia_h2: "Curiosidades",
+    tr1: "<strong>Nace como un pez cualquiera:</strong><br>De larva tiene un ojo a cada lado y nada erguida como los demás peces. Antes de alcanzar 1 cm, el ojo derecho migra por encima de la cabeza hasta el lado izquierdo y el pez se tumba de costado para empezar su vida sobre la arena.",
+    tr2: "<strong>Solo cuatro piezas de engawa por pez:</strong><br>El engawa, el corte más apreciado en el sushi, es el músculo que mueve la aleta. Debe su nombre al engawa, la galería de las casas japonesas, a la que se parece. De una platija salen apenas cuatro piezas (el engawa del sushi de cinta suele venir de otros peces planos).",
+    tr3: "<strong>Dale la vuelta y sabrás cómo creció:</strong><br>Si la cara ciega es de un blanco puro, el pez es salvaje. Los de piscifactoría o repoblación suelen presentar manchas oscuras, por lo que se les apoda panda-birame. Se cree que son huella de haber crecido sobre el suelo de un tanque en lugar de sobre arena."
+  },
+  "it": {
+    title: "Passera (Hirame) | ZAUO Meguro",
+    video_fallback: "Il tuo browser non supporta la riproduzione dei video.",
+    ruby: "hirame",
+    name: "Passera (Hirame)",
+    catch: "Il cacciatore dei fondali che si mimetizza nella sabbia",
+    cook_h2: "Preparazioni consigliate da ZAUO",
+    cook_lead: "Il sashimi è la scelta migliore per la sua consistenza soda, e dalle lische si ricavano lische fritte croccanti eccellenti.",
+    b_sashimi: "Sashimi", b_yaki: "Alla griglia", b_nitsuke: "In umido", b_karaage: "Karaage (fritto)",
+    bones_label: "Usando le lische (quando il sashimi viene servito con il pesce intero)",
+    b_aradaki: "Testa e lische in umido (ara-daki)", b_honesenbei: "Lische fritte croccanti", b_misoshiru: "Zuppa di miso",
+    legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    photo_soon: "Foto in arrivo",
+    what_h2: "Che pesce è?",
+    what_text: "Si riconosce subito dal corpo piatto e dai due occhi, entrambi sul lato sinistro. Vive sui fondali sabbiosi, dove cambia colore fino a confondersi con la sabbia per nascondersi e assalire i pesciolini che le passano vicino. La carne bianca e traslucida ha un morso sodo e una dolcezza delicata.",
+    w_b1: "Lunghezza 30-80 cm", w_b2: "Pesce a carne bianca", w_b3: "Pesce pregiato",
+    where_h2: "Dove vive? / Qual è la stagione?",
+    where_text: "Vive lungo le coste del Giappone, dall'Hokkaido al Kyushu, su fondali di sabbia e fango. La stagione va dal tardo autunno all'inverno: gli esemplari dei mesi freddi si chiamano kan-birame e sono i più grassi e saporiti. La riproduzione è tanto più precoce quanto più si scende a sud: da febbraio a maggio sul versante pacifico dell'Honshu centro-meridionale, da maggio a giugno sul versante del Mar del Giappone.",
+    trivia_h2: "Curiosità",
+    tr1: "<strong>Nasce come un pesce qualsiasi:</strong><br>Da larva ha un occhio per lato e nuota dritta come tutti gli altri pesci. Prima di raggiungere il centimetro, l'occhio destro migra scavalcando la testa fino al lato sinistro e il pesce si corica su un fianco per iniziare la vita sulla sabbia.",
+    tr2: "<strong>Solo quattro bocconi di engawa per pesce:</strong><br>L'engawa, il taglio più ricercato nel sushi, è il muscolo che muove la pinna. Il nome viene dall'engawa, la veranda delle case giapponesi, a cui somiglia. Da una passera si ricavano appena quattro pezzi (quello dei sushi a nastro viene quasi sempre da altri pesci piatti).",
+    tr3: "<strong>Girala e capirai come è cresciuta:</strong><br>Se il lato cieco è bianco candido, il pesce è selvatico. Gli esemplari d'allevamento o di ripopolamento mostrano spesso macchie scure, tanto da essere soprannominati panda-birame. Si pensa siano il segno di una crescita sul fondo di una vasca anziché sulla sabbia."
+  },
+  "vi": {
+    title: "Cá bơn (Hirame) | ZAUO Meguro",
+    video_fallback: "Trình duyệt của bạn không hỗ trợ phát video.",
+    ruby: "hirame",
+    name: "Cá bơn (Hirame)",
+    catch: "Thợ săn đáy biển ẩn mình trong cát",
+    cook_h2: "Các cách chế biến ZAUO gợi ý",
+    cook_lead: "Ngon nhất là món sashimi với thớ thịt dai giòn, còn xương cá chiên giòn thì tuyệt hảo.",
+    b_sashimi: "Sashimi (cá sống)", b_yaki: "Nướng", b_nitsuke: "Kho", b_karaage: "Karaage (chiên giòn)",
+    bones_label: "Tận dụng xương cá (khi món sashimi được bày cả con)",
+    b_aradaki: "Kho đầu và xương cá (ara-daki)", b_honesenbei: "Xương cá chiên giòn", b_misoshiru: "Canh miso",
+    legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    photo_soon: "Ảnh sắp có",
+    what_h2: "Đây là cá gì?",
+    what_text: "Cá bơn dễ nhận ra nhờ thân dẹt và hai mắt đều nằm ở bên trái. Nó sống trên đáy cát, đổi màu thân giống hệt cát để ẩn mình rồi bất ngờ lao ra đớp những con cá nhỏ đến gần. Thịt cá trắng trong, dai giòn và có vị ngọt thanh.",
+    w_b1: "Dài 30-80 cm", w_b2: "Cá thịt trắng", w_b3: "Cá cao cấp",
+    where_h2: "Sống ở đâu? / Mùa ngon nhất là khi nào?",
+    where_text: "Cá sống dọc bờ biển Nhật Bản từ Hokkaido đến Kyushu, trên đáy cát hoặc cát bùn. Mùa ngon nhất là từ cuối thu sang đông; cá bắt vào mùa lạnh được gọi là kan-birame, béo và ngon nhất. Mùa sinh sản càng về phía nam càng sớm: khoảng tháng 2 đến tháng 5 ở phía Thái Bình Dương của miền trung và nam Honshu, khoảng tháng 5 đến tháng 6 ở phía biển Nhật Bản.",
+    trivia_h2: "Có thể bạn chưa biết",
+    tr1: "<strong>Khi mới sinh ra nó là một con cá bình thường:</strong><br>Lúc còn là cá bột, mắt nằm mỗi bên một con và cá bơi thẳng như mọi loài khác. Đến khi dài khoảng 1 cm, mắt phải di chuyển vượt qua đỉnh đầu sang bên trái, cá nghiêng mình nằm xuống và bắt đầu cuộc sống trên cát.",
+    tr2: "<strong>Mỗi con chỉ có bốn miếng engawa:</strong><br>«Engawa» nổi tiếng trong sushi chính là phần cơ điều khiển vây cá. Tên gọi bắt nguồn từ hành lang engawa của nhà Nhật vì hình dáng giống nhau. Một con cá bơn chỉ cho khoảng bốn miếng nên rất quý (engawa ở sushi băng chuyền phần lớn lấy từ các loài cá dẹt khác).",
+    tr3: "<strong>Lật mặt dưới lên là biết cá lớn lên ở đâu:</strong><br>Nếu mặt không có mắt trắng tinh thì đó là cá tự nhiên. Cá nuôi hoặc cá thả thường có những mảng sẫm màu nên được gọi vui là «cá bơn gấu trúc». Người ta cho rằng đó là dấu vết của việc lớn lên trên đáy bể thay vì trên cát."
+  },
+  "tl": {
+    title: "Dapa (Hirame) | ZAUO Meguro",
+    video_fallback: "Hindi sinusuportahan ng iyong browser ang pag-play ng video.",
+    ruby: "hirame",
+    name: "Dapa (Hirame)",
+    catch: "Ang mangangaso sa sahig ng dagat na nagtatago sa buhangin",
+    cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
+    cook_lead: "Ang sashimi ang pinakamainam dahil sa matatag nitong kagat, at napakasarap ng malutong na piniritong tinik.",
+    b_sashimi: "Sashimi (hilaw)", b_yaki: "Inihaw", b_nitsuke: "Nilaga sa toyo", b_karaage: "Karaage (pinirito)",
+    bones_label: "Gamit ang mga tinik (kapag buo ang isda sa sashimi)",
+    b_aradaki: "Nilagang ulo at tinik (ara-daki)", b_honesenbei: "Malutong na piniritong tinik", b_misoshiru: "Miso soup",
+    legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    photo_soon: "Malapit nang mailagay ang larawan",
+    what_h2: "Anong klaseng isda ito?",
+    what_text: "Madaling makilala ang dapa sa patag nitong katawan at sa dalawang matang parehong nasa kaliwang bahagi. Nakatira ito sa mabuhanging sahig ng dagat, pinapalitan ang kulay ng katawan para tumugma sa buhangin, nagtatago at bigla na lang sumusugod sa maliliit na isdang lumalapit. Ang laman nito ay malinaw at puti, matatag ang kagat at may banayad na tamis.",
+    w_b1: "Haba 30-80 cm", w_b2: "Isdang puti ang laman", w_b3: "Mamahaling isda",
+    where_h2: "Saan ito nakatira? / Kailan ang panahon nito?",
+    where_text: "Matatagpuan ito sa baybayin ng Japan mula Hokkaido hanggang Kyushu, sa mabuhangin at maputik na sahig ng dagat. Ang panahon nito ay mula huling bahagi ng taglagas hanggang taglamig; ang nahuhuli sa malalamig na buwan ay tinatawag na kan-birame at ito ang pinakamataba at pinakamasarap. Mas maaga ang pangingitlog kung mas timog: mga Pebrero hanggang Mayo sa bahaging Pasipiko ng gitna at timog Honshu, at mga Mayo hanggang Hunyo sa bahaging Dagat ng Japan.",
+    trivia_h2: "Alam mo ba?",
+    tr1: "<strong>Isinisilang itong pangkaraniwang isda:</strong><br>Noong maliit pa, may isang mata ito sa bawat gilid at lumalangoy nang patayo tulad ng ibang isda. Bago pa umabot sa mga 1 cm, ang kanang mata ay tumatawid sa ibabaw ng ulo papuntang kaliwa, at humihiga ito sa tagiliran para simulan ang buhay sa buhangin.",
+    tr2: "<strong>Apat na piraso lang ng engawa kada isda:</strong><br>Ang engawa, ang paboritong bahagi sa sushi, ay ang kalamnang gumagalaw sa palikpik. Galing ang pangalan sa engawa, ang beranda ng bahay-Hapon na kahawig nito. Mga apat na piraso lang ang nakukuha sa isang dapa (ang engawa sa conveyor-belt sushi ay kadalasang galing sa ibang patag na isda).",
+    tr3: "<strong>Baliktarin mo at malalaman mo kung paano ito lumaki:</strong><br>Kung purong puti ang bahaging walang mata, ligaw na isda ito. Ang mga inalagaan o pinakawalan ay madalas may maiitim na batik, kaya tinatawag silang panda-birame. Sinasabing bakas ito ng paglaki sa sahig ng tangke sa halip na sa buhangin."
+  }
+};
+
+function setLang(lang){
+  var dict = I18N[lang];
+  if(!dict){ return; }
+
+  document.documentElement.setAttribute("lang", lang);
+  document.title = dict.title;
+
+  var i, key;
+  var nodes = document.querySelectorAll("[data-i18n]");
+  for(i = 0; i < nodes.length; i++){
+    key = nodes[i].getAttribute("data-i18n");
+    if(dict[key] !== undefined){ nodes[i].textContent = dict[key]; }
+  }
+  var htmlNodes = document.querySelectorAll("[data-i18n-html]");
+  for(i = 0; i < htmlNodes.length; i++){
+    key = htmlNodes[i].getAttribute("data-i18n-html");
+    if(dict[key] !== undefined){ htmlNodes[i].innerHTML = dict[key]; }
+  }
+
+  var btns = document.querySelectorAll(".lang-btn");
+  for(i = 0; i < btns.length; i++){
+    if(btns[i].getAttribute("data-lang") === lang){
+      btns[i].classList.add("is-active");
+    } else {
+      btns[i].classList.remove("is-active");
+    }
+  }
+}
+
+(function(){
+  var btns = document.querySelectorAll(".lang-btn");
+  for(var i = 0; i < btns.length; i++){
+    btns[i].addEventListener("click", function(){
+      setLang(this.getAttribute("data-lang"));
+    });
+  }
+  /* 開いたときは常に日本語（選択は保存しない） */
+  setLang("ja");
+})();
+</script>
+
+</body>
+</html>
