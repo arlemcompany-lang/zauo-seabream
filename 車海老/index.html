@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>車海老（クルマエビ） | ざうお目黒店</title>
+<style>
+  :root{
+    --main: #f0b98f;
+    --accent: #c4571e;
+    --bg: #fff6ef;
+    --text: #4a3b34;
+    --sub: #a89184;
+    /* 言語バーの高さ。動画の高さから差し引き、多言語化前と同じ位置でタイトルが見えるようにする */
+    --langbar-h: 111px;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: "Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height:1.8;
+  }
+  html[lang="ko"] body{
+    font-family: "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  }
+  html[lang="zh"] body{
+    font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  }
+  html[lang="en"] body,
+  html[lang="es"] body,
+  html[lang="it"] body,
+  html[lang="vi"] body,
+  html[lang="tl"] body{
+    font-family: "Helvetica Neue",Arial,sans-serif;
+  }
+
+  /* ===== 言語切替バー（動画より上・スクロールしても追従） ===== */
+  .langbar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    align-items: start;
+    gap: 2px;
+    padding: 7px 4px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(196,87,30,0.18);
+  }
+  @media (min-width: 640px){
+    :root{ --langbar-h: 61px; }
+    .langbar{ grid-template-columns: repeat(8, auto); }
+  }
+  .lang-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 5px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height:1.2;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lang-btn .flag{
+    display:block;
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+    transition: transform .15s;
+  }
+  .lang-btn .flag svg{ display:block; width:100%; height:100%; }
+  .lang-btn .lang-name{
+    font-size: .64rem;
+    font-weight: bold;
+    color: var(--sub);
+    white-space: nowrap;
+    /* ベトナム語の「ế」等が合成表示にならないよう、ベトナム語対応のラテン系フォントを先頭に置く */
+    font-family: "Segoe UI",Arial,"Hiragino Maru Gothic ProN","Yu Gothic","Malgun Gothic","Microsoft YaHei",sans-serif;
+  }
+  .lang-btn.is-active{ background: var(--bg); }
+  .lang-btn.is-active .flag{ box-shadow: 0 0 0 2px var(--accent); }
+  .lang-btn.is-active .lang-name{ color: var(--accent); }
+  .lang-btn:active .flag{ transform: scale(.92); }
+
+  .video-wrap{
+    background: #b03052 url("../波柄_pattern.webp") repeat;
+    background-size: 180px auto;
+    height: calc(80vh - var(--langbar-h));
+    min-height: 240px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  video{
+    height:100%;
+    width:auto;
+    max-width:100%;
+  }
+  main{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  h1{
+    font-size: 2rem;
+    margin: 0 0 4px;
+    color: var(--accent);
+  }
+  h1 .ruby{
+    display:block;
+    font-size: .9rem;
+    color: var(--sub);
+    font-weight:normal;
+    margin-bottom:4px;
+  }
+  p.catch{
+    font-weight:bold;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow: 0 8px 24px rgba(196,87,30,0.12);
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .card h2{
+    margin-top:0;
+    font-size:1.15rem;
+    color: var(--accent);
+  }
+  .badge-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .badge{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .85rem;
+    font-weight:bold;
+  }
+  .trivia-list{
+    margin:0;
+    padding-left: 1.2em;
+  }
+  .trivia-list li{ margin-bottom: 8px; }
+  .badge.ok{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+  }
+  .badge.ng{
+    background: #fffbe6;
+    border: 1px solid #e6c200;
+    color: #9c8000;
+  }
+  .sub-label{
+    margin: 16px 0 0;
+  }
+  .legend{
+    margin: 16px 0 0;
+    font-size: .85rem;
+    color: var(--sub);
+  }
+  .src{
+    display: block;
+    margin-top: 6px;
+    font-size: .75rem;
+    color: var(--sub);
+  }
+  .note{
+    margin: 16px 0 0;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .note + .note{ margin-top: 4px; }
+  .photo-placeholder{
+    margin-top: 16px;
+    height: 160px;
+    border: 2px dashed var(--main);
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--sub);
+    font-size: .9rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 言語切替（動画より上）／釣りゲームと同じ8言語・同じ並び順 ===== -->
+<nav class="langbar" aria-label="Language / 言語切替">
+  <button type="button" class="lang-btn is-active" data-lang="ja" aria-label="日本語">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg></span>
+    <span class="lang-name">日本語</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="en" aria-label="English">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="30" height="1.54"/><rect y="4.62" width="30" height="1.54"/><rect y="7.69" width="30" height="1.54"/><rect y="10.77" width="30" height="1.54"/><rect y="13.85" width="30" height="1.54"/><rect y="16.92" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/><g fill="#fff"><circle cx="2" cy="1.6" r=".45"/><circle cx="5" cy="1.6" r=".45"/><circle cx="8" cy="1.6" r=".45"/><circle cx="11" cy="1.6" r=".45"/><circle cx="3.5" cy="3.6" r=".45"/><circle cx="6.5" cy="3.6" r=".45"/><circle cx="9.5" cy="3.6" r=".45"/><circle cx="2" cy="5.6" r=".45"/><circle cx="5" cy="5.6" r=".45"/><circle cx="8" cy="5.6" r=".45"/><circle cx="11" cy="5.6" r=".45"/><circle cx="3.5" cy="7.6" r=".45"/><circle cx="6.5" cy="7.6" r=".45"/><circle cx="9.5" cy="7.6" r=".45"/><circle cx="2" cy="9.6" r=".45"/><circle cx="5" cy="9.6" r=".45"/><circle cx="8" cy="9.6" r=".45"/><circle cx="11" cy="9.6" r=".45"/></g></svg></span>
+    <span class="lang-name">English</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="cnstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="20" fill="#de2910"/><g fill="#ffde00"><use href="#cnstar" transform="translate(5,5) scale(3)"/><use href="#cnstar" transform="translate(10,2)"/><use href="#cnstar" transform="translate(12,4.5)"/><use href="#cnstar" transform="translate(12,7.5)"/><use href="#cnstar" transform="translate(10,10)"/></g></svg></span>
+    <span class="lang-name">中文</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><g transform="rotate(-123 15 10)"><circle cx="15" cy="10" r="4" fill="#0047a0"/><path d="M15,6 A4,4 0 0,1 15,14 A2,2 0 0,0 15,10 A2,2 0 0,1 15,6 Z" fill="#cd2e3a"/></g><g fill="#000"><g transform="translate(5.5,4.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,4.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g><g transform="translate(5.5,15.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,15.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g></g></svg></span>
+    <span class="lang-name">한국어</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="es" aria-label="Español">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></span>
+    <span class="lang-name">Español</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#008c45"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#cd212a"/></svg></span>
+    <span class="lang-name">Italiano</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da251d"/><polygon fill="#ffff00" transform="translate(15,10) scale(6.4)" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></svg></span>
+    <span class="lang-name">Tiếng Việt</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="tl" aria-label="Tagalog">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="phstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="10" fill="#0038a8"/><rect y="10" width="30" height="10" fill="#ce1126"/><polygon fill="#fff" points="0,0 16.5,10 0,20"/><g fill="#fcd116"><polygon points="8.1,10 6.347,10.268 7.397,11.697 5.968,10.647 5.7,12.4 5.432,10.647 4.003,11.697 5.053,10.268 3.3,10 5.053,9.732 4.003,8.303 5.432,9.353 5.7,7.6 5.968,9.353 7.397,8.303 6.347,9.732"/><circle cx="5.7" cy="10" r="1.15"/><use href="#phstar" transform="translate(2.6,3.2) scale(1.15)"/><use href="#phstar" transform="translate(2.6,16.8) scale(1.15)"/><use href="#phstar" transform="translate(13.4,10) scale(1.15)"/></g></svg></span>
+    <span class="lang-name">Tagalog</span>
+  </button>
+</nav>
+
+<div class="video-wrap">
+<video src="kuruma-ebi.mp4" controls autoplay muted loop playsinline>
+  <span data-i18n="video_fallback">お使いのブラウザは動画に対応していません。</span>
+</video>
+</div>
+
+<main>
+  <h1><span class="ruby" data-i18n="ruby">くるまえび</span><span data-i18n="name">車海老（クルマエビ）</span></h1>
+  <p class="catch" data-i18n="catch">砂にひそむ、縞模様のごちそう</p>
+
+  <div class="card">
+    <h2 data-i18n="cook_h2">おすすめのざうお調理法</h2>
+    <p data-i18n="cook_lead">ぷりぷりの身と甘みを楽しめる調理法をご用意しています</p>
+    <div class="badge-row">
+      <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> ◎</span>
+      <span class="badge ok"><span data-i18n="b_shioyaki">塩焼き</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_fry">フライ</span> ◎<span data-i18n="fry_extra">（追加料金あり）</span></span>
+    </div>
+    <p class="note" data-i18n="note1">お子様はフライがおすすめ！</p>
+    <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
+    <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="what_h2">どんなエビ？</h2>
+    <p data-i18n="what_text">
+      体に走る褐色の縞模様が目印。ふだんは内湾の砂泥にひそみ、暗くなると動き出す夜行性のエビです。
+      加熱すると鮮やかな赤に染まり、身はぷりぷりと締まって上品な甘みが広がります。
+    </p>
+    <div class="badge-row">
+      <span class="badge" data-i18n="w_b1">体長 15〜20cm</span>
+      <span class="badge" data-i18n="w_b2">夜行性</span>
+      <span class="badge" data-i18n="w_b3">砂泥底にすむ</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="where_h2">どこにいる？／旬はいつ？</h2>
+    <p data-i18n="where_text">
+      宮城県あたりから南の太平洋沿岸、北海道南部から南の日本海沿岸に分布。
+      内湾や汽水域の砂泥底にすみ、水深100mほどの深さまで見られます。
+      天然ものの旬は夏。晩秋から冬にかけては甘みが増すとされ、養殖もののおかげで一年じゅう活きたまま出回ります。
+    </p>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="trivia_h2">豆知識</h2>
+    <ul class="trivia-list">
+      <li data-i18n-html="tr1"><strong>名前の由来は「丸まった姿」：</strong><br>体に走る褐色の縞模様は、胴を丸めるとぐるりと放射状に並び、車輪のスポークのように見える。この姿から「車海老」と名づけられた。</li>
+      <li data-i18n-html="tr2"><strong>育つほど名前が変わる出世エビ：</strong><br>10cmほどまでは「サイマキ」、10〜15cmで「マキ」、15cmを超えると「クルマ」、さらに大きなものは「オオグルマ」。同じエビなのに、育つほど呼び名が立派になっていく。</li>
+      <li><span data-i18n-html="tr3"><strong>昼間は砂の中で寝ている：</strong><br>夜行性で、明るいうちは砂泥にもぐって身をひそめ、暗くなってからエサを探して動き出す。水槽で姿が見えなくても、じつは砂の下でしっかり休んでいる。</span><a class="src" href="http://www.miegyoren.or.jp/fisheries-in-mie/uopedia/kurumaebi/" target="_blank" rel="noopener" data-i18n="src3">※情報元：三重県漁業協同組合連合会</a></li>
+    </ul>
+  </div>
+</main>
+
+<script>
+/* 言語コードは釣りゲーム(ざうおスマホゲーム/index.html)と同じ ja/en/zh/ko/es/it/vi/tl。
+   魚の名称もゲームの FISH_NAMES.tai と揃えてある。 */
+var I18N = {
+  "ja": {
+    title: "車海老（クルマエビ） | ざうお目黒店",
+    video_fallback: "お使いのブラウザは動画に対応していません。",
+    ruby: "くるまえび",
+    name: "車海老（クルマエビ）",
+    catch: "砂にひそむ、縞模様のごちそう",
+    cook_h2: "おすすめのざうお調理法",
+    cook_lead: "ぷりぷりの身と甘みを楽しめる調理法をご用意しています",
+    b_sashimi: "刺身", b_shioyaki: "塩焼き", b_fry: "フライ", fry_extra: "（追加料金あり）",
+    note1: "お子様はフライがおすすめ！",
+    legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    photo_soon: "写真準備中",
+    what_h2: "どんなエビ？",
+    what_text: "体に走る褐色の縞模様が目印。ふだんは内湾の砂泥にひそみ、暗くなると動き出す夜行性のエビです。加熱すると鮮やかな赤に染まり、身はぷりぷりと締まって上品な甘みが広がります。",
+    w_b1: "体長 15〜20cm", w_b2: "夜行性", w_b3: "砂泥底にすむ",
+    where_h2: "どこにいる？／旬はいつ？",
+    where_text: "宮城県あたりから南の太平洋沿岸、北海道南部から南の日本海沿岸に分布。内湾や汽水域の砂泥底にすみ、水深100mほどの深さまで見られます。天然ものの旬は夏。晩秋から冬にかけては甘みが増すとされ、養殖もののおかげで一年じゅう活きたまま出回ります。",
+    trivia_h2: "豆知識",
+    tr1: "<strong>名前の由来は「丸まった姿」：</strong><br>体に走る褐色の縞模様は、胴を丸めるとぐるりと放射状に並び、車輪のスポークのように見える。この姿から「車海老」と名づけられた。",
+    tr2: "<strong>育つほど名前が変わる出世エビ：</strong><br>10cmほどまでは「サイマキ」、10〜15cmで「マキ」、15cmを超えると「クルマ」、さらに大きなものは「オオグルマ」。同じエビなのに、育つほど呼び名が立派になっていく。",
+    tr3: "<strong>昼間は砂の中で寝ている：</strong><br>夜行性で、明るいうちは砂泥にもぐって身をひそめ、暗くなってからエサを探して動き出す。水槽で姿が見えなくても、じつは砂の下でしっかり休んでいる。",
+    src3: "※情報元：三重県漁業協同組合連合会"
+  },
+  "en": {
+    title: "Tiger Prawn (Kuruma-ebi) | ZAUO Meguro",
+    video_fallback: "Your browser does not support video playback.",
+    ruby: "kuruma-ebi",
+    name: "Tiger Prawn (Kuruma-ebi)",
+    catch: "The striped delicacy hiding in the sand",
+    cook_h2: "Recommended ZAUO Cooking Styles",
+    cook_lead: "Cooking styles that bring out its plump, snappy flesh and natural sweetness.",
+    b_sashimi: "Sashimi", b_shioyaki: "Grilled with salt", b_fry: "Fry (breaded cutlet)", fry_extra: " (extra charge)",
+    note1: "For children, we recommend the fry!",
+    legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    photo_soon: "Photo coming soon",
+    what_h2: "What kind of prawn is it?",
+    what_text: "You can spot it by the brown stripes running across its body. It normally hides in the sandy mud of sheltered bays and comes out after dark, a thoroughly nocturnal creature. Cooked, it turns a brilliant red, and the flesh becomes firm, snappy and delicately sweet.",
+    w_b1: "Length 15-20 cm", w_b2: "Nocturnal", w_b3: "Lives on sandy-muddy bottoms",
+    where_h2: "Where does it live? / When is it in season?",
+    where_text: "It ranges along the Pacific coast from around Miyagi southwards, and along the Sea of Japan coast from southern Hokkaido southwards. It lives on the sandy mud of bays and brackish waters, down to depths of about 100 m. Wild prawns are at their best in summer, while late autumn and winter are said to bring out more sweetness. Thanks to farming, live prawns are available all year round.",
+    trivia_h2: "Fun Facts",
+    tr1: "<strong>Its name comes from the way it curls up:</strong><br>When the prawn curls its body, the brown stripes fan out in a ring like the spokes of a wheel. That is why it is called kuruma-ebi, the «wheel prawn».",
+    tr2: "<strong>A prawn that gets promoted as it grows:</strong><br>Up to about 10 cm it is called saimaki, from 10 to 15 cm maki, above 15 cm kuruma, and the biggest are o-guruma. Same prawn, but the name grows grander with every centimetre.",
+    tr3: "<strong>It sleeps in the sand all day:</strong><br>It is nocturnal: while it is light it burrows into the sandy mud and stays hidden, then comes out to hunt for food once darkness falls. If you cannot see it in the tank, it is almost certainly resting under the sand.",
+    src3: "Source: Mie Prefectural Federation of Fisheries Cooperatives"
+  },
+  "zh": {
+    title: "斑节虾（Kuruma-ebi）| ZAUO 目黑店",
+    video_fallback: "您的浏览器不支持视频播放。",
+    ruby: "kuruma-ebi",
+    name: "斑节虾（车海老）",
+    catch: "藏身沙中的条纹美味",
+    cook_h2: "推荐的 ZAUO 烹饪方式",
+    cook_lead: "为您准备了能品尝弹牙虾肉与清甜滋味的做法。",
+    b_sashimi: "生虾片", b_shioyaki: "盐烤", b_fry: "炸虾排（面包糠）", fry_extra: "（需另加费用）",
+    note1: "小朋友推荐点炸虾排！",
+    legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    photo_soon: "照片准备中",
+    what_h2: "这是什么虾？",
+    what_text: "身上一道道褐色条纹是它的标志。平时藏身于内湾的沙泥之中，天黑后才出来活动，是不折不扣的夜行性虾类。加热后会变成鲜艳的红色，虾肉紧实弹牙，带着上品的甘甜。",
+    w_b1: "体长 15〜20cm", w_b2: "夜行性", w_b3: "栖息于沙泥底",
+    where_h2: "栖息在哪里？／什么时候最当季？",
+    where_text: "分布于宫城县一带以南的太平洋沿岸，以及北海道南部以南的日本海沿岸。栖息在内湾与半咸水域的沙泥底，深度可达约100米。野生虾的旬期在夏季；晚秋至冬季据说甜味更浓。得益于养殖，一年四季都能吃到活虾。",
+    trivia_h2: "小知识",
+    tr1: "<strong>名字来自「蜷起来的模样」：</strong><br>身上的褐色条纹，在虾身蜷曲时会呈放射状排列，看起来就像车轮的辐条。「车海老」之名正由此而来。",
+    tr2: "<strong>越长越大、名字也跟着「升官」：</strong><br>10厘米以内叫「サイマキ」，10〜15厘米叫「マキ」，超过15厘米叫「クルマ」，更大的则称「オオグルマ」。明明是同一种虾，长得越大名字越气派。",
+    tr3: "<strong>白天在沙里睡觉：</strong><br>它是夜行性的，天亮时钻进沙泥里藏起来，等入夜后才出来觅食。即使在水槽里看不到它的身影，其实它正安稳地睡在沙子底下。",
+    src3: "信息来源：三重县渔业协同组合联合会"
+  },
+  "ko": {
+    title: "보리새우(구루마에비) | ZAUO 메구로점",
+    video_fallback: "사용 중인 브라우저는 동영상을 지원하지 않습니다.",
+    ruby: "구루마에비",
+    name: "보리새우(구루마에비)",
+    catch: "모래 속에 숨은 줄무늬 진미",
+    cook_h2: "추천 ZAUO 조리법",
+    cook_lead: "탱글탱글한 살과 단맛을 즐길 수 있는 조리법을 준비했습니다.",
+    b_sashimi: "회", b_shioyaki: "소금구이", b_fry: "후라이(빵가루 튀김)", fry_extra: " (추가 요금)",
+    note1: "어린이 손님께는 후라이를 추천합니다!",
+    legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    photo_soon: "사진 준비 중",
+    what_h2: "어떤 새우인가요?",
+    what_text: "몸에 난 갈색 줄무늬가 특징입니다. 평소에는 만 안쪽의 모래펄에 숨어 있다가 어두워지면 움직이기 시작하는 야행성 새우입니다. 익히면 선명한 붉은색으로 물들고, 살은 탱글탱글하게 조여져 은은한 단맛이 퍼집니다.",
+    w_b1: "몸길이 15〜20cm", w_b2: "야행성", w_b3: "모래펄 바닥에 서식",
+    where_h2: "어디에 살까? / 제철은 언제?",
+    where_text: "미야기현 부근보다 남쪽의 태평양 연안, 홋카이도 남부보다 남쪽의 동해 연안에 분포합니다. 만 안쪽이나 기수역의 모래펄 바닥에 살며 수심 100m 정도까지 볼 수 있습니다. 자연산의 제철은 여름이며, 늦가을부터 겨울에는 단맛이 더해진다고 합니다. 양식 덕분에 일 년 내내 살아 있는 상태로 유통됩니다.",
+    trivia_h2: "토막 상식",
+    tr1: "<strong>이름의 유래는 「몸을 만 모습」:</strong><br>몸에 난 갈색 줄무늬는 몸을 둥글게 말면 방사상으로 늘어서 마치 수레바퀴의 살처럼 보입니다. 그 모습에서 「구루마에비(수레 새우)」라는 이름이 붙었습니다.",
+    tr2: "<strong>자랄수록 이름이 바뀌는 출세 새우:</strong><br>10cm 정도까지는 「사이마키」, 10〜15cm는 「마키」, 15cm를 넘으면 「구루마」, 더 큰 것은 「오오구루마」. 같은 새우인데 자랄수록 이름이 훌륭해집니다.",
+    tr3: "<strong>낮에는 모래 속에서 잠을 잔다:</strong><br>야행성이라 밝을 때는 모래펄에 파고들어 몸을 숨기고, 어두워지면 먹이를 찾아 움직입니다. 수조에서 모습이 보이지 않아도 사실은 모래 밑에서 푹 쉬고 있는 것입니다.",
+    src3: "출처: 미에현 어업협동조합연합회"
+  },
+  "es": {
+    title: "Langostino tigre (Kuruma-ebi) | ZAUO Meguro",
+    video_fallback: "Su navegador no admite la reproducción de vídeo.",
+    ruby: "kuruma-ebi",
+    name: "Langostino tigre (Kuruma-ebi)",
+    catch: "El manjar rayado que se esconde en la arena",
+    cook_h2: "Preparaciones recomendadas en ZAUO",
+    cook_lead: "Preparaciones pensadas para disfrutar su carne prieta y su dulzor natural.",
+    b_sashimi: "Sashimi", b_shioyaki: "A la parrilla con sal", b_fry: "Empanado y frito", fry_extra: " (coste adicional)",
+    note1: "\u00a1Para los ni\u00f1os recomendamos el empanado!",
+    legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    photo_soon: "Foto próximamente",
+    what_h2: "¿Qué langostino es?",
+    what_text: "Se reconoce por las franjas marrones que recorren su cuerpo. Normalmente se esconde en el fango arenoso de las bahías y sale al caer la noche: es un animal plenamente nocturno. Al cocinarlo adquiere un rojo intenso y su carne queda prieta, con un dulzor delicado.",
+    w_b1: "Longitud 15-20 cm", w_b2: "Nocturno", w_b3: "Vive en fondos de arena y fango",
+    where_h2: "¿Dónde vive? / ¿Cuál es su temporada?",
+    where_text: "Se distribuye por la costa del Pacífico desde la altura de Miyagi hacia el sur, y por la del mar de Japón desde el sur de Hokkaido hacia el sur. Vive en fondos de arena y fango de bahías y aguas salobres, hasta unos 100 m de profundidad. El salvaje está en su mejor momento en verano, y se dice que del otoño tardío al invierno gana dulzor. Gracias a la acuicultura se encuentra vivo todo el año.",
+    trivia_h2: "Curiosidades",
+    tr1: "<strong>Su nombre viene de cómo se enrosca:</strong><br>Cuando el langostino curva el cuerpo, las franjas marrones se despliegan en círculo como los radios de una rueda. De ahí el nombre kuruma-ebi, «langostino rueda».",
+    tr2: "<strong>Un langostino que asciende de nombre según crece:</strong><br>Hasta unos 10 cm se llama saimaki; de 10 a 15 cm, maki; por encima de 15 cm, kuruma; y los mayores, o-guruma. El mismo animal, con un nombre cada vez más solemne.",
+    tr3: "<strong>De día duerme enterrado en la arena:</strong><br>Es nocturno: mientras hay luz se entierra en el fango arenoso y permanece oculto, y sale a buscar comida cuando oscurece. Si no lo ves en el acuario, casi seguro que está descansando bajo la arena.",
+    src3: "Fuente: Federación de Cooperativas Pesqueras de Mie"
+  },
+  "it": {
+    title: "Gambero tigre (Kuruma-ebi) | ZAUO Meguro",
+    video_fallback: "Il tuo browser non supporta la riproduzione dei video.",
+    ruby: "kuruma-ebi",
+    name: "Gambero tigre (Kuruma-ebi)",
+    catch: "La prelibatezza a strisce che si nasconde nella sabbia",
+    cook_h2: "Preparazioni consigliate da ZAUO",
+    cook_lead: "Preparazioni pensate per godersi la polpa soda e la dolcezza naturale.",
+    b_sashimi: "Sashimi", b_shioyaki: "Alla griglia con sale", b_fry: "Impanato e fritto", fry_extra: " (supplemento)",
+    note1: "Ai bambini consigliamo l'impanato fritto!",
+    legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    photo_soon: "Foto in arrivo",
+    what_h2: "Che gambero è?",
+    what_text: "Si riconosce dalle striature brune che percorrono il corpo. Di solito si nasconde nel fango sabbioso delle baie e si muove dopo il tramonto: è un animale spiccatamente notturno. In cottura assume un rosso brillante e la polpa diventa soda, con una dolcezza delicata.",
+    w_b1: "Lunghezza 15-20 cm", w_b2: "Notturno", w_b3: "Vive su fondali sabbioso-fangosi",
+    where_h2: "Dove vive? / Qual è la stagione?",
+    where_text: "È distribuito lungo la costa pacifica dall'altezza di Miyagi verso sud e lungo quella del Mar del Giappone dall'Hokkaido meridionale verso sud. Vive sui fondali sabbioso-fangosi di baie e acque salmastre, fino a circa 100 m di profondità. Il pescato selvatico dà il meglio in estate, mentre dal tardo autunno all'inverno si dice guadagni dolcezza. Grazie all'allevamento si trova vivo tutto l'anno.",
+    trivia_h2: "Curiosità",
+    tr1: "<strong>Il nome viene da come si arrotola:</strong><br>Quando il gambero incurva il corpo, le strisce brune si dispongono a raggiera come i raggi di una ruota. Da qui il nome kuruma-ebi, «gambero ruota».",
+    tr2: "<strong>Un gambero che fa carriera crescendo:</strong><br>Fino a circa 10 cm si chiama saimaki, da 10 a 15 cm maki, oltre i 15 cm kuruma, e i più grandi o-guruma. Stesso gambero, ma il nome diventa sempre più altisonante.",
+    tr3: "<strong>Di giorno dorme sotto la sabbia:</strong><br>È notturno: finché c'è luce si infossa nel fango sabbioso e resta nascosto, poi esce a cercare cibo quando cala il buio. Se non lo vedi nella vasca, con ogni probabilità sta riposando sotto la sabbia.",
+    src3: "Fonte: Federazione delle cooperative di pesca di Mie"
+  },
+  "vi": {
+    title: "Tôm sú (Kuruma-ebi) | ZAUO Meguro",
+    video_fallback: "Trình duyệt của bạn không hỗ trợ phát video.",
+    ruby: "kuruma-ebi",
+    name: "Tôm sú (Kuruma-ebi)",
+    catch: "Món ngon kẻ sọc ẩn mình trong cát",
+    cook_h2: "Các cách chế biến ZAUO gợi ý",
+    cook_lead: "Những cách chế biến giúp bạn thưởng thức thịt tôm săn chắc và vị ngọt tự nhiên.",
+    b_sashimi: "Sashimi (tôm sống)", b_shioyaki: "Nướng muối", b_fry: "Chiên xù (tẩm bột)", fry_extra: " (có phụ thu)",
+    note1: "Với các bé, chúng tôi gợi ý món chiên xù!",
+    legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    photo_soon: "Ảnh sắp có",
+    what_h2: "Đây là loại tôm gì?",
+    what_text: "Dấu hiệu nhận biết là những vằn nâu chạy dọc thân. Bình thường tôm vùi mình trong đáy cát bùn của các vịnh kín và chỉ hoạt động khi trời tối - một loài ăn đêm thực thụ. Khi nấu chín, tôm chuyển sang màu đỏ rực, thịt săn chắc và ngọt thanh.",
+    w_b1: "Dài 15-20 cm", w_b2: "Ăn đêm", w_b3: "Sống ở đáy cát bùn",
+    where_h2: "Sống ở đâu? / Mùa ngon nhất là khi nào?",
+    where_text: "Tôm phân bố dọc bờ Thái Bình Dương từ khoảng tỉnh Miyagi trở xuống phía nam, và dọc bờ biển Nhật Bản từ nam Hokkaido trở xuống. Chúng sống ở đáy cát bùn trong vịnh và vùng nước lợ, sâu tới khoảng 100 m. Tôm tự nhiên ngon nhất vào mùa hè, còn từ cuối thu sang đông được cho là ngọt hơn. Nhờ nghề nuôi, tôm sống có quanh năm.",
+    trivia_h2: "Có thể bạn chưa biết",
+    tr1: "<strong>Tên gọi bắt nguồn từ dáng cuộn tròn:</strong><br>Khi tôm cuộn mình lại, những vằn nâu trên thân xòe ra thành vòng trông như nan hoa của bánh xe. Từ hình ảnh đó mà có tên kuruma-ebi, nghĩa là «tôm bánh xe».",
+    tr2: "<strong>Càng lớn càng được «thăng chức» tên gọi:</strong><br>Dưới khoảng 10 cm gọi là saimaki, từ 10 đến 15 cm là maki, trên 15 cm là kuruma, con lớn hơn nữa là o-guruma. Vẫn là một loài tôm, nhưng càng lớn tên càng oai.",
+    tr3: "<strong>Ban ngày nó ngủ vùi trong cát:</strong><br>Là loài ăn đêm, khi trời còn sáng tôm vùi mình trong đáy cát bùn để ẩn náu, đến khi trời tối mới ra kiếm ăn. Nếu bạn không thấy tôm trong bể, gần như chắc chắn nó đang nghỉ dưới lớp cát.",
+    src3: "Nguồn: Liên hiệp Hợp tác xã Nghề cá tỉnh Mie"
+  },
+  "tl": {
+    title: "Hipong Tigre (Kuruma-ebi) | ZAUO Meguro",
+    video_fallback: "Hindi sinusuportahan ng iyong browser ang pag-play ng video.",
+    ruby: "kuruma-ebi",
+    name: "Hipong Tigre (Kuruma-ebi)",
+    catch: "Ang guhitang sarap na nagtatago sa buhangin",
+    cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
+    cook_lead: "Mga lutuing naglalabas ng makapal at malutong nitong laman at likas na tamis.",
+    b_sashimi: "Sashimi (hilaw)", b_shioyaki: "Inihaw na may asin", b_fry: "Breaded fry", fry_extra: " (may dagdag na bayad)",
+    note1: "Para sa mga bata, inirerekomenda namin ang breaded fry!",
+    legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    photo_soon: "Malapit nang mailagay ang larawan",
+    what_h2: "Anong klaseng hipon ito?",
+    what_text: "Makikilala ito sa kayumangging mga guhit sa katawan. Karaniwan itong nagtatago sa maputik-mabuhanging sahig ng mga look at lumalabas lamang kapag dilim - tunay itong gabi gumagala. Kapag niluto, nagiging matingkad na pula ito at ang laman ay nagiging makapal, malutong at may pinong tamis.",
+    w_b1: "Haba 15-20 cm", w_b2: "Gabi gumagala", w_b3: "Nakatira sa mabuhanging putik",
+    where_h2: "Saan ito nakatira? / Kailan ang panahon nito?",
+    where_text: "Matatagpuan ito sa baybaying Pasipiko mula sa may Miyagi pababa sa timog, at sa baybaying Dagat ng Japan mula timog Hokkaido pababa. Nakatira ito sa mabuhanging putik ng mga look at tubig na bahagyang alat, hanggang mga 100 m ang lalim. Ang mga ligaw ay pinakamasarap sa tag-init, at sinasabing mas tumatamis mula huling taglagas hanggang taglamig. Dahil sa pag-aalaga, buhay itong makukuha buong taon.",
+    trivia_h2: "Alam mo ba?",
+    tr1: "<strong>Ang pangalan nito ay mula sa pagkulot ng katawan:</strong><br>Kapag ibinilog nito ang katawan, ang kayumangging mga guhit ay pumapaypay na parang rayos ng gulong. Doon nagmula ang pangalang kuruma-ebi o «hipong gulong».",
+    tr2: "<strong>Isang hipong tumataas ang ranggo habang lumalaki:</strong><br>Hanggang mga 10 cm, saimaki ang tawag; 10 hanggang 15 cm, maki; higit 15 cm, kuruma; at ang pinakamalaki ay o-guruma. Iisang hipon lang, pero pataas nang pataas ang pangalan.",
+    tr3: "<strong>Natutulog ito sa buhangin buong maghapon:</strong><br>Gabi ito gumagala: habang maliwanag ay bumabaon ito sa mabuhanging putik at nagtatago, at saka lumalabas maghanap ng pagkain pagdilim. Kung hindi mo ito makita sa tangke, malamang ay nagpapahinga ito sa ilalim ng buhangin.",
+    src3: "Pinagkunan: Mie Prefectural Federation of Fisheries Cooperatives"
+  }
+};
+
+function setLang(lang){
+  var dict = I18N[lang];
+  if(!dict){ return; }
+
+  document.documentElement.setAttribute("lang", lang);
+  document.title = dict.title;
+
+  var i, key;
+  var nodes = document.querySelectorAll("[data-i18n]");
+  for(i = 0; i < nodes.length; i++){
+    key = nodes[i].getAttribute("data-i18n");
+    if(dict[key] !== undefined){ nodes[i].textContent = dict[key]; }
+  }
+  var htmlNodes = document.querySelectorAll("[data-i18n-html]");
+  for(i = 0; i < htmlNodes.length; i++){
+    key = htmlNodes[i].getAttribute("data-i18n-html");
+    if(dict[key] !== undefined){ htmlNodes[i].innerHTML = dict[key]; }
+  }
+
+  var btns = document.querySelectorAll(".lang-btn");
+  for(i = 0; i < btns.length; i++){
+    if(btns[i].getAttribute("data-lang") === lang){
+      btns[i].classList.add("is-active");
+    } else {
+      btns[i].classList.remove("is-active");
+    }
+  }
+}
+
+(function(){
+  var btns = document.querySelectorAll(".lang-btn");
+  for(var i = 0; i < btns.length; i++){
+    btns[i].addEventListener("click", function(){
+      setLang(this.getAttribute("data-lang"));
+    });
+  }
+  /* 開いたときは常に日本語（選択は保存しない） */
+  setLang("ja");
+})();
+</script>
+
+</body>
+</html>
