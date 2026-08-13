@@ -173,6 +173,24 @@
   .sub-label{
     margin: 16px 0 0;
   }
+  .fish-links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .fish-links a{
+    display: inline-block;
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: .9rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .fish-links a:active{ opacity: .6; }
   .legend{
     margin: 16px 0 0;
     font-size: .85rem;
@@ -295,6 +313,18 @@
       <li><span data-i18n-html="tr3"><strong>「肝の色」で性別が丸分かり：</strong><br>殻から外すと見えてくる渦巻きの先（生殖腺）が、濃い緑色ならメス、乳白色〜クリーム色ならオス。サザエとまったく同じ見分け方で、食べる直前に性別が判明します。</span><a class="src" href="https://www.i-saibai.or.jp/seisan-2/awabi/" target="_blank" rel="noopener" data-i18n="src3">※情報元：茨城県栽培漁業協会</a></li>
     </ul>
   </div>
+
+  <div class="card">
+    <h2 data-i18n="links_h2">ほかの魚介も見てみる</h2>
+    <div class="fish-links">
+      <a href="../鯛/"><span data-i18n="l_tai">鯛（タイ）</span></a>
+      <a href="../鯵/"><span data-i18n="l_aji">鯵（アジ）</span></a>
+      <a href="../平目/"><span data-i18n="l_hirame">平目（ヒラメ）</span></a>
+      <a href="../栄螺/"><span data-i18n="l_sazae">栄螺（サザエ）</span></a>
+      <a href="../車海老/"><span data-i18n="l_ebi">車海老（クルマエビ）</span></a>
+      <a href="../伊勢海老/"><span data-i18n="l_ise">伊勢海老（イセエビ）</span></a>
+    </div>
+  </div>
 </main>
 
 <script>
@@ -312,6 +342,7 @@ var I18N = {
     b_sashimi: "刺身", b_yaki: "焼き", b_butteryaki: "バター焼き", fry_extra: "（追加料金あり）",
     note1: "刺身には九州醤油＋レモン汁を試してみてください！",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    links_h2: "ほかの魚介も見てみる", l_tai: "鯛（タイ）", l_aji: "鯵（アジ）", l_hirame: "平目（ヒラメ）", l_sazae: "栄螺（サザエ）", l_ebi: "車海老（クルマエビ）", l_ise: "伊勢海老（イセエビ）",
     photo_soon: "写真準備中",
     what_h2: "どんな貝？",
     what_text: "平たい一枚の殻に見えますが、じつはサザエと同じ巻貝の仲間。大きな足で岩にがっちり吸いつき、コンブやワカメなどの海藻を食べて育ちます。コリコリと弾力のある身と、磯の香りが凝縮された肝が持ち味です。",
@@ -336,6 +367,7 @@ var I18N = {
     b_sashimi: "Sashimi", b_yaki: "Grilled", b_butteryaki: "Grilled with butter", fry_extra: " (extra charge)",
     note1: "With the sashimi, try sweet Kyushu-style soy sauce and a squeeze of lemon!",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    links_h2: "See the other catches", l_tai: "Sea Bream (Tai)", l_aji: "Horse Mackerel (Aji)", l_hirame: "Flounder (Hirame)", l_sazae: "Turban Shell (Sazae)", l_ebi: "Tiger Prawn (Kuruma-ebi)", l_ise: "Spiny Lobster (Ise-ebi)",
     photo_soon: "Photo coming soon",
     what_h2: "What kind of shellfish is it?",
     what_text: "It looks like one half of a bivalve, but it is in fact a sea snail, just like the turban shell. It grips the rocks with its large muscular foot and grows on a diet of seaweed such as kelp and wakame. Prized for its firm, springy meat and for a liver packed with the aroma of the shore.",
@@ -360,6 +392,7 @@ var I18N = {
     b_sashimi: "生鲍片", b_yaki: "烧烤", b_butteryaki: "黄油烤", fry_extra: "（需另加费用）",
     note1: "生螺片不妨试试九州甜酱油＋柠檬汁！",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    links_h2: "看看其他鱼贝", l_tai: "鲷鱼（Tai）", l_aji: "竹荚鱼（Aji）", l_hirame: "比目鱼（Hirame）", l_sazae: "海螺（Sazae）", l_ebi: "斑节虾（车海老）", l_ise: "龙虾（伊势海老）",
     photo_soon: "照片准备中",
     what_h2: "这是什么贝？",
     what_text: "看起来像是双壳贝的一半，其实它和海螺一样是货真价实的螺类。它用强而有力的足牢牢吸附在岩石上，以海带、裙带菜等海藻为食。爽脆弹牙的肉质与浓缩了海边气息的鲍肝，正是它的魅力所在。",
@@ -384,6 +417,7 @@ var I18N = {
     b_sashimi: "회", b_yaki: "구이", b_butteryaki: "버터구이", fry_extra: " (추가 요금)",
     note1: "회는 규슈식 단간장에 레몬즙을 곁들여 드셔 보세요!",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    links_h2: "다른 해산물도 보기", l_tai: "도미(타이)", l_aji: "전갱이(아지)", l_hirame: "광어(히라메)", l_sazae: "소라(사자에)", l_ebi: "보리새우(구루마에비)", l_ise: "닭새우(이세에비)",
     photo_soon: "사진 준비 중",
     what_h2: "어떤 조개인가요?",
     what_text: "납작한 껍데기 한 장처럼 보이지만, 사실은 소라와 같은 고둥의 한 종류입니다. 커다란 발로 바위에 단단히 달라붙어 다시마와 미역 같은 해조류를 먹고 자랍니다. 쫄깃하고 탄력 있는 살과, 갯내음이 응축된 내장이 매력입니다.",
@@ -408,6 +442,7 @@ var I18N = {
     b_sashimi: "Sashimi", b_yaki: "A la parrilla", b_butteryaki: "A la parrilla con mantequilla", fry_extra: " (coste adicional)",
     note1: "¡Con el sashimi, pruebe la salsa de soja dulce de Kyushu con unas gotas de limón!",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    links_h2: "Ver las demás capturas", l_tai: "Besugo (Tai)", l_aji: "Chicharro (Aji)", l_hirame: "Platija (Hirame)", l_sazae: "Caracola (Sazae)", l_ebi: "Langostino tigre (Kuruma-ebi)", l_ise: "Langosta espinosa (Ise-ebi)",
     photo_soon: "Foto próximamente",
     what_h2: "¿Qué molusco es?",
     what_text: "Parece la mitad de un bivalvo, pero en realidad es un caracol marino, igual que la caracola sazae. Se agarra a la roca con su gran pie muscular y crece alimentándose de algas como el kombu y el wakame. Destaca por su carne firme y elástica y por un hígado que concentra todo el aroma del mar.",
@@ -432,6 +467,7 @@ var I18N = {
     b_sashimi: "Sashimi", b_yaki: "Alla griglia", b_butteryaki: "Alla griglia con burro", fry_extra: " (supplemento)",
     note1: "Con il sashimi provate la salsa di soia dolce di Kyushu con qualche goccia di limone!",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    links_h2: "Scopri gli altri pescati", l_tai: "Orata (Tai)", l_aji: "Suro (Aji)", l_hirame: "Passera (Hirame)", l_sazae: "Chiocciola di mare (Sazae)", l_ebi: "Gambero tigre (Kuruma-ebi)", l_ise: "Aragosta (Ise-ebi)",
     photo_soon: "Foto in arrivo",
     what_h2: "Che mollusco è?",
     what_text: "Sembra la metà di un bivalve, ma in realtà è una chiocciola di mare, proprio come la sazae. Si aggrappa alla roccia con il suo grande piede muscoloso e cresce nutrendosi di alghe come kombu e wakame. Si fa apprezzare per la carne soda ed elastica e per un fegato che concentra tutto il profumo del mare.",
@@ -456,6 +492,7 @@ var I18N = {
     b_sashimi: "Sashimi (bào ngư sống)", b_yaki: "Nướng", b_butteryaki: "Nướng bơ", fry_extra: " (có phụ thu)",
     note1: "Món sashimi ngon hơn khi chấm nước tương ngọt kiểu Kyushu vắt thêm chanh!",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    links_h2: "Xem các loài khác", l_tai: "Cá tráp (Tai)", l_aji: "Cá nục (Aji)", l_hirame: "Cá bơn (Hirame)", l_sazae: "Ốc đụn (Sazae)", l_ebi: "Tôm sú (Kuruma-ebi)", l_ise: "Tôm hùm gai (Ise-ebi)",
     photo_soon: "Ảnh sắp có",
     what_h2: "Đây là loại ốc gì?",
     what_text: "Trông như một nửa của con sò hai mảnh, nhưng thật ra bào ngư là ốc biển, cùng họ hàng với ốc sazae. Nó dùng chiếc chân cơ bắp to khỏe bám chặt vào đá và lớn lên nhờ ăn rong biển như tảo bẹ và wakame. Điểm hấp dẫn là phần thịt giòn dai đàn hồi và phần gan cô đọng hương vị của biển.",
@@ -480,6 +517,7 @@ var I18N = {
     b_sashimi: "Sashimi (hilaw)", b_yaki: "Inihaw", b_butteryaki: "Inihaw na may butter", fry_extra: " (may dagdag na bayad)",
     note1: "Sa sashimi, subukan ang matamis na toyo ng Kyushu na may pigang lemon!",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    links_h2: "Tingnan ang iba pang huli", l_tai: "Isdang Tai (Sea Bream)", l_aji: "Alumahan (Aji)", l_hirame: "Dapa (Hirame)", l_sazae: "Susong-dagat (Sazae)", l_ebi: "Hipong Tigre (Kuruma-ebi)", l_ise: "Banagan (Ise-ebi)",
     photo_soon: "Malapit nang mailagay ang larawan",
     what_h2: "Anong klaseng shellfish ito?",
     what_text: "Mukha itong kalahati ng isang bivalve, pero suso pala ito sa dagat, katulad ng sazae. Kumakapit ito nang mahigpit sa bato gamit ang malaki nitong paa at lumalaki sa pagkain ng damong-dagat gaya ng kelp at wakame. Ang tatak nito ay ang malutong at makunat na laman, at ang atay na puno ng samyo ng dagat.",

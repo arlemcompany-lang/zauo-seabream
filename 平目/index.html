@@ -173,6 +173,24 @@
   .sub-label{
     margin: 16px 0 0;
   }
+  .fish-links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .fish-links a{
+    display: inline-block;
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: .9rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .fish-links a:active{ opacity: .6; }
   .legend{
     margin: 16px 0 0;
     font-size: .85rem;
@@ -295,6 +313,18 @@
       <li data-i18n-html="tr3"><strong>「カレイ」と間違えると怪我をする：</strong><br>ゴカイや貝をついばむおとなしいカレイと違い、ヒラメの口には凶悪な鋭い歯がズラリ。「左ヒラメに右カレイ」なんて呑気に覚えて近づくと、指を噛まれるレベルの肉食武闘派です。</li>
     </ul>
   </div>
+
+  <div class="card">
+    <h2 data-i18n="links_h2">ほかの魚介も見てみる</h2>
+    <div class="fish-links">
+      <a href="../鯛/"><span data-i18n="l_tai">鯛（タイ）</span></a>
+      <a href="../鯵/"><span data-i18n="l_aji">鯵（アジ）</span></a>
+      <a href="../栄螺/"><span data-i18n="l_sazae">栄螺（サザエ）</span></a>
+      <a href="../鮑/"><span data-i18n="l_awabi">鮑（アワビ）</span></a>
+      <a href="../車海老/"><span data-i18n="l_ebi">車海老（クルマエビ）</span></a>
+      <a href="../伊勢海老/"><span data-i18n="l_ise">伊勢海老（イセエビ）</span></a>
+    </div>
+  </div>
 </main>
 
 <script>
@@ -314,6 +344,7 @@ var I18N = {
     bones_label: "骨を使って（刺身に姿が付いているとき）",
     b_honesenbei: "骨せんべい", b_misoshiru: "みそ汁",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    links_h2: "ほかの魚介も見てみる", l_tai: "鯛（タイ）", l_aji: "鯵（アジ）", l_sazae: "栄螺（サザエ）", l_awabi: "鮑（アワビ）", l_ebi: "車海老（クルマエビ）", l_ise: "伊勢海老（イセエビ）",
     photo_soon: "写真準備中",
     what_h2: "どんな魚？",
     what_text: "平べったい体と、左側に寄った二つの目が目印。海底の砂の上で暮らし、体の色を砂そっくりに変えて身をひそめ、近づいてきた小魚を一瞬で襲うハンターです。身は透き通った白身で、コリコリとした歯ごたえと上品な甘みがあります。",
@@ -338,6 +369,7 @@ var I18N = {
     bones_label: "Using the bones (when sashimi is served with the whole fish)",
     b_honesenbei: "Crispy bone crackers", b_misoshiru: "Miso soup",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    links_h2: "See the other catches", l_tai: "Sea Bream (Tai)", l_aji: "Horse Mackerel (Aji)", l_sazae: "Turban Shell (Sazae)", l_awabi: "Abalone (Awabi)", l_ebi: "Tiger Prawn (Kuruma-ebi)", l_ise: "Spiny Lobster (Ise-ebi)",
     photo_soon: "Photo coming soon",
     what_h2: "What kind of fish is it?",
     what_text: "The flounder is easy to spot: a flat body, with both eyes set on the left side. It lives on the sandy seabed, changing its colour to match the sand so it can lie hidden and ambush small fish that swim too close. Its translucent white flesh has a firm, springy bite and a refined sweetness.",
@@ -362,6 +394,7 @@ var I18N = {
     bones_label: "用鱼骨来做（生鱼片附整鱼时）",
     b_honesenbei: "香脆炸鱼骨", b_misoshiru: "味噌汤",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    links_h2: "看看其他鱼贝", l_tai: "鲷鱼（Tai）", l_aji: "竹荚鱼（Aji）", l_sazae: "海螺（Sazae）", l_awabi: "鲍鱼（Awabi）", l_ebi: "斑节虾（车海老）", l_ise: "龙虾（伊势海老）",
     photo_soon: "照片准备中",
     what_h2: "这是什么鱼？",
     what_text: "扁平的身体、两只眼睛都长在左侧，是比目鱼最好认的特征。它生活在海底的沙地上，把体色变得和沙子一模一样藏起来，等小鱼靠近便一口袭击。鱼肉是通透的白肉，口感爽脆弹牙，带着上品的甘甜。",
@@ -386,6 +419,7 @@ var I18N = {
     bones_label: "뼈를 활용해서 (회에 생선 모양이 함께 나올 때)",
     b_honesenbei: "뼈 센베(뼈 튀김)", b_misoshiru: "된장국",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    links_h2: "다른 해산물도 보기", l_tai: "도미(타이)", l_aji: "전갱이(아지)", l_sazae: "소라(사자에)", l_awabi: "전복(아와비)", l_ebi: "보리새우(구루마에비)", l_ise: "닭새우(이세에비)",
     photo_soon: "사진 준비 중",
     what_h2: "어떤 생선인가요?",
     what_text: "납작한 몸과 왼쪽으로 몰린 두 눈이 특징입니다. 바닥의 모래 위에서 살며 몸 색깔을 모래와 똑같이 바꿔 숨어 있다가, 가까이 다가온 작은 물고기를 순식간에 덮치는 사냥꾼입니다. 살은 투명한 흰살로 쫄깃한 식감과 은은한 단맛이 있습니다.",
@@ -410,6 +444,7 @@ var I18N = {
     bones_label: "Aprovechando las espinas (cuando el sashimi se sirve con el pescado entero)",
     b_honesenbei: "Espinas crujientes fritas", b_misoshiru: "Sopa de miso",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    links_h2: "Ver las demás capturas", l_tai: "Besugo (Tai)", l_aji: "Chicharro (Aji)", l_sazae: "Caracola (Sazae)", l_awabi: "Oreja de mar (Awabi)", l_ebi: "Langostino tigre (Kuruma-ebi)", l_ise: "Langosta espinosa (Ise-ebi)",
     photo_soon: "Foto próximamente",
     what_h2: "¿Qué pescado es?",
     what_text: "Se reconoce al instante por su cuerpo plano y por sus dos ojos, ambos en el lado izquierdo. Vive sobre los fondos de arena, donde cambia de color hasta confundirse con ella para esconderse y emboscar a los peces pequeños que se acercan. Su carne blanca y translúcida tiene una mordida firme y un dulzor delicado.",
@@ -434,6 +469,7 @@ var I18N = {
     bones_label: "Usando le lische (quando il sashimi viene servito con il pesce intero)",
     b_honesenbei: "Lische fritte croccanti", b_misoshiru: "Zuppa di miso",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    links_h2: "Scopri gli altri pescati", l_tai: "Orata (Tai)", l_aji: "Suro (Aji)", l_sazae: "Chiocciola di mare (Sazae)", l_awabi: "Abalone (Awabi)", l_ebi: "Gambero tigre (Kuruma-ebi)", l_ise: "Aragosta (Ise-ebi)",
     photo_soon: "Foto in arrivo",
     what_h2: "Che pesce è?",
     what_text: "Si riconosce subito dal corpo piatto e dai due occhi, entrambi sul lato sinistro. Vive sui fondali sabbiosi, dove cambia colore fino a confondersi con la sabbia per nascondersi e assalire i pesciolini che le passano vicino. La carne bianca e traslucida ha un morso sodo e una dolcezza delicata.",
@@ -458,6 +494,7 @@ var I18N = {
     bones_label: "Tận dụng xương cá (khi món sashimi được bày cả con)",
     b_honesenbei: "Xương cá chiên giòn", b_misoshiru: "Canh miso",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    links_h2: "Xem các loài khác", l_tai: "Cá tráp (Tai)", l_aji: "Cá nục (Aji)", l_sazae: "Ốc đụn (Sazae)", l_awabi: "Bào ngư (Awabi)", l_ebi: "Tôm sú (Kuruma-ebi)", l_ise: "Tôm hùm gai (Ise-ebi)",
     photo_soon: "Ảnh sắp có",
     what_h2: "Đây là cá gì?",
     what_text: "Cá bơn dễ nhận ra nhờ thân dẹt và hai mắt đều nằm ở bên trái. Nó sống trên đáy cát, đổi màu thân giống hệt cát để ẩn mình rồi bất ngờ lao ra đớp những con cá nhỏ đến gần. Thịt cá trắng trong, dai giòn và có vị ngọt thanh.",
@@ -482,6 +519,7 @@ var I18N = {
     bones_label: "Gamit ang mga tinik (kapag buo ang isda sa sashimi)",
     b_honesenbei: "Malutong na piniritong tinik", b_misoshiru: "Miso soup",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    links_h2: "Tingnan ang iba pang huli", l_tai: "Isdang Tai (Sea Bream)", l_aji: "Alumahan (Aji)", l_sazae: "Susong-dagat (Sazae)", l_awabi: "Abalon (Awabi)", l_ebi: "Hipong Tigre (Kuruma-ebi)", l_ise: "Banagan (Ise-ebi)",
     photo_soon: "Malapit nang mailagay ang larawan",
     what_h2: "Anong klaseng isda ito?",
     what_text: "Madaling makilala ang dapa sa patag nitong katawan at sa dalawang matang parehong nasa kaliwang bahagi. Nakatira ito sa mabuhanging sahig ng dagat, pinapalitan ang kulay ng katawan para tumugma sa buhangin, nagtatago at bigla na lang sumusugod sa maliliit na isdang lumalapit. Ang laman nito ay malinaw at puti, matatag ang kagat at may banayad na tamis.",

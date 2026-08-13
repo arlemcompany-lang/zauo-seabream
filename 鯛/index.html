@@ -173,6 +173,24 @@
   .sub-label{
     margin: 16px 0 0;
   }
+  .fish-links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .fish-links a{
+    display: inline-block;
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: .9rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .fish-links a:active{ opacity: .6; }
   .legend{
     margin: 16px 0 0;
     font-size: .85rem;
@@ -288,6 +306,18 @@
       <li data-i18n-html="tr3"><strong>途中で性別が変わる：</strong><br>生まれた時はみんな「メス」として育ち、2歳前後になると多くの個体が「オス」へ性転換する。おめでたいお祝いの席の裏で、しれっと人生の路線変更が行われている。</li>
     </ul>
   </div>
+
+  <div class="card">
+    <h2 data-i18n="links_h2">ほかの魚介も見てみる</h2>
+    <div class="fish-links">
+      <a href="../鯵/"><span data-i18n="l_aji">鯵（アジ）</span></a>
+      <a href="../平目/"><span data-i18n="l_hirame">平目（ヒラメ）</span></a>
+      <a href="../栄螺/"><span data-i18n="l_sazae">栄螺（サザエ）</span></a>
+      <a href="../鮑/"><span data-i18n="l_awabi">鮑（アワビ）</span></a>
+      <a href="../車海老/"><span data-i18n="l_ebi">車海老（クルマエビ）</span></a>
+      <a href="../伊勢海老/"><span data-i18n="l_ise">伊勢海老（イセエビ）</span></a>
+    </div>
+  </div>
 </main>
 
 <script>
@@ -306,6 +336,7 @@ var I18N = {
     bones_label: "骨を使って（刺身に姿が付いているとき）",
     b_kabuto: "兜焼き", b_aradaki: "あら炊き", b_honesenbei: "骨せんべい", b_misoshiru: "みそ汁",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    links_h2: "ほかの魚介も見てみる", l_aji: "鯵（アジ）", l_hirame: "平目（ヒラメ）", l_sazae: "栄螺（サザエ）", l_awabi: "鮑（アワビ）", l_ebi: "車海老（クルマエビ）", l_ise: "伊勢海老（イセエビ）",
     photo_soon: "写真準備中",
     what_h2: "どんな魚？",
     what_text: "鯛（タイ）は淡いピンク色の体と、しっかりとした引き締まった身が特徴の魚。日本では古くから「めでたい」に通じる縁起の良い魚として、お祝いの席に欠かせない存在です。",
@@ -330,6 +361,7 @@ var I18N = {
     b_kabuto: "Grilled head (kabuto-yaki)", b_aradaki: "Simmered head & bones (ara-daki)",
     b_honesenbei: "Crispy bone crackers", b_misoshiru: "Miso soup",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    links_h2: "See the other catches", l_aji: "Horse Mackerel (Aji)", l_hirame: "Flounder (Hirame)", l_sazae: "Turban Shell (Sazae)", l_awabi: "Abalone (Awabi)", l_ebi: "Tiger Prawn (Kuruma-ebi)", l_ise: "Spiny Lobster (Ise-ebi)",
     photo_soon: "Photo coming soon",
     what_h2: "What kind of fish is it?",
     what_text: "Sea bream (tai) has a pale pink body and firm, well-textured flesh. In Japan it has long been treated as a lucky fish, because its name echoes medetai (auspicious), and it is a must at any celebration.",
@@ -354,6 +386,7 @@ var I18N = {
     b_kabuto: "烤鱼头（兜烧）", b_aradaki: "炖鱼头鱼骨（荒炊）",
     b_honesenbei: "香脆炸鱼骨", b_misoshiru: "味噌汤",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    links_h2: "看看其他鱼贝", l_aji: "竹荚鱼（Aji）", l_hirame: "比目鱼（Hirame）", l_sazae: "海螺（Sazae）", l_awabi: "鲍鱼（Awabi）", l_ebi: "斑节虾（车海老）", l_ise: "龙虾（伊势海老）",
     photo_soon: "照片准备中",
     what_h2: "这是什么鱼？",
     what_text: "鲷鱼有着淡粉色的身体和紧实的肉质。在日本，因为读音与「めでたい（吉庆）」相通，自古被视为吉祥的鱼，是喜宴上不可缺少的存在。",
@@ -378,6 +411,7 @@ var I18N = {
     b_kabuto: "머리 구이(가부토야키)", b_aradaki: "머리·뼈 조림(아라다키)",
     b_honesenbei: "뼈 센베(뼈 튀김)", b_misoshiru: "된장국",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    links_h2: "다른 해산물도 보기", l_aji: "전갱이(아지)", l_hirame: "광어(히라메)", l_sazae: "소라(사자에)", l_awabi: "전복(아와비)", l_ebi: "보리새우(구루마에비)", l_ise: "닭새우(이세에비)",
     photo_soon: "사진 준비 중",
     what_h2: "어떤 생선인가요?",
     what_text: "도미는 연한 분홍빛 몸과 탄탄하게 조여진 살이 특징인 생선입니다. 일본에서는 예로부터 「메데타이(경사스럽다)」와 발음이 통해 상서로운 생선으로 여겨져, 잔칫상에 빠지지 않는 존재입니다.",
@@ -402,6 +436,7 @@ var I18N = {
     b_kabuto: "Cabeza a la parrilla (kabuto-yaki)", b_aradaki: "Cabeza y espinas guisadas (ara-daki)",
     b_honesenbei: "Espinas crujientes fritas", b_misoshiru: "Sopa de miso",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    links_h2: "Ver las demás capturas", l_aji: "Chicharro (Aji)", l_hirame: "Platija (Hirame)", l_sazae: "Caracola (Sazae)", l_awabi: "Oreja de mar (Awabi)", l_ebi: "Langostino tigre (Kuruma-ebi)", l_ise: "Langosta espinosa (Ise-ebi)",
     photo_soon: "Foto próximamente",
     what_h2: "¿Qué pescado es?",
     what_text: "El besugo (tai) tiene el cuerpo de un rosa suave y una carne firme y prieta. En Japón se considera desde antiguo un pescado de buena suerte, porque su nombre recuerda a medetai («de buen augurio»), y resulta imprescindible en las celebraciones.",
@@ -426,6 +461,7 @@ var I18N = {
     b_kabuto: "Testa alla griglia (kabuto-yaki)", b_aradaki: "Testa e lische in umido (ara-daki)",
     b_honesenbei: "Lische fritte croccanti", b_misoshiru: "Zuppa di miso",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    links_h2: "Scopri gli altri pescati", l_aji: "Suro (Aji)", l_hirame: "Passera (Hirame)", l_sazae: "Chiocciola di mare (Sazae)", l_awabi: "Abalone (Awabi)", l_ebi: "Gambero tigre (Kuruma-ebi)", l_ise: "Aragosta (Ise-ebi)",
     photo_soon: "Foto in arrivo",
     what_h2: "Che pesce è?",
     what_text: "L'orata giapponese (tai) ha un corpo rosa tenue e carni sode e compatte. In Giappone è considerata da sempre un pesce portafortuna, perché il suo nome richiama medetai («di buon auspicio»), ed è immancabile nelle occasioni di festa.",
@@ -450,6 +486,7 @@ var I18N = {
     b_kabuto: "Nướng đầu cá (kabuto-yaki)", b_aradaki: "Kho đầu và xương cá (ara-daki)",
     b_honesenbei: "Xương cá chiên giòn", b_misoshiru: "Canh miso",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    links_h2: "Xem các loài khác", l_aji: "Cá nục (Aji)", l_hirame: "Cá bơn (Hirame)", l_sazae: "Ốc đụn (Sazae)", l_awabi: "Bào ngư (Awabi)", l_ebi: "Tôm sú (Kuruma-ebi)", l_ise: "Tôm hùm gai (Ise-ebi)",
     photo_soon: "Ảnh sắp có",
     what_h2: "Đây là cá gì?",
     what_text: "Cá tráp (tai) có thân màu hồng nhạt và thịt chắc, săn. Ở Nhật Bản, từ xa xưa cá tráp được xem là loài cá mang lại may mắn vì tên gọi gợi liên tưởng đến medetai («điều tốt lành»), và không thể thiếu trong các bữa tiệc mừng.",
@@ -474,6 +511,7 @@ var I18N = {
     b_kabuto: "Inihaw na ulo (kabuto-yaki)", b_aradaki: "Nilagang ulo at tinik (ara-daki)",
     b_honesenbei: "Malutong na piniritong tinik", b_misoshiru: "Miso soup",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    links_h2: "Tingnan ang iba pang huli", l_aji: "Alumahan (Aji)", l_hirame: "Dapa (Hirame)", l_sazae: "Susong-dagat (Sazae)", l_awabi: "Abalon (Awabi)", l_ebi: "Hipong Tigre (Kuruma-ebi)", l_ise: "Banagan (Ise-ebi)",
     photo_soon: "Malapit nang mailagay ang larawan",
     what_h2: "Anong klaseng isda ito?",
     what_text: "Ang isdang tai ay may mapusyaw na kulay rosas na katawan at matigas at siksik na laman. Sa Japan, matagal na itong itinuturing na isdang mapagpalad dahil kahawig ang pangalan nito ng medetai («mapalad»), at hindi ito nawawala sa mga handaan.",
