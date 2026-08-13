@@ -173,6 +173,19 @@
   .sub-label{
     margin: 16px 0 0;
   }
+  .app-link{
+    display: block;
+    margin: 18px 0 0;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 999px;
+    padding: 14px 18px;
+    font-size: .95rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+  }
+  .app-link:active{ opacity: .7; }
   .fish-links{
     display: flex;
     flex-wrap: wrap;
@@ -323,6 +336,7 @@
       <a href="../鮑/"><span data-i18n="l_awabi">鮑（アワビ）</span></a>
       <a href="../伊勢海老/"><span data-i18n="l_ise">伊勢海老（イセエビ）</span></a>
     </div>
+    <a class="app-link" href="https://arlemcompany-lang.github.io/zauo-fish-id/" target="_blank" rel="noopener" data-i18n="app_link">水槽の魚をカメラで判別してみる</a>
   </div>
 </main>
 
@@ -342,6 +356,7 @@ var I18N = {
     note1: "お子様はフライがおすすめ！",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
     links_h2: "ほかの魚介も見てみる", l_tai: "鯛（タイ）", l_aji: "鯵（アジ）", l_hirame: "平目（ヒラメ）", l_sazae: "栄螺（サザエ）", l_awabi: "鮑（アワビ）", l_ise: "伊勢海老（イセエビ）",
+    app_link: "水槽の魚をカメラで判別してみる",
     photo_soon: "写真準備中",
     what_h2: "どんなエビ？",
     what_text: "体に走る褐色の縞模様が目印。ふだんは内湾の砂泥にひそみ、暗くなると動き出す夜行性のエビです。加熱すると鮮やかな赤に染まり、身はぷりぷりと締まって上品な甘みが広がります。",
@@ -366,6 +381,7 @@ var I18N = {
     note1: "For children, we recommend the fry!",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
     links_h2: "See the other catches", l_tai: "Sea Bream (Tai)", l_aji: "Horse Mackerel (Aji)", l_hirame: "Flounder (Hirame)", l_sazae: "Turban Shell (Sazae)", l_awabi: "Abalone (Awabi)", l_ise: "Spiny Lobster (Ise-ebi)",
+    app_link: "Point your camera at the tank to ID the fish",
     photo_soon: "Photo coming soon",
     what_h2: "What kind of prawn is it?",
     what_text: "You can spot it by the brown stripes running across its body. It normally hides in the sandy mud of sheltered bays and comes out after dark, a thoroughly nocturnal creature. Cooked, it turns a brilliant red, and the flesh becomes firm, snappy and delicately sweet.",
@@ -390,6 +406,7 @@ var I18N = {
     note1: "小朋友推荐点炸虾排！",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
     links_h2: "看看其他鱼贝", l_tai: "鲷鱼（Tai）", l_aji: "竹荚鱼（Aji）", l_hirame: "比目鱼（Hirame）", l_sazae: "海螺（Sazae）", l_awabi: "鲍鱼（Awabi）", l_ise: "龙虾（伊势海老）",
+    app_link: "用相机识别水槽里的鱼",
     photo_soon: "照片准备中",
     what_h2: "这是什么虾？",
     what_text: "身上一道道褐色条纹是它的标志。平时藏身于内湾的沙泥之中，天黑后才出来活动，是不折不扣的夜行性虾类。加热后会变成鲜艳的红色，虾肉紧实弹牙，带着上品的甘甜。",
@@ -414,6 +431,7 @@ var I18N = {
     note1: "어린이 손님께는 후라이를 추천합니다!",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
     links_h2: "다른 해산물도 보기", l_tai: "도미(타이)", l_aji: "전갱이(아지)", l_hirame: "광어(히라메)", l_sazae: "소라(사자에)", l_awabi: "전복(아와비)", l_ise: "닭새우(이세에비)",
+    app_link: "카메라로 수조의 물고기를 판별해 보기",
     photo_soon: "사진 준비 중",
     what_h2: "어떤 새우인가요?",
     what_text: "몸에 난 갈색 줄무늬가 특징입니다. 평소에는 만 안쪽의 모래펄에 숨어 있다가 어두워지면 움직이기 시작하는 야행성 새우입니다. 익히면 선명한 붉은색으로 물들고, 살은 탱글탱글하게 조여져 은은한 단맛이 퍼집니다.",
@@ -438,6 +456,7 @@ var I18N = {
     note1: "\u00a1Para los ni\u00f1os recomendamos el empanado!",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
     links_h2: "Ver las demás capturas", l_tai: "Besugo (Tai)", l_aji: "Chicharro (Aji)", l_hirame: "Platija (Hirame)", l_sazae: "Caracola (Sazae)", l_awabi: "Oreja de mar (Awabi)", l_ise: "Langosta espinosa (Ise-ebi)",
+    app_link: "Identifica los peces del acuario con tu cámara",
     photo_soon: "Foto próximamente",
     what_h2: "¿Qué langostino es?",
     what_text: "Se reconoce por las franjas marrones que recorren su cuerpo. Normalmente se esconde en el fango arenoso de las bahías y sale al caer la noche: es un animal plenamente nocturno. Al cocinarlo adquiere un rojo intenso y su carne queda prieta, con un dulzor delicado.",
@@ -462,6 +481,7 @@ var I18N = {
     note1: "Ai bambini consigliamo l'impanato fritto!",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
     links_h2: "Scopri gli altri pescati", l_tai: "Orata (Tai)", l_aji: "Suro (Aji)", l_hirame: "Passera (Hirame)", l_sazae: "Chiocciola di mare (Sazae)", l_awabi: "Abalone (Awabi)", l_ise: "Aragosta (Ise-ebi)",
+    app_link: "Identifica i pesci della vasca con la fotocamera",
     photo_soon: "Foto in arrivo",
     what_h2: "Che gambero è?",
     what_text: "Si riconosce dalle striature brune che percorrono il corpo. Di solito si nasconde nel fango sabbioso delle baie e si muove dopo il tramonto: è un animale spiccatamente notturno. In cottura assume un rosso brillante e la polpa diventa soda, con una dolcezza delicata.",
@@ -486,6 +506,7 @@ var I18N = {
     note1: "Với các bé, chúng tôi gợi ý món chiên xù!",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
     links_h2: "Xem các loài khác", l_tai: "Cá tráp (Tai)", l_aji: "Cá nục (Aji)", l_hirame: "Cá bơn (Hirame)", l_sazae: "Ốc đụn (Sazae)", l_awabi: "Bào ngư (Awabi)", l_ise: "Tôm hùm gai (Ise-ebi)",
+    app_link: "Dùng camera để nhận diện cá trong bể",
     photo_soon: "Ảnh sắp có",
     what_h2: "Đây là loại tôm gì?",
     what_text: "Dấu hiệu nhận biết là những vằn nâu chạy dọc thân. Bình thường tôm vùi mình trong đáy cát bùn của các vịnh kín và chỉ hoạt động khi trời tối - một loài ăn đêm thực thụ. Khi nấu chín, tôm chuyển sang màu đỏ rực, thịt săn chắc và ngọt thanh.",
@@ -510,6 +531,7 @@ var I18N = {
     note1: "Para sa mga bata, inirerekomenda namin ang breaded fry!",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
     links_h2: "Tingnan ang iba pang huli", l_tai: "Isdang Tai (Sea Bream)", l_aji: "Alumahan (Aji)", l_hirame: "Dapa (Hirame)", l_sazae: "Susong-dagat (Sazae)", l_awabi: "Abalon (Awabi)", l_ise: "Banagan (Ise-ebi)",
+    app_link: "Tukuyin ang isda sa tangke gamit ang camera",
     photo_soon: "Malapit nang mailagay ang larawan",
     what_h2: "Anong klaseng hipon ito?",
     what_text: "Makikilala ito sa kayumangging mga guhit sa katawan. Karaniwan itong nagtatago sa maputik-mabuhanging sahig ng mga look at lumalabas lamang kapag dilim - tunay itong gabi gumagala. Kapag niluto, nagiging matingkad na pula ito at ang laman ay nagiging makapal, malutong at may pinong tamis.",

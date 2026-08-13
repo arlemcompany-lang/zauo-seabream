@@ -178,6 +178,19 @@
     color: var(--accent);
   }
   .note + .note{ margin-top: 4px; }
+  .app-link{
+    display: block;
+    margin: 18px 0 0;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 999px;
+    padding: 14px 18px;
+    font-size: .95rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+  }
+  .app-link:active{ opacity: .7; }
   .fish-links{
     display: flex;
     flex-wrap: wrap;
@@ -343,6 +356,7 @@
       <a href="../車海老/"><span data-i18n="l_ebi">車海老（クルマエビ）</span></a>
       <a href="../伊勢海老/"><span data-i18n="l_ise">伊勢海老（イセエビ）</span></a>
     </div>
+    <a class="app-link" href="https://arlemcompany-lang.github.io/zauo-fish-id/" target="_blank" rel="noopener" data-i18n="app_link">水槽の魚をカメラで判別してみる</a>
   </div>
 </main>
 
@@ -366,6 +380,7 @@ var I18N = {
     note2: "お子様はフライがおすすめ！",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
     links_h2: "ほかの魚介も見てみる", l_tai: "鯛（タイ）", l_hirame: "平目（ヒラメ）", l_sazae: "栄螺（サザエ）", l_awabi: "鮑（アワビ）", l_ebi: "車海老（クルマエビ）", l_ise: "伊勢海老（イセエビ）",
+    app_link: "水槽の魚をカメラで判別してみる",
     cap_tataki: "タタキ", cap_fry: "フライ",
     what_h2: "どんな魚？",
     what_text: "鯵（アジ）は青みがかった銀色の体が特徴の、日本の食卓でおなじみの魚。名前の由来は諸説ありますが、「味が良いから鯵」といわれるほど昔から愛されてきました。",
@@ -394,6 +409,7 @@ var I18N = {
     note2: "For children, we recommend the fry!",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
     links_h2: "See the other catches", l_tai: "Sea Bream (Tai)", l_hirame: "Flounder (Hirame)", l_sazae: "Turban Shell (Sazae)", l_awabi: "Abalone (Awabi)", l_ebi: "Tiger Prawn (Kuruma-ebi)", l_ise: "Spiny Lobster (Ise-ebi)",
+    app_link: "Point your camera at the tank to ID the fish",
     cap_tataki: "Tataki", cap_fry: "Fry",
     what_h2: "What kind of fish is it?",
     what_text: "Aji (Japanese horse mackerel) is a familiar favourite on Japanese tables, easily spotted by its bluish-silver body. There are several theories about the name, but the best-known one says it comes from aji, the Japanese word for taste - simply because it tastes so good.",
@@ -422,6 +438,7 @@ var I18N = {
     note2: "小朋友推荐炸鱼排！",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
     links_h2: "看看其他鱼贝", l_tai: "鲷鱼（Tai）", l_hirame: "比目鱼（Hirame）", l_sazae: "海螺（Sazae）", l_awabi: "鲍鱼（Awabi）", l_ebi: "斑节虾（车海老）", l_ise: "龙虾（伊势海老）",
+    app_link: "用相机识别水槽里的鱼",
     cap_tataki: "拌生鱼（Tataki）", cap_fry: "炸鱼排",
     what_h2: "这是什么鱼？",
     what_text: "竹荚鱼身体呈带蓝的银色，是日本餐桌上十分常见的鱼。关于名字的由来有多种说法，其中最有名的是「因为味道（aji）好，所以叫 aji」，自古以来备受喜爱。",
@@ -450,6 +467,7 @@ var I18N = {
     note2: "아이들에게는 후라이를 추천합니다!",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
     links_h2: "다른 해산물도 보기", l_tai: "도미(타이)", l_hirame: "광어(히라메)", l_sazae: "소라(사자에)", l_awabi: "전복(아와비)", l_ebi: "보리새우(구루마에비)", l_ise: "닭새우(이세에비)",
+    app_link: "카메라로 수조의 물고기를 판별해 보기",
     cap_tataki: "다타키", cap_fry: "후라이",
     what_h2: "어떤 생선인가요?",
     what_text: "전갱이는 푸른빛이 도는 은색 몸이 특징인, 일본 식탁에서 친숙한 생선입니다. 이름의 유래에는 여러 설이 있지만 「맛(아지)이 좋아서 아지」라고 불릴 만큼 오래전부터 사랑받아 왔습니다.",
@@ -478,6 +496,7 @@ var I18N = {
     note2: "Para los niños recomendamos el empanado.",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
     links_h2: "Ver las demás capturas", l_tai: "Besugo (Tai)", l_hirame: "Platija (Hirame)", l_sazae: "Caracola (Sazae)", l_awabi: "Oreja de mar (Awabi)", l_ebi: "Langostino tigre (Kuruma-ebi)", l_ise: "Langosta espinosa (Ise-ebi)",
+    app_link: "Identifica los peces del acuario con tu cámara",
     cap_tataki: "Tataki", cap_fry: "Empanado",
     what_h2: "¿Qué pescado es?",
     what_text: "El chicharro (aji en japonés) es un pescado muy habitual en la mesa japonesa, fácil de reconocer por su cuerpo plateado con reflejos azulados. Sobre su nombre hay varias teorías, pero la más conocida dice que viene de «aji», la palabra japonesa para «sabor», sencillamente porque está buenísimo.",
@@ -506,6 +525,7 @@ var I18N = {
     note2: "Per i bambini consigliamo l'impanato fritto!",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
     links_h2: "Scopri gli altri pescati", l_tai: "Orata (Tai)", l_hirame: "Passera (Hirame)", l_sazae: "Chiocciola di mare (Sazae)", l_awabi: "Abalone (Awabi)", l_ebi: "Gambero tigre (Kuruma-ebi)", l_ise: "Aragosta (Ise-ebi)",
+    app_link: "Identifica i pesci della vasca con la fotocamera",
     cap_tataki: "Tataki", cap_fry: "Impanato",
     what_h2: "Che pesce è?",
     what_text: "Il suro (in giapponese aji) è un pesce molto comune sulle tavole giapponesi, riconoscibile dal corpo argentato con riflessi bluastri. Sul nome esistono varie teorie, ma la più nota dice che deriva da «aji», la parola giapponese per «sapore», semplicemente perché è buonissimo.",
@@ -534,6 +554,7 @@ var I18N = {
     note2: "Với trẻ em, chúng tôi khuyên dùng món chiên xù!",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
     links_h2: "Xem các loài khác", l_tai: "Cá tráp (Tai)", l_hirame: "Cá bơn (Hirame)", l_sazae: "Ốc đụn (Sazae)", l_awabi: "Bào ngư (Awabi)", l_ebi: "Tôm sú (Kuruma-ebi)", l_ise: "Tôm hùm gai (Ise-ebi)",
+    app_link: "Dùng camera để nhận diện cá trong bể",
     cap_tataki: "Tataki", cap_fry: "Chiên xù",
     what_h2: "Đây là cá gì?",
     what_text: "Cá nục (tiếng Nhật gọi là aji) là loài cá quen thuộc trên bàn ăn Nhật Bản, dễ nhận ra nhờ thân màu bạc ánh xanh. Có nhiều giả thuyết về tên gọi, nhưng nổi tiếng nhất là cách giải thích rằng tên bắt nguồn từ «aji» - nghĩa là «vị ngon» trong tiếng Nhật, đơn giản vì cá rất ngon.",
@@ -562,6 +583,7 @@ var I18N = {
     note2: "Para sa mga bata, inirerekomenda namin ang breaded fry!",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
     links_h2: "Tingnan ang iba pang huli", l_tai: "Isdang Tai (Sea Bream)", l_hirame: "Dapa (Hirame)", l_sazae: "Susong-dagat (Sazae)", l_awabi: "Abalon (Awabi)", l_ebi: "Hipong Tigre (Kuruma-ebi)", l_ise: "Banagan (Ise-ebi)",
+    app_link: "Tukuyin ang isda sa tangke gamit ang camera",
     cap_tataki: "Tataki", cap_fry: "Breaded fry",
     what_h2: "Anong klaseng isda ito?",
     what_text: "Ang alumahan (aji sa Hapon) ay pamilyar na isda sa hapag ng mga Hapon, madaling makilala sa pilak na katawan nitong may bahid ng asul. May iba't ibang teorya tungkol sa pangalan nito, ngunit ang pinakakilala ay nagmula raw ito sa «aji», ang salitang Hapon para sa «lasa», dahil talagang masarap ito.",
