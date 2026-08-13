@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>栄螺（サザエ） | ざうお目黒店</title>
+<style>
+  :root{
+    --main: #b7c49b;
+    --accent: #4f6b3a;
+    --bg: #f5f8ef;
+    --text: #3d453a;
+    --sub: #8b9581;
+    /* 言語バーの高さ。動画の高さから差し引き、多言語化前と同じ位置でタイトルが見えるようにする */
+    --langbar-h: 111px;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: "Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height:1.8;
+  }
+  html[lang="ko"] body{
+    font-family: "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  }
+  html[lang="zh"] body{
+    font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  }
+  html[lang="en"] body,
+  html[lang="es"] body,
+  html[lang="it"] body,
+  html[lang="vi"] body,
+  html[lang="tl"] body{
+    font-family: "Helvetica Neue",Arial,sans-serif;
+  }
+
+  /* ===== 言語切替バー（動画より上・スクロールしても追従） ===== */
+  .langbar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    align-items: start;
+    gap: 2px;
+    padding: 7px 4px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(79,107,58,0.18);
+  }
+  @media (min-width: 640px){
+    :root{ --langbar-h: 61px; }
+    .langbar{ grid-template-columns: repeat(8, auto); }
+  }
+  .lang-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 5px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height:1.2;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lang-btn .flag{
+    display:block;
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+    transition: transform .15s;
+  }
+  .lang-btn .flag svg{ display:block; width:100%; height:100%; }
+  .lang-btn .lang-name{
+    font-size: .64rem;
+    font-weight: bold;
+    color: var(--sub);
+    white-space: nowrap;
+    /* ベトナム語の「ế」等が合成表示にならないよう、ベトナム語対応のラテン系フォントを先頭に置く */
+    font-family: "Segoe UI",Arial,"Hiragino Maru Gothic ProN","Yu Gothic","Malgun Gothic","Microsoft YaHei",sans-serif;
+  }
+  .lang-btn.is-active{ background: var(--bg); }
+  .lang-btn.is-active .flag{ box-shadow: 0 0 0 2px var(--accent); }
+  .lang-btn.is-active .lang-name{ color: var(--accent); }
+  .lang-btn:active .flag{ transform: scale(.92); }
+
+  .video-wrap{
+    background: #b03052 url("../波柄_pattern.webp") repeat;
+    background-size: 180px auto;
+    height: calc(80vh - var(--langbar-h));
+    min-height: 240px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  video{
+    height:100%;
+    width:auto;
+    max-width:100%;
+  }
+  main{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  h1{
+    font-size: 2rem;
+    margin: 0 0 4px;
+    color: var(--accent);
+  }
+  h1 .ruby{
+    display:block;
+    font-size: .9rem;
+    color: var(--sub);
+    font-weight:normal;
+    margin-bottom:4px;
+  }
+  p.catch{
+    font-weight:bold;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow: 0 8px 24px rgba(79,107,58,0.12);
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .card h2{
+    margin-top:0;
+    font-size:1.15rem;
+    color: var(--accent);
+  }
+  .badge-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .badge{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .85rem;
+    font-weight:bold;
+  }
+  .trivia-list{
+    margin:0;
+    padding-left: 1.2em;
+  }
+  .trivia-list li{ margin-bottom: 8px; }
+  .badge.ok{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+  }
+  .badge.ng{
+    background: #fffbe6;
+    border: 1px solid #e6c200;
+    color: #9c8000;
+  }
+  .sub-label{
+    margin: 16px 0 0;
+  }
+  .legend{
+    margin: 16px 0 0;
+    font-size: .85rem;
+    color: var(--sub);
+  }
+  .tip{
+    margin: 14px 0 0;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .photo-placeholder{
+    margin-top: 16px;
+    height: 160px;
+    border: 2px dashed var(--main);
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--sub);
+    font-size: .9rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 言語切替（動画より上）／釣りゲームと同じ8言語・同じ並び順 ===== -->
+<nav class="langbar" aria-label="Language / 言語切替">
+  <button type="button" class="lang-btn is-active" data-lang="ja" aria-label="日本語">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg></span>
+    <span class="lang-name">日本語</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="en" aria-label="English">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="30" height="1.54"/><rect y="4.62" width="30" height="1.54"/><rect y="7.69" width="30" height="1.54"/><rect y="10.77" width="30" height="1.54"/><rect y="13.85" width="30" height="1.54"/><rect y="16.92" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/><g fill="#fff"><circle cx="2" cy="1.6" r=".45"/><circle cx="5" cy="1.6" r=".45"/><circle cx="8" cy="1.6" r=".45"/><circle cx="11" cy="1.6" r=".45"/><circle cx="3.5" cy="3.6" r=".45"/><circle cx="6.5" cy="3.6" r=".45"/><circle cx="9.5" cy="3.6" r=".45"/><circle cx="2" cy="5.6" r=".45"/><circle cx="5" cy="5.6" r=".45"/><circle cx="8" cy="5.6" r=".45"/><circle cx="11" cy="5.6" r=".45"/><circle cx="3.5" cy="7.6" r=".45"/><circle cx="6.5" cy="7.6" r=".45"/><circle cx="9.5" cy="7.6" r=".45"/><circle cx="2" cy="9.6" r=".45"/><circle cx="5" cy="9.6" r=".45"/><circle cx="8" cy="9.6" r=".45"/><circle cx="11" cy="9.6" r=".45"/></g></svg></span>
+    <span class="lang-name">English</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="cnstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="20" fill="#de2910"/><g fill="#ffde00"><use href="#cnstar" transform="translate(5,5) scale(3)"/><use href="#cnstar" transform="translate(10,2)"/><use href="#cnstar" transform="translate(12,4.5)"/><use href="#cnstar" transform="translate(12,7.5)"/><use href="#cnstar" transform="translate(10,10)"/></g></svg></span>
+    <span class="lang-name">中文</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><g transform="rotate(-123 15 10)"><circle cx="15" cy="10" r="4" fill="#0047a0"/><path d="M15,6 A4,4 0 0,1 15,14 A2,2 0 0,0 15,10 A2,2 0 0,1 15,6 Z" fill="#cd2e3a"/></g><g fill="#000"><g transform="translate(5.5,4.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,4.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g><g transform="translate(5.5,15.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,15.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g></g></svg></span>
+    <span class="lang-name">한국어</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="es" aria-label="Español">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></span>
+    <span class="lang-name">Español</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#008c45"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#cd212a"/></svg></span>
+    <span class="lang-name">Italiano</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da251d"/><polygon fill="#ffff00" transform="translate(15,10) scale(6.4)" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></svg></span>
+    <span class="lang-name">Tiếng Việt</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="tl" aria-label="Tagalog">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="phstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="10" fill="#0038a8"/><rect y="10" width="30" height="10" fill="#ce1126"/><polygon fill="#fff" points="0,0 16.5,10 0,20"/><g fill="#fcd116"><polygon points="8.1,10 6.347,10.268 7.397,11.697 5.968,10.647 5.7,12.4 5.432,10.647 4.003,11.697 5.053,10.268 3.3,10 5.053,9.732 4.003,8.303 5.432,9.353 5.7,7.6 5.968,9.353 7.397,8.303 6.347,9.732"/><circle cx="5.7" cy="10" r="1.15"/><use href="#phstar" transform="translate(2.6,3.2) scale(1.15)"/><use href="#phstar" transform="translate(2.6,16.8) scale(1.15)"/><use href="#phstar" transform="translate(13.4,10) scale(1.15)"/></g></svg></span>
+    <span class="lang-name">Tagalog</span>
+  </button>
+</nav>
+
+<div class="video-wrap">
+<video src="sazae.mp4" controls autoplay muted loop playsinline>
+  <span data-i18n="video_fallback">お使いのブラウザは動画に対応していません。</span>
+</video>
+</div>
+
+<main>
+  <h1><span class="ruby" data-i18n="ruby">さざえ</span><span data-i18n="name">栄螺（サザエ）</span></h1>
+  <p class="catch" data-i18n="catch">磯の香りがぎゅっと詰まった、岩場の主</p>
+
+  <div class="card">
+    <h2 data-i18n="cook_h2">おすすめのざうお調理法</h2>
+    <p data-i18n="cook_lead">コリコリした身と、ほろ苦い肝を楽しめる調理法をご用意しています</p>
+    <div class="badge-row">
+      <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_tsuboyaki">つぼ焼き</span> 〇</span>
+    </div>
+    <p class="tip" data-i18n="tip1">お子様にはつぼ焼きをおすすめします！</p>
+    <p class="tip" data-i18n="tip2">刺身には九州醤油＋レモン汁を試してみてください！</p>
+    <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
+    <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="what_h2">どんな貝？</h2>
+    <p data-i18n="what_text">
+      岩場でくらす大きな巻貝。海藻を食べて育ち、コリコリした歯ごたえの身と、
+      渦を巻いた奥にある「肝」の独特なほろ苦さが持ち味です。
+      石灰質の分厚いフタで殻をぴたりと閉じ、外敵から身を守ります。
+    </p>
+    <div class="badge-row">
+      <span class="badge" data-i18n="w_b1">殻高 5〜10cm</span>
+      <span class="badge" data-i18n="w_b2">巻貝</span>
+      <span class="badge" data-i18n="w_b3">海藻を食べる</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="where_h2">どこにいる？／旬はいつ？</h2>
+    <p data-i18n="where_text">
+      太平洋側は房総半島から九州、日本海側は北海道南部から九州にかけて、外洋に面した岩礁域に分布。
+      水深10mより浅い岩場に多く、夜行性で昼間は岩陰にひそんでいます。
+      産卵期は春から夏。旬はその前の春から初夏にかけてです。
+    </p>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="trivia_h2">豆知識</h2>
+    <ul class="trivia-list">
+      <li data-i18n-html="tr1"><strong>ツノは育った海の記録：</strong><br>波の荒い外海で育つとトゲ（ツノ）が長く伸び、穏やかな内湾で育つとほとんど出ない。荒波育ちを静かな水槽に移すとトゲを作らなくなる、という実験結果もある。ただし例外もあり、環境と遺伝の両方が関わっていると考えられている。</li>
+      <li data-i18n-html="tr2"><strong>肝の先の色で男女がわかる：</strong><br>殻から出して渦を巻いた「肝」の先端を見ると、クリーム色ならオス、深い緑色ならメス。メスのほうが少しほろ苦いと言われる。食べ比べてみるのも一興。</li>
+      <li data-i18n-html="tr3"><strong>学名がついたのは2017年：</strong><br>これほど身近な貝なのに、日本のサザエには長いあいだ正しい学名がなかった。250年ものあいだ中国産の別種の名前が使い回されていたことが判明し、2017年にようやく「Turbo sazae」と名づけられた。</li>
+    </ul>
+  </div>
+</main>
+
+<script>
+/* 言語コードは釣りゲーム(ざうおスマホゲーム/index.html)と同じ ja/en/zh/ko/es/it/vi/tl。
+   魚の名称もゲームの FISH_NAMES.tai と揃えてある。 */
+var I18N = {
+  "ja": {
+    title: "栄螺（サザエ） | ざうお目黒店",
+    video_fallback: "お使いのブラウザは動画に対応していません。",
+    ruby: "さざえ",
+    name: "栄螺（サザエ）",
+    catch: "磯の香りがぎゅっと詰まった、岩場の主",
+    cook_h2: "おすすめのざうお調理法",
+    cook_lead: "調理は刺身とつぼ焼きの2種類です",
+    b_tsuboyaki: "つぼ焼き", b_sashimi: "刺身",
+    tip1: "お子様にはつぼ焼きをおすすめします！",
+    tip2: "刺身には九州醤油＋レモン汁を試してみてください！",
+    legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    photo_soon: "写真準備中",
+    what_h2: "どんな貝？",
+    what_text: "岩場でくらす大きな巻貝。海藻を食べて育ち、コリコリした歯ごたえの身と、渦を巻いた奥にある「肝」の独特なほろ苦さが持ち味です。石灰質の分厚いフタで殻をぴたりと閉じ、外敵から身を守ります。",
+    w_b1: "殻高 5〜10cm", w_b2: "巻貝", w_b3: "海藻を食べる",
+    where_h2: "どこにいる？／旬はいつ？",
+    where_text: "太平洋側は房総半島から九州、日本海側は北海道南部から九州にかけて、外洋に面した岩礁域に分布。水深10mより浅い岩場に多く、夜行性で昼間は岩陰にひそんでいます。産卵期は春から夏。旬はその前の春から初夏にかけてです。",
+    trivia_h2: "豆知識",
+    tr1: "<strong>ツノは育った海の記録：</strong><br>波の荒い外海で育つとトゲ（ツノ）が長く伸び、穏やかな内湾で育つとほとんど出ない。荒波育ちを静かな水槽に移すとトゲを作らなくなる、という実験結果もある。ただし例外もあり、環境と遺伝の両方が関わっていると考えられている。",
+    tr2: "<strong>肝の先の色で男女がわかる：</strong><br>殻から出して渦を巻いた「肝」の先端を見ると、クリーム色ならオス、深い緑色ならメス。メスのほうが少しほろ苦いと言われる。食べ比べてみるのも一興。",
+    tr3: "<strong>学名がついたのは2017年：</strong><br>これほど身近な貝なのに、日本のサザエには長いあいだ正しい学名がなかった。250年ものあいだ中国産の別種の名前が使い回されていたことが判明し、2017年にようやく「Turbo sazae」と名づけられた。"
+  },
+  "en": {
+    title: "Turban Shell (Sazae) | ZAUO Meguro",
+    video_fallback: "Your browser does not support video playback.",
+    ruby: "sazae",
+    name: "Turban Shell (Sazae)",
+    catch: "The lord of the rocks, packed with the scent of the shore",
+    cook_h2: "Recommended ZAUO Cooking Styles",
+    cook_lead: "We prepare sazae two ways: as sashimi, or tsubo-yaki grilled in its own shell.",
+    b_tsuboyaki: "Tsubo-yaki (grilled in its own shell)", b_sashimi: "Sashimi",
+    tip1: "For children, we recommend the tsubo-yaki!",
+    tip2: "With the sashimi, try sweet Kyushu-style soy sauce and a squeeze of lemon!",
+    legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    photo_soon: "Photo coming soon",
+    what_h2: "What kind of shellfish is it?",
+    what_text: "A large sea snail that lives among the rocks. It grows on a diet of seaweed, and is prized for its firm, springy meat and for the distinctive bitterness of the spiral \u201cliver\u201d deep inside the shell. A thick, chalky operculum seals the shell shut against predators.",
+    w_b1: "Shell height 5-10 cm", w_b2: "Sea snail", w_b3: "Feeds on seaweed",
+    where_h2: "Where does it live? / When is it in season?",
+    where_text: "It is found on rocky reefs open to the sea: from the Boso Peninsula to Kyushu on the Pacific side, and from southern Hokkaido to Kyushu on the Sea of Japan side. Most live on rocks shallower than 10 m, and being nocturnal they hide in crevices during the day. Spawning runs from spring to summer, and the best season is just before that, from spring into early summer.",
+    trivia_h2: "Fun Facts",
+    tr1: "<strong>The horns record the sea it grew up in:</strong><br>Shells grown in rough open water sprout long spines; those raised in calm bays barely grow any. In experiments, rough-water individuals moved to a still tank stopped producing spines. There are exceptions, though, so both environment and genetics are thought to play a part.",
+    tr2: "<strong>The tip of the liver tells you its sex:</strong><br>Take it out of the shell and look at the tip of the spiral liver: cream-coloured means male, deep green means female. The female is said to be slightly more bitter. Tasting them side by side is half the fun.",
+    tr3: "<strong>It only got a scientific name in 2017:</strong><br>For such a familiar shellfish, the Japanese sazae went a remarkably long time without a valid scientific name. It turned out that for 250 years the name of a different, Chinese species had been used by mistake, and only in 2017 was it finally named Turbo sazae."
+  },
+  "zh": {
+    title: "海螺（Sazae）| ZAUO 目黑店",
+    video_fallback: "您的浏览器不支持视频播放。",
+    ruby: "sazae",
+    name: "海螺（Sazae）",
+    catch: "凝聚了海边气息的岩礁之主",
+    cook_h2: "推荐的 ZAUO 烹饪方式",
+    cook_lead: "我们提供生螺片与壶烧两种做法。",
+    b_tsuboyaki: "壶烧（连壳烤）", b_sashimi: "生鱼片（生螺片）",
+    tip1: "小朋友推荐点壶烧！",
+    tip2: "生螺片不妨试试九州甜酱油＋柠檬汁！",
+    legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    photo_soon: "照片准备中",
+    what_h2: "这是什么贝？",
+    what_text: "栖息在岩礁间的大型螺类。以海藻为食，肉质爽脆弹牙，螺壳深处卷曲的「肝」带有独特的微苦味，正是它的妙处。它用厚实的石灰质厣（盖）把壳口紧紧封住，抵御天敌。",
+    w_b1: "壳高 5〜10cm", w_b2: "螺类", w_b3: "以海藻为食",
+    where_h2: "栖息在哪里？／什么时候最当季？",
+    where_text: "太平洋一侧分布于房总半岛至九州，日本海一侧分布于北海道南部至九州，栖息在面向外海的岩礁地带。多见于水深10米以内的岩场，属夜行性，白天藏在岩缝中。产卵期为春至夏，最当季的时节是产卵前的春季到初夏。",
+    trivia_h2: "小知识",
+    tr1: "<strong>螺角是它成长海域的记录：</strong><br>在风浪大的外海长大的个体会长出长长的棘角，在平静内湾长大的则几乎不长。也有实验发现，把外海个体移到无水流的水槽饲养后便不再长棘。不过也有例外，一般认为环境与遗传都参与其中。",
+    tr2: "<strong>看螺肝尖端的颜色就知道雌雄：</strong><br>取出螺肉，观察卷曲的「肝」的尖端：奶油色是雄，深绿色是雌。据说雌的略带苦味，两者对比着品尝也别有乐趣。",
+    tr3: "<strong>直到2017年才有学名：</strong><br>如此常见的贝类，日本的海螺却长期没有正确的学名。人们发现250年来一直误用了中国产另一物种的名字，直到2017年才终于被命名为「Turbo sazae」。"
+  },
+  "ko": {
+    title: "소라(사자에) | ZAUO 메구로점",
+    video_fallback: "사용 중인 브라우저는 동영상을 지원하지 않습니다.",
+    ruby: "사자에",
+    name: "소라(사자에)",
+    catch: "갯내음을 가득 품은 갯바위의 주인",
+    cook_h2: "추천 ZAUO 조리법",
+    cook_lead: "조리는 회와 쓰보야키 두 가지입니다.",
+    b_tsuboyaki: "쓰보야키(껍데기째 구이)", b_sashimi: "회",
+    tip1: "어린이 손님께는 쓰보야키를 추천합니다!",
+    tip2: "회는 규슈식 단간장에 레몬즙을 곁들여 드셔 보세요!",
+    legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    photo_soon: "사진 준비 중",
+    what_h2: "어떤 조개인가요?",
+    what_text: "갯바위에 사는 큰 고둥입니다. 해조류를 먹고 자라며, 쫄깃한 살과 껍데기 안쪽 소용돌이 부분의 「내장」이 지닌 독특한 쌉싸름함이 매력입니다. 두툼한 석회질 뚜껑으로 껍데기를 꼭 닫아 천적으로부터 몸을 지킵니다.",
+    w_b1: "껍데기 높이 5〜10cm", w_b2: "고둥", w_b3: "해조류를 먹음",
+    where_h2: "어디에 살까? / 제철은 언제?",
+    where_text: "태평양 쪽은 보소반도부터 규슈까지, 동해 쪽은 홋카이도 남부부터 규슈까지 외해에 면한 암초 지대에 분포합니다. 수심 10m보다 얕은 갯바위에 많이 살며, 야행성이라 낮에는 바위 그늘에 숨어 있습니다. 산란기는 봄부터 여름까지이고, 제철은 그 전인 봄부터 초여름입니다.",
+    trivia_h2: "토막 상식",
+    tr1: "<strong>뿔은 자란 바다의 기록:</strong><br>파도가 거친 외해에서 자라면 가시(뿔)가 길게 자라고, 잔잔한 만에서 자라면 거의 나지 않습니다. 거친 바다에서 자란 개체를 물살이 없는 수조로 옮기면 더 이상 가시를 만들지 않는다는 실험 결과도 있습니다. 다만 예외도 있어 환경과 유전 양쪽이 관여한다고 봅니다.",
+    tr2: "<strong>내장 끝의 색으로 암수를 알 수 있다:</strong><br>껍데기에서 꺼내 소용돌이 모양 「내장」의 끝을 보면, 크림색이면 수컷, 짙은 초록색이면 암컷입니다. 암컷 쪽이 조금 더 쌉싸름하다고 하니 비교해 먹어 보는 것도 재미입니다.",
+    tr3: "<strong>학명이 붙은 것은 2017년:</strong><br>이렇게 친숙한 조개인데도 일본의 소라에는 오랫동안 올바른 학명이 없었습니다. 250년 동안 중국산 다른 종의 이름을 잘못 써 왔다는 사실이 밝혀져, 2017년에야 「Turbo sazae」라는 이름이 붙었습니다."
+  },
+  "es": {
+    title: "Caracola (Sazae) | ZAUO Meguro",
+    video_fallback: "Su navegador no admite la reproducción de vídeo.",
+    ruby: "sazae",
+    name: "Caracola (Sazae)",
+    catch: "El señor de las rocas, con todo el aroma del mar",
+    cook_h2: "Preparaciones recomendadas en ZAUO",
+    cook_lead: "La preparamos de dos formas: sashimi o tsubo-yaki asada en su propia concha.",
+    b_tsuboyaki: "Tsubo-yaki (asada en su propia concha)", b_sashimi: "Sashimi",
+    tip1: "¡Para los niños recomendamos el tsubo-yaki!",
+    tip2: "¡Con el sashimi, pruebe la salsa de soja dulce de Kyushu con unas gotas de limón!",
+    legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    photo_soon: "Foto próximamente",
+    what_h2: "¿Qué molusco es?",
+    what_text: "Es un gran caracol marino que vive entre las rocas. Se alimenta de algas y destaca por su carne firme y por el amargor característico del «hígado» que se enrosca al fondo de la concha. Un grueso opérculo calcáreo cierra la concha por completo y la protege de los depredadores.",
+    w_b1: "Concha de 5-10 cm", w_b2: "Caracol marino", w_b3: "Se alimenta de algas",
+    where_h2: "¿Dónde vive? / ¿Cuál es su temporada?",
+    where_text: "Vive en fondos rocosos abiertos al mar: de la península de Boso a Kyushu en la vertiente del Pacífico, y del sur de Hokkaido a Kyushu en la del mar de Japón. Abunda en rocas a menos de 10 m de profundidad y, como es nocturna, de día se esconde entre las grietas. El desove va de la primavera al verano, y su mejor momento es justo antes: de la primavera al comienzo del verano.",
+    trivia_h2: "Curiosidades",
+    tr1: "<strong>Los cuernos son el registro del mar en el que creció:</strong><br>Las que crecen en mar abierto y bravo desarrollan espinas largas; las criadas en bahías tranquilas apenas las tienen. En experimentos, ejemplares de aguas bravas trasladados a un tanque en calma dejaron de formar espinas. Hay excepciones, así que se cree que influyen tanto el ambiente como la genética.",
+    tr2: "<strong>La punta del hígado revela su sexo:</strong><br>Sácala de la concha y mira la punta del hígado en espiral: color crema significa macho; verde intenso, hembra. Se dice que la hembra amarga un poco más, así que probarlas juntas tiene su gracia.",
+    tr3: "<strong>No tuvo nombre científico hasta 2017:</strong><br>Pese a ser un molusco tan cotidiano, la sazae japonesa estuvo muchísimo tiempo sin un nombre científico válido. Se descubrió que durante 250 años se había usado por error el nombre de otra especie china, y solo en 2017 recibió por fin el nombre Turbo sazae."
+  },
+  "it": {
+    title: "Chiocciola di mare (Sazae) | ZAUO Meguro",
+    video_fallback: "Il tuo browser non supporta la riproduzione dei video.",
+    ruby: "sazae",
+    name: "Chiocciola di mare (Sazae)",
+    catch: "Il signore degli scogli, con tutto il profumo del mare",
+    cook_h2: "Preparazioni consigliate da ZAUO",
+    cook_lead: "La prepariamo in due modi: sashimi oppure tsubo-yaki alla griglia nel guscio.",
+    b_tsuboyaki: "Tsubo-yaki (alla griglia nel suo guscio)", b_sashimi: "Sashimi",
+    tip1: "Ai bambini consigliamo il tsubo-yaki!",
+    tip2: "Con il sashimi provate la salsa di soia dolce di Kyushu con qualche goccia di limone!",
+    legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    photo_soon: "Foto in arrivo",
+    what_h2: "Che mollusco è?",
+    what_text: "È una grossa chiocciola di mare che vive tra gli scogli. Si nutre di alghe e si fa apprezzare per la carne soda e per l'amarognolo tipico del «fegato» che si avvolge in fondo al guscio. Un opercolo calcareo e spesso chiude ermeticamente il guscio e la difende dai predatori.",
+    w_b1: "Conchiglia 5-10 cm", w_b2: "Chiocciola di mare", w_b3: "Si nutre di alghe",
+    where_h2: "Dove vive? / Qual è la stagione?",
+    where_text: "Vive su fondali rocciosi aperti al mare: dalla penisola di Boso al Kyushu sul versante pacifico e dall'Hokkaido meridionale al Kyushu su quello del Mar del Giappone. È diffusa sugli scogli a meno di 10 m di profondità e, essendo notturna, di giorno resta nascosta nelle fessure. La riproduzione va dalla primavera all'estate e il momento migliore è appena prima, dalla primavera all'inizio dell'estate.",
+    trivia_h2: "Curiosità",
+    tr1: "<strong>Le corna raccontano il mare in cui è cresciuta:</strong><br>Gli esemplari cresciuti in mare aperto e agitato sviluppano spine lunghe, quelli allevati in baie tranquille quasi non ne hanno. In alcuni esperimenti, individui di acque mosse trasferiti in una vasca calma hanno smesso di formare spine. Ci sono però eccezioni: si ritiene che contino sia l'ambiente sia la genetica.",
+    tr2: "<strong>La punta del fegato ne rivela il sesso:</strong><br>Estraila dal guscio e guarda la punta del fegato a spirale: color crema significa maschio, verde intenso femmina. Si dice che la femmina sia un po' più amarognola: assaggiarle a confronto è parte del divertimento.",
+    tr3: "<strong>Ha avuto un nome scientifico solo nel 2017:</strong><br>Per un mollusco così comune, la sazae giapponese è rimasta a lungo senza un nome scientifico valido. Si è scoperto che per 250 anni era stato usato per errore il nome di un'altra specie cinese, e solo nel 2017 è stata finalmente battezzata Turbo sazae."
+  },
+  "vi": {
+    title: "Ốc đụn (Sazae) | ZAUO Meguro",
+    video_fallback: "Trình duyệt của bạn không hỗ trợ phát video.",
+    ruby: "sazae",
+    name: "Ốc đụn (Sazae)",
+    catch: "Chúa tể của ghềnh đá, đậm hương vị biển",
+    cook_h2: "Các cách chế biến ZAUO gợi ý",
+    cook_lead: "Chúng tôi chế biến theo hai cách: sashimi và tsubo-yaki nướng nguyên vỏ.",
+    b_tsuboyaki: "Tsubo-yaki (nướng nguyên vỏ)", b_sashimi: "Sashimi (ốc sống)",
+    tip1: "Với các bé, chúng tôi gợi ý món tsubo-yaki!",
+    tip2: "Món sashimi ngon hơn khi chấm nước tương ngọt kiểu Kyushu vắt thêm chanh!",
+    legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    photo_soon: "Ảnh sắp có",
+    what_h2: "Đây là loại ốc gì?",
+    what_text: "Đây là loài ốc biển lớn sống ở vùng ghềnh đá. Nó ăn rong biển, thịt giòn dai, còn phần «gan» xoắn ốc nằm sâu trong vỏ lại có vị hơi nhẫn rất đặc trưng. Chiếc nắp vôi dày giúp ốc đóng kín miệng vỏ để tự vệ trước kẻ thù.",
+    w_b1: "Vỏ cao 5-10 cm", w_b2: "Ốc biển", w_b3: "Ăn rong biển",
+    where_h2: "Sống ở đâu? / Mùa ngon nhất là khi nào?",
+    where_text: "Ốc phân bố ở các rạn đá hướng ra biển khơi: từ bán đảo Boso đến Kyushu ở phía Thái Bình Dương, và từ nam Hokkaido đến Kyushu ở phía biển Nhật Bản. Chúng sống nhiều trên đá ở độ sâu dưới 10 m, hoạt động về đêm nên ban ngày nấp trong hốc đá. Mùa sinh sản kéo dài từ xuân sang hè, và mùa ngon nhất là ngay trước đó, từ mùa xuân đến đầu hè.",
+    trivia_h2: "Có thể bạn chưa biết",
+    tr1: "<strong>Những chiếc sừng ghi lại vùng biển nơi nó lớn lên:</strong><br>Ốc lớn lên ở vùng biển khơi sóng dữ sẽ mọc gai (sừng) dài, còn ốc ở vịnh lặng sóng thì hầu như không có. Có thí nghiệm cho thấy ốc vùng sóng dữ khi chuyển sang bể nước tĩnh thì thôi mọc gai. Tuy vậy vẫn có ngoại lệ, nên người ta cho rằng cả môi trường lẫn di truyền đều góp phần.",
+    tr2: "<strong>Nhìn màu đầu gan là biết đực hay cái:</strong><br>Lấy ốc ra khỏi vỏ và nhìn phần đầu của «gan» xoắn ốc: màu kem là con đực, xanh đậm là con cái. Nghe nói con cái hơi nhẫn hơn một chút, nên nếm thử so sánh cũng là một thú vui.",
+    tr3: "<strong>Mãi đến năm 2017 mới có tên khoa học:</strong><br>Dù là loài ốc quen thuộc đến vậy, ốc sazae của Nhật lại rất lâu không có tên khoa học chính xác. Người ta phát hiện suốt 250 năm qua đã dùng nhầm tên của một loài khác ở Trung Quốc, và mãi đến năm 2017 nó mới được đặt tên là Turbo sazae."
+  },
+  "tl": {
+    title: "Susong-dagat (Sazae) | ZAUO Meguro",
+    video_fallback: "Hindi sinusuportahan ng iyong browser ang pag-play ng video.",
+    ruby: "sazae",
+    name: "Susong-dagat (Sazae)",
+    catch: "Ang hari ng mabatong baybayin, punong-puno ng amoy ng dagat",
+    cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
+    cook_lead: "Dalawang paraan ang aming lutuin: sashimi at tsubo-yaki na inihaw sa sariling talukab.",
+    b_tsuboyaki: "Tsubo-yaki (inihaw sa sariling talukab)", b_sashimi: "Sashimi (hilaw)",
+    tip1: "Para sa mga bata, inirerekomenda namin ang tsubo-yaki!",
+    tip2: "Sa sashimi, subukan ang matamis na toyo ng Kyushu na may pigang lemon!",
+    legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    photo_soon: "Malapit nang mailagay ang larawan",
+    what_h2: "Anong klaseng shellfish ito?",
+    what_text: "Isa itong malaking susong-dagat na naninirahan sa mabatong bahagi ng dagat. Kumakain ito ng damong-dagat, malutong ang laman, at natatangi ang bahagyang pait ng «atay» na nakapulupot sa kaloob-looban ng talukab. Sinasarhan nito nang mahigpit ang talukab gamit ang makapal na takip na parang apog para maprotektahan ang sarili sa mga maninila.",
+    w_b1: "Talukab 5-10 cm", w_b2: "Susong-dagat", w_b3: "Kumakain ng damong-dagat",
+    where_h2: "Saan ito nakatira? / Kailan ang panahon nito?",
+    where_text: "Matatagpuan ito sa mabatong bahura na nakaharap sa laot: mula Boso Peninsula hanggang Kyushu sa bahaging Pasipiko, at mula timog Hokkaido hanggang Kyushu sa bahaging Dagat ng Japan. Marami ito sa mga batong mas mababaw sa 10 m, at dahil gabi ito gumagala, nagtatago ito sa siwang ng bato kapag araw. Nangingitlog ito mula tagsibol hanggang tag-init, at ang pinakamainam na panahon ay bago pa niyan: mula tagsibol hanggang maagang bahagi ng tag-init.",
+    trivia_h2: "Alam mo ba?",
+    tr1: "<strong>Ang mga sungay ay talaan ng dagat na kinalakhan nito:</strong><br>Ang lumaki sa maalong laot ay tumutubuan ng mahahabang tinik (sungay); ang inalagaan sa tahimik na look ay halos wala. Sa ilang eksperimento, ang mga galing sa maalong tubig na inilipat sa tahimik na tangke ay tumigil sa pagbuo ng tinik. May mga eksepsiyon pa rin, kaya iniisip na parehong may kinalaman ang kapaligiran at ang henetika.",
+    tr2: "<strong>Ang dulo ng atay ang nagsasabi ng kasarian nito:</strong><br>Alisin ito sa talukab at tingnan ang dulo ng paikot na atay: kulay krema ay lalaki, malalim na berde ay babae. Sinasabing bahagyang mas mapait ang babae, kaya masaya ring pagtabihin ang dalawa sa pagtikim.",
+    tr3: "<strong>Noong 2017 lang ito nagkaroon ng pang-agham na pangalan:</strong><br>Sa kabila ng pagiging pamilyar nito, matagal na walang wastong pang-agham na pangalan ang sazae ng Japan. Nalaman na sa loob ng 250 taon ay maling pangalan ng ibang espesye mula China ang ginagamit, at noong 2017 lamang ito tuluyang pinangalanang Turbo sazae."
+  }
+};
+
+function setLang(lang){
+  var dict = I18N[lang];
+  if(!dict){ return; }
+
+  document.documentElement.setAttribute("lang", lang);
+  document.title = dict.title;
+
+  var i, key;
+  var nodes = document.querySelectorAll("[data-i18n]");
+  for(i = 0; i < nodes.length; i++){
+    key = nodes[i].getAttribute("data-i18n");
+    if(dict[key] !== undefined){ nodes[i].textContent = dict[key]; }
+  }
+  var htmlNodes = document.querySelectorAll("[data-i18n-html]");
+  for(i = 0; i < htmlNodes.length; i++){
+    key = htmlNodes[i].getAttribute("data-i18n-html");
+    if(dict[key] !== undefined){ htmlNodes[i].innerHTML = dict[key]; }
+  }
+
+  var btns = document.querySelectorAll(".lang-btn");
+  for(i = 0; i < btns.length; i++){
+    if(btns[i].getAttribute("data-lang") === lang){
+      btns[i].classList.add("is-active");
+    } else {
+      btns[i].classList.remove("is-active");
+    }
+  }
+}
+
+(function(){
+  var btns = document.querySelectorAll(".lang-btn");
+  for(var i = 0; i < btns.length; i++){
+    btns[i].addEventListener("click", function(){
+      setLang(this.getAttribute("data-lang"));
+    });
+  }
+  /* 開いたときは常に日本語（選択は保存しない） */
+  setLang("ja");
+})();
+</script>
+
+</body>
+</html>
