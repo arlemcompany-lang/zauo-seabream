@@ -1,0 +1,47 @@
+魚種別説明ページ 公開URL一覧
+（ざうお目黒店 / GitHub Pages）
+
+■ 伊勢海老（イセエビ）★多言語対応ずみ（8言語）
+https://arlemcompany-lang.github.io/zauo-seabream/%E4%BC%8A%E5%8B%A2%E6%B5%B7%E8%80%81/
+
+■ 鯵（アジ）★多言語対応ずみ（8言語）
+https://arlemcompany-lang.github.io/zauo-seabream/%E9%AF%B5/
+
+■ 車海老（クルマエビ）★多言語対応ずみ（8言語）
+https://arlemcompany-lang.github.io/zauo-seabream/%E8%BB%8A%E6%B5%B7%E8%80%81/
+
+■ 鮑（アワビ）★多言語対応ずみ（8言語）
+https://arlemcompany-lang.github.io/zauo-seabream/%E9%AE%91/
+
+■ 栄螺（サザエ）★多言語対応ずみ（8言語）
+https://arlemcompany-lang.github.io/zauo-seabream/%E6%A0%84%E8%9E%BA/
+
+■ 平目（ヒラメ）★多言語対応ずみ（8言語）
+https://arlemcompany-lang.github.io/zauo-seabream/%E5%B9%B3%E7%9B%AE/
+
+■ 鯛（タイ）★多言語対応ずみ（8言語）
+https://arlemcompany-lang.github.io/zauo-seabream/%E9%AF%9B/
+
+
+--------------------------------------------------
+【多言語について】
+・7ページとも8言語対応（釣りゲームと同じ言語・同じ並び順）。
+　日本語／English／中文／한국어／Español／Italiano／Tiếng Việt／Tagalog
+・開くと必ず日本語。動画の上に並ぶ国旗をタップすると切り替わります。
+・選んだ言語は保存されないため、開き直すとまた日本語で表示されます。
+
+--------------------------------------------------
+【メモ】
+・上記は日本語部分をパーセントエンコードしたURL。
+　LINE・メール・QRコード作成サイトなどに貼っても崩れません。
+
+・ブラウザのアドレスバーに表示される日本語表記も同じページです。
+　　https://arlemcompany-lang.github.io/zauo-seabream/伊勢海老/
+　　https://arlemcompany-lang.github.io/zauo-seabream/鯵/
+　　https://arlemcompany-lang.github.io/zauo-seabream/鯛/
+　　https://arlemcompany-lang.github.io/zauo-seabream/平目/
+　　https://arlemcompany-lang.github.io/zauo-seabream/栄螺/
+　　https://arlemcompany-lang.github.io/zauo-seabream/鮑/
+　　https://arlemcompany-lang.github.io/zauo-seabream/車海老/
+
+・リポジトリ: https://github.com/arlemcompany-lang/zauo-seabream
