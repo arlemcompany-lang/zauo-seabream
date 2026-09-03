@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>縞鯵（シマアジ） | ざうお目黒店</title>
+<style>
+  :root{
+    --main: #93a6dd;
+    --accent: #2f4593;
+    --bg: #f4f6fd;
+    --text: #38405c;
+    --sub: #8b93b0;
+    /* 言語バーの高さ。動画の高さから差し引き、多言語化前と同じ位置でタイトルが見えるようにする */
+    --langbar-h: 111px;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: "Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height:1.8;
+  }
+  html[lang="ko"] body{
+    font-family: "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  }
+  html[lang="zh"] body{
+    font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  }
+  html[lang="en"] body,
+  html[lang="es"] body,
+  html[lang="it"] body,
+  html[lang="vi"] body,
+  html[lang="tl"] body{
+    font-family: "Helvetica Neue",Arial,sans-serif;
+  }
+
+  /* ===== 言語切替バー（動画より上・スクロールしても追従） ===== */
+  .langbar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    align-items: start;
+    gap: 2px;
+    padding: 7px 4px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(47,69,147,0.18);
+  }
+  @media (min-width: 640px){
+    :root{ --langbar-h: 61px; }
+    .langbar{ grid-template-columns: repeat(8, auto); }
+  }
+  .lang-btn{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 4px 5px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height:1.2;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lang-btn .flag{
+    display:block;
+    width: 36px;
+    height: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+    transition: transform .15s;
+  }
+  .lang-btn .flag svg{ display:block; width:100%; height:100%; }
+  .lang-btn .lang-name{
+    font-size: .64rem;
+    font-weight: bold;
+    color: var(--sub);
+    white-space: nowrap;
+    /* ベトナム語の「ế」等が合成表示にならないよう、ベトナム語対応のラテン系フォントを先頭に置く */
+    font-family: "Segoe UI",Arial,"Hiragino Maru Gothic ProN","Yu Gothic","Malgun Gothic","Microsoft YaHei",sans-serif;
+  }
+  .lang-btn.is-active{ background: var(--bg); }
+  .lang-btn.is-active .flag{ box-shadow: 0 0 0 2px var(--accent); }
+  .lang-btn.is-active .lang-name{ color: var(--accent); }
+  .lang-btn:active .flag{ transform: scale(.92); }
+
+  .video-wrap{
+    background: var(--bg);
+    height: calc(80vh - var(--langbar-h));
+    min-height: 240px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+  }
+  video{
+    height:100%;
+    width:auto;
+    max-width:100%;
+  }
+  main{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  h1{
+    font-size: 2rem;
+    margin: 0 0 4px;
+    color: var(--accent);
+  }
+  h1 .ruby{
+    display:block;
+    font-size: .9rem;
+    color: var(--sub);
+    font-weight:normal;
+    margin-bottom:4px;
+  }
+  p.catch{
+    font-weight:bold;
+    color: var(--accent);
+    margin: 0 0 24px;
+  }
+  .card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow: 0 8px 24px rgba(47,69,147,0.12);
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .card h2{
+    margin-top:0;
+    font-size:1.15rem;
+    color: var(--accent);
+  }
+  .badge-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:8px;
+  }
+  .badge{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .85rem;
+    font-weight:bold;
+  }
+  .trivia-list{
+    margin:0;
+    padding-left: 1.2em;
+  }
+  .trivia-list li{ margin-bottom: 8px; }
+  .badge.ok{
+    background: var(--bg);
+    border: 1px solid var(--main);
+    color: var(--accent);
+  }
+  .badge.ng{
+    background: #fffbe6;
+    border: 1px solid #e6c200;
+    color: #9c8000;
+  }
+  .sub-label{
+    margin: 16px 0 0;
+  }
+  .legend{
+    margin: 16px 0 0;
+    font-size: .85rem;
+    color: var(--sub);
+  }
+  .src{
+    display: block;
+    margin-top: 6px;
+    font-size: .75rem;
+    color: var(--sub);
+  }
+  .note{
+    margin: 16px 0 0;
+    font-weight: bold;
+    color: var(--accent);
+  }
+  .note + .note{ margin-top: 4px; }
+  .photo-placeholder{
+    margin-top: 16px;
+    height: 160px;
+    border: 2px dashed var(--main);
+    border-radius: 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--sub);
+    font-size: .9rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 言語切替（動画より上）／釣りゲームと同じ8言語・同じ並び順 ===== -->
+<nav class="langbar" aria-label="Language / 言語切替">
+  <button type="button" class="lang-btn is-active" data-lang="ja" aria-label="日本語">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg></span>
+    <span class="lang-name">日本語</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="en" aria-label="English">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#b22234"/><g fill="#fff"><rect y="1.54" width="30" height="1.54"/><rect y="4.62" width="30" height="1.54"/><rect y="7.69" width="30" height="1.54"/><rect y="10.77" width="30" height="1.54"/><rect y="13.85" width="30" height="1.54"/><rect y="16.92" width="30" height="1.54"/></g><rect width="12" height="10.77" fill="#3c3b6e"/><g fill="#fff"><circle cx="2" cy="1.6" r=".45"/><circle cx="5" cy="1.6" r=".45"/><circle cx="8" cy="1.6" r=".45"/><circle cx="11" cy="1.6" r=".45"/><circle cx="3.5" cy="3.6" r=".45"/><circle cx="6.5" cy="3.6" r=".45"/><circle cx="9.5" cy="3.6" r=".45"/><circle cx="2" cy="5.6" r=".45"/><circle cx="5" cy="5.6" r=".45"/><circle cx="8" cy="5.6" r=".45"/><circle cx="11" cy="5.6" r=".45"/><circle cx="3.5" cy="7.6" r=".45"/><circle cx="6.5" cy="7.6" r=".45"/><circle cx="9.5" cy="7.6" r=".45"/><circle cx="2" cy="9.6" r=".45"/><circle cx="5" cy="9.6" r=".45"/><circle cx="8" cy="9.6" r=".45"/><circle cx="11" cy="9.6" r=".45"/></g></svg></span>
+    <span class="lang-name">English</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="cnstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="20" fill="#de2910"/><g fill="#ffde00"><use href="#cnstar" transform="translate(5,5) scale(3)"/><use href="#cnstar" transform="translate(10,2)"/><use href="#cnstar" transform="translate(12,4.5)"/><use href="#cnstar" transform="translate(12,7.5)"/><use href="#cnstar" transform="translate(10,10)"/></g></svg></span>
+    <span class="lang-name">中文</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="ko" aria-label="한국어">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><g transform="rotate(-123 15 10)"><circle cx="15" cy="10" r="4" fill="#0047a0"/><path d="M15,6 A4,4 0 0,1 15,14 A2,2 0 0,0 15,10 A2,2 0 0,1 15,6 Z" fill="#cd2e3a"/></g><g fill="#000"><g transform="translate(5.5,4.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,4.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="4.4" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g><g transform="translate(5.5,15.5) rotate(56.3)"><rect x="-2.2" y="-1.5" width="4.4" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="4.4" height=".8"/></g><g transform="translate(24.5,15.5) rotate(-56.3)"><rect x="-2.2" y="-1.5" width="1.75" height=".8"/><rect x=".45" y="-1.5" width="1.75" height=".8"/><rect x="-2.2" y="-.4" width="1.75" height=".8"/><rect x=".45" y="-.4" width="1.75" height=".8"/><rect x="-2.2" y=".7" width="1.75" height=".8"/><rect x=".45" y=".7" width="1.75" height=".8"/></g></g></svg></span>
+    <span class="lang-name">한국어</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="es" aria-label="Español">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#c60b1e"/><rect y="5" width="30" height="10" fill="#ffc400"/></svg></span>
+    <span class="lang-name">Español</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="it" aria-label="Italiano">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="10" height="20" fill="#008c45"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#cd212a"/></svg></span>
+    <span class="lang-name">Italiano</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="vi" aria-label="Tiếng Việt">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#da251d"/><polygon fill="#ffff00" transform="translate(15,10) scale(6.4)" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></svg></span>
+    <span class="lang-name">Tiếng Việt</span>
+  </button>
+  <button type="button" class="lang-btn" data-lang="tl" aria-label="Tagalog">
+    <span class="flag"><svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><defs><polygon id="phstar" points="0,-1 0.2245,-0.309 0.951,-0.309 0.3634,0.118 0.588,0.809 0,0.382 -0.588,0.809 -0.3634,0.118 -0.951,-0.309 -0.2245,-0.309"/></defs><rect width="30" height="10" fill="#0038a8"/><rect y="10" width="30" height="10" fill="#ce1126"/><polygon fill="#fff" points="0,0 16.5,10 0,20"/><g fill="#fcd116"><polygon points="8.1,10 6.347,10.268 7.397,11.697 5.968,10.647 5.7,12.4 5.432,10.647 4.003,11.697 5.053,10.268 3.3,10 5.053,9.732 4.003,8.303 5.432,9.353 5.7,7.6 5.968,9.353 7.397,8.303 6.347,9.732"/><circle cx="5.7" cy="10" r="1.15"/><use href="#phstar" transform="translate(2.6,3.2) scale(1.15)"/><use href="#phstar" transform="translate(2.6,16.8) scale(1.15)"/><use href="#phstar" transform="translate(13.4,10) scale(1.15)"/></g></svg></span>
+    <span class="lang-name">Tagalog</span>
+  </button>
+</nav>
+
+<div class="video-wrap">
+<video src="shimaaji.mp4" controls autoplay muted loop playsinline>
+  <span data-i18n="video_fallback">お使いのブラウザは動画に対応していません。</span>
+</video>
+</div>
+
+<main>
+  <h1><span class="ruby" data-i18n="ruby">しまあじ</span><span data-i18n="name">縞鯵（シマアジ）</span></h1>
+  <p class="catch" data-i18n="catch">黄金のひとすじ、アジの最高峰</p>
+
+  <!-- ===== TODO: 調理法カード（店舗に確認中のため非表示） =====
+       メニューと評価記号（◎〇△✕）は店舗固有情報。確定するまで出さない。
+       確定したらこのコメントを外し、badge-row の中身と I18N の b_* キーを埋める。
+       cook_h2 / cook_lead / legend / photo_soon は8言語とも I18N に用意済み。
+  <div class="card">
+    <h2 data-i18n="cook_h2">おすすめのざうお調理法</h2>
+    <p data-i18n="cook_lead">上品な白身のうまみを楽しめる調理法をご用意しています</p>
+    <div class="badge-row">
+      <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> ◎</span>
+    </div>
+    <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
+    <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
+  </div>
+  ===== /TODO ===== -->
+
+  <div class="card">
+    <h2 data-i18n="what_h2">どんな魚？</h2>
+    <p data-i18n="what_text">
+      エラから尾の付け根まで、体の中央を黄色い帯がまっすぐ一本走るのが目印です。
+      アジの仲間のなかでもとくに高級とされ、白身魚の上品さとアジのうまみをあわせ持った味わい。
+      天然ものは数が少なく、かつては「幻の魚」と呼ばれたこともあります。
+    </p>
+    <div class="badge-row">
+      <span class="badge" data-i18n="w_b1">体長 40〜80cm</span>
+      <span class="badge" data-i18n="w_b2">黄色い一本線</span>
+      <span class="badge" data-i18n="w_b3">アジ科の高級魚</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="where_h2">どこにいる？／旬はいつ？</h2>
+    <p data-i18n="where_text">
+      太平洋側は岩手県あたりから南、日本海側は能登半島あたりから南に分布し、
+      伊豆諸島や小笠原の島まわりでは普通に見られます。
+      潮通しのよい岩礁や、水深200mほどまでの底層で群れをつくります。
+      旬は夏から秋（6〜10月ごろ）。冬の産卵期に向けて脂がのっていきます。
+      天然ものの漁獲は少なく、市場に出回るものの多くは養殖です。
+    </p>
+  </div>
+
+  <div class="card">
+    <h2 data-i18n="trivia_h2">豆知識</h2>
+    <ul class="trivia-list">
+      <li data-i18n-html="tr1"><strong>エラから尾まで、黄色い一本線：</strong><br>おとなの魚は体の中央にまっすぐな黄色い帯が走る。これがシマアジの何よりの目印。ただし歳を重ねると薄れて、見えなくなる個体もいる。</li>
+      <li data-i18n-html="tr2"><strong>「アジ」なのに1kg＝1万円超えの最高級魚：</strong><br>大衆魚のイメージが強いアジの仲間でありながら、天然モノはキロあたり1万円を超えることもある超高級魚。上品な旨味と上質な脂で、寿司ネタの最高峰として珍重されます。</li>
+      <li><span data-i18n-html="tr3"><strong>激戦の末に「くちびる」だけ残して逃げる：</strong><br>強烈な引きで釣りのターゲットとして大人気ですが、実は口の組織が紙のように薄く非常にデリケート。釣り人が興奮して力任せに巻き上げると、口が千切れて逃げられ「針にサカナの唇だけが残される」という切ない珍劇が頻発します。</span><a class="src" href="https://www.honda.co.jp/fishing/picture-book/shimaaji/" target="_blank" rel="noopener" data-i18n="src3">※情報元：Honda 釣り図鑑</a></li>
+    </ul>
+  </div>
+</main>
+
+<script>
+/* 言語コードは釣りゲーム(ざうおスマホゲーム/index.html)と同じ ja/en/zh/ko/es/it/vi/tl。
+   魚の名称もゲームの FISH_NAMES.shimaaji と揃えてある。
+   b_*（調理法のメニュー名）は店舗確認後に追加する。 */
+var I18N = {
+  "ja": {
+    title: "縞鯵（シマアジ） | ざうお目黒店",
+    video_fallback: "お使いのブラウザは動画に対応していません。",
+    ruby: "しまあじ",
+    name: "縞鯵（シマアジ）",
+    catch: "黄金のひとすじ、アジの最高峰",
+    cook_h2: "おすすめのざうお調理法",
+    cook_lead: "上品な白身のうまみを楽しめる調理法をご用意しています",
+    legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
+    photo_soon: "写真準備中",
+    what_h2: "どんな魚？",
+    what_text: "エラから尾の付け根まで、体の中央を黄色い帯がまっすぐ一本走るのが目印です。アジの仲間のなかでもとくに高級とされ、白身魚の上品さとアジのうまみをあわせ持った味わい。天然ものは数が少なく、かつては「幻の魚」と呼ばれたこともあります。",
+    w_b1: "体長 40〜80cm", w_b2: "黄色い一本線", w_b3: "アジ科の高級魚",
+    where_h2: "どこにいる？／旬はいつ？",
+    where_text: "太平洋側は岩手県あたりから南、日本海側は能登半島あたりから南に分布し、伊豆諸島や小笠原の島まわりでは普通に見られます。潮通しのよい岩礁や、水深200mほどまでの底層で群れをつくります。旬は夏から秋（6〜10月ごろ）。冬の産卵期に向けて脂がのっていきます。天然ものの漁獲は少なく、市場に出回るものの多くは養殖です。",
+    trivia_h2: "豆知識",
+    tr1: "<strong>エラから尾まで、黄色い一本線：</strong><br>おとなの魚は体の中央にまっすぐな黄色い帯が走る。これがシマアジの何よりの目印。ただし歳を重ねると薄れて、見えなくなる個体もいる。",
+    tr2: "<strong>「アジ」なのに1kg＝1万円超えの最高級魚：</strong><br>大衆魚のイメージが強いアジの仲間でありながら、天然モノはキロあたり1万円を超えることもある超高級魚。上品な旨味と上質な脂で、寿司ネタの最高峰として珍重されます。",
+    tr3: "<strong>激戦の末に「くちびる」だけ残して逃げる：</strong><br>強烈な引きで釣りのターゲットとして大人気ですが、実は口の組織が紙のように薄く非常にデリケート。釣り人が興奮して力任せに巻き上げると、口が千切れて逃げられ「針にサカナの唇だけが残される」という切ない珍劇が頻発します。",
+    src3: "※情報元：Honda 釣り図鑑"
+  },
+  "en": {
+    title: "Striped Jack (Shimaaji) | ZAUO Meguro",
+    video_fallback: "Your browser does not support video playback.",
+    ruby: "shimaaji",
+    name: "Striped Jack (Shimaaji)",
+    catch: "One golden line — the finest of the jacks",
+    cook_h2: "Recommended ZAUO Cooking Styles",
+    cook_lead: "Cooking styles that bring out the delicate savour of its white flesh.",
+    legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
+    photo_soon: "Photo coming soon",
+    what_h2: "What kind of fish is it?",
+    what_text: "You can spot it by the yellow band running straight down the middle of its body, from the gills to the base of the tail. It is regarded as the finest of the jacks, combining the refinement of a white-fleshed fish with the savoury depth of a horse mackerel. Wild fish are scarce, and it was once known as a «phantom fish».",
+    w_b1: "Length 40-80 cm", w_b2: "A single yellow line", w_b3: "A prized member of the jack family",
+    where_h2: "Where does it live? / When is it in season?",
+    where_text: "It ranges south from around Iwate on the Pacific side and from around the Noto Peninsula on the Sea of Japan side, and is a common sight around the Izu and Ogasawara Islands. It forms schools over rocky reefs washed by strong currents, and down to depths of about 200 m. It is at its best from summer into autumn (roughly June to October), fattening up towards the winter spawning season. Wild catches are small, so most of the fish on the market are farmed.",
+    trivia_h2: "Fun Facts",
+    tr1: "<strong>One yellow line, gills to tail:</strong><br>Adults carry a straight yellow band down the centre of the body — the surest way to recognise the fish. In older individuals it can fade until it is barely visible.",
+    tr2: "<strong>A jack, and yet worth over 10,000 yen a kilo:</strong><br>It belongs to the horse mackerel family, fish with a decidedly everyday reputation, and yet wild striped jack can fetch more than 10,000 yen per kilogram. Its refined savour and fine fat make it prized as the very summit of sushi ingredients.",
+    tr3: "<strong>After a hard fight it escapes, leaving only its «lips» behind:</strong><br>Its ferocious fight makes it a hugely popular target for anglers, but the tissue of its mouth is paper-thin and remarkably delicate. An excited angler who winds in by brute force will tear the mouth clean through and lose the fish — leaving, as they say, nothing but a pair of lips on the hook.",
+    src3: "Source: Honda Fishing Picture Book"
+  },
+  "zh": {
+    title: "条纹竹荚鱼（Shimaaji）| ZAUO 目黑店",
+    video_fallback: "您的浏览器不支持视频播放。",
+    ruby: "shimaaji",
+    name: "条纹竹荚鱼（Shimaaji）",
+    catch: "一道金线，竹荚鱼中的极品",
+    cook_h2: "推荐的 ZAUO 烹饪方式",
+    cook_lead: "为您准备了能品尝其白肉细腻鲜味的做法。",
+    legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
+    photo_soon: "照片准备中",
+    what_h2: "这是什么鱼？",
+    what_text: "从鳃部一直延伸到尾柄、笔直贯穿体侧中央的黄色带纹，就是它的标志。它被视为竹荚鱼家族中的顶级食材，兼具白肉鱼的清雅与竹荚鱼的鲜甜。野生鱼数量稀少，过去甚至被称为「梦幻之鱼」。",
+    w_b1: "体长 40〜80cm", w_b2: "一道黄色纵线", w_b3: "鲹科高级鱼",
+    where_h2: "栖息在哪里？／什么时候最当季？",
+    where_text: "太平洋一侧分布于岩手县以南，日本海一侧分布于能登半岛以南，在伊豆群岛与小笠原群岛周边十分常见。喜欢潮流通畅的岩礁，也会成群出现在水深200米左右的底层。当季为夏至秋（6〜10月前后），朝着冬季产卵期逐渐积蓄脂肪。野生渔获很少，市面上流通的多为养殖鱼。",
+    trivia_h2: "小知识",
+    tr1: "<strong>从鳃到尾，一道黄线：</strong><br>成鱼的体侧中央有一条笔直的黄色带纹，这是辨认它最可靠的标志。不过随着年龄增长，也有个体会逐渐变淡到几乎看不出来。",
+    tr2: "<strong>身为「竹荚鱼」，每公斤却超过一万日元的顶级鱼：</strong><br>虽然属于给人大众鱼印象的竹荚鱼家族，野生个体每公斤却能卖到超过一万日元，是不折不扣的超高级鱼。清雅的鲜味与上乘的油脂，使它被奉为寿司食材的最高峰。",
+    tr3: "<strong>激战之后只留下「嘴唇」逃之夭夭：</strong><br>凶猛的拉力让它成为极受欢迎的钓鱼目标，但它口部的组织薄如纸张、异常脆弱。钓手一兴奋、蛮力收线，鱼嘴便会被扯断而让鱼逃走，鱼钩上只留下「一副嘴唇」，是令人扼腕却又常见的场面。",
+    src3: "信息来源：Honda 钓鱼图鉴"
+  },
+  "ko": {
+    title: "줄전갱이(시마아지) | ZAUO 메구로점",
+    video_fallback: "사용 중인 브라우저는 동영상을 지원하지 않습니다.",
+    ruby: "시마아지",
+    name: "줄전갱이(시마아지)",
+    catch: "황금빛 한 줄, 전갱이의 최고봉",
+    cook_h2: "추천 ZAUO 조리법",
+    cook_lead: "담백한 흰살의 감칠맛을 즐길 수 있는 조리법을 준비했습니다.",
+    legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
+    photo_soon: "사진 준비 중",
+    what_h2: "어떤 생선인가요?",
+    what_text: "아가미에서 꼬리자루까지, 몸통 한가운데를 곧게 가로지르는 노란 띠가 표식입니다. 전갱이 무리 중에서도 특히 고급으로 꼽히며, 흰살 생선의 담백함과 전갱이의 감칠맛을 함께 지니고 있습니다. 자연산은 수가 적어 한때 「환상의 물고기」라 불리기도 했습니다.",
+    w_b1: "몸길이 40〜80cm", w_b2: "노란 한 줄", w_b3: "전갱이과의 고급 어종",
+    where_h2: "어디에 살까? / 제철은 언제?",
+    where_text: "태평양 쪽은 이와테현 부근부터 남쪽, 동해 쪽은 노토반도 부근부터 남쪽에 분포하며, 이즈 제도와 오가사와라 제도 주변에서는 흔히 볼 수 있습니다. 물살이 잘 통하는 암초나 수심 200m 정도까지의 저층에서 무리를 이룹니다. 제철은 여름부터 가을(6〜10월경)이며, 겨울 산란기를 앞두고 기름이 오릅니다. 자연산 어획량이 적어 시장에 나오는 것은 대부분 양식입니다.",
+    trivia_h2: "토막 상식",
+    tr1: "<strong>아가미에서 꼬리까지, 노란 한 줄:</strong><br>다 자란 개체는 몸통 한가운데에 곧은 노란 띠가 나 있습니다. 이 물고기를 알아보는 가장 확실한 표식이지만, 나이를 먹으면 흐려져 잘 보이지 않는 개체도 있습니다.",
+    tr2: "<strong>「전갱이」인데 1kg에 1만 엔이 넘는 최고급 어종:</strong><br>대중적인 생선이라는 인상이 강한 전갱이 무리에 속하면서도, 자연산은 1킬로그램당 1만 엔을 넘기도 하는 초고급 어종입니다. 품위 있는 감칠맛과 질 좋은 지방으로, 초밥 재료의 최고봉으로 귀하게 여겨집니다.",
+    tr3: "<strong>격전 끝에 「입술」만 남기고 달아납니다:</strong><br>강렬한 손맛 덕에 낚시 대상어로 큰 인기를 누리지만, 사실 입 조직이 종이처럼 얇고 매우 여립니다. 낚시꾼이 흥분해 힘으로만 감아올리면 입이 찢어져 놓치고 마는데, 「바늘에 물고기 입술만 남는다」는 안타까운 진풍경이 자주 벌어집니다.",
+    src3: "정보 출처: Honda 낚시 도감"
+  },
+  "es": {
+    title: "Palometa rayada (Shimaaji) | ZAUO Meguro",
+    video_fallback: "Su navegador no admite la reproducción de vídeo.",
+    ruby: "shimaaji",
+    name: "Palometa rayada (Shimaaji)",
+    catch: "Una línea dorada: la cima de los jureles",
+    cook_h2: "Preparaciones recomendadas en ZAUO",
+    cook_lead: "Preparaciones pensadas para disfrutar el sabor delicado de su carne blanca.",
+    legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
+    photo_soon: "Foto próximamente",
+    what_h2: "¿Qué pescado es?",
+    what_text: "Se reconoce por la banda amarilla que recorre recta el centro del cuerpo, desde las agallas hasta la base de la cola. Está considerado el más selecto de los jureles: reúne la finura de un pescado de carne blanca y el sabor intenso del jurel. Los ejemplares salvajes son escasos y en su día se le llegó a llamar «el pez fantasma».",
+    w_b1: "Longitud 40-80 cm", w_b2: "Una sola línea amarilla", w_b3: "Un jurel de alta gama",
+    where_h2: "¿Dónde vive? / ¿Cuál es su temporada?",
+    where_text: "Se distribuye hacia el sur desde la altura de Iwate en la vertiente del Pacífico y desde la península de Noto en la del mar de Japón, y es habitual en torno a las islas Izu y Ogasawara. Forma cardúmenes sobre arrecifes rocosos batidos por la corriente y hasta unos 200 m de profundidad. Su temporada va del verano al otoño (de junio a octubre, aproximadamente) y engorda de cara al desove invernal. La pesca salvaje es escasa, así que casi todo lo que llega al mercado procede de acuicultura.",
+    trivia_h2: "Curiosidades",
+    tr1: "<strong>Una línea amarilla de las agallas a la cola:</strong><br>Los adultos llevan una banda amarilla recta por el centro del cuerpo, la señal más fiable para identificarlo. Con los años puede desdibujarse hasta casi desaparecer en algunos ejemplares.",
+    tr2: "<strong>Un jurel que supera los 10.000 yenes el kilo:</strong><br>Pertenece a la familia del jurel, un pescado de fama muy cotidiana, y sin embargo el ejemplar salvaje puede superar los 10.000 yenes por kilo. Su sabor delicado y su grasa fina lo hacen apreciado como la cima de los pescados para sushi.",
+    tr3: "<strong>Tras una dura pelea se escapa dejando solo los «labios»:</strong><br>Su pelea feroz lo convierte en una pieza muy codiciada por los pescadores, pero el tejido de su boca es fino como el papel y sumamente delicado. Si el pescador se emociona y recoge a pura fuerza, la boca se desgarra y el pez huye: en el anzuelo no quedan más que los labios, una escena tan frecuente como desconsoladora.",
+    src3: "Fuente: Honda Fishing Picture Book"
+  },
+  "it": {
+    title: "Leccia striata (Shimaaji) | ZAUO Meguro",
+    video_fallback: "Il tuo browser non supporta la riproduzione dei video.",
+    ruby: "shimaaji",
+    name: "Leccia striata (Shimaaji)",
+    catch: "Una linea dorata: il vertice dei carangidi",
+    cook_h2: "Preparazioni consigliate da ZAUO",
+    cook_lead: "Preparazioni pensate per gustare il sapore delicato delle sue carni bianche.",
+    legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
+    photo_soon: "Foto in arrivo",
+    what_h2: "Che pesce è?",
+    what_text: "Si riconosce dalla fascia gialla che corre dritta al centro del corpo, dalle branchie fino alla base della coda. È considerato il più pregiato dei carangidi: unisce la finezza di un pesce a carne bianca alla sapidità del suro. Gli esemplari selvatici sono rari e un tempo veniva chiamato «il pesce fantasma».",
+    w_b1: "Lunghezza 40-80 cm", w_b2: "Un'unica linea gialla", w_b3: "Un carangide di pregio",
+    where_h2: "Dove vive? / Qual è la stagione?",
+    where_text: "Si distribuisce verso sud a partire dall'altezza di Iwate sul versante del Pacifico e dalla penisola di Noto su quello del Mar del Giappone, ed è comune attorno alle isole Izu e Ogasawara. Forma banchi sulle scogliere rocciose battute dalla corrente e fino a circa 200 m di profondità. La stagione migliore va dall'estate all'autunno (all'incirca da giugno a ottobre) e il pesce ingrassa in vista della riproduzione invernale. La pesca selvatica è scarsa, perciò quasi tutto ciò che arriva al mercato proviene da allevamento.",
+    trivia_h2: "Curiosità",
+    tr1: "<strong>Una linea gialla dalle branchie alla coda:</strong><br>Gli adulti portano una fascia gialla dritta al centro del corpo, il segno più sicuro per riconoscerlo. Con gli anni può sbiadire fino a diventare quasi invisibile in alcuni esemplari.",
+    tr2: "<strong>Un carangide che supera i 10.000 yen al chilo:</strong><br>Appartiene alla famiglia del suro, un pesce dalla fama tutt'altro che nobile, eppure l'esemplare selvatico può superare i 10.000 yen al chilo. Il sapore delicato e il grasso pregiato lo rendono il vertice degli ingredienti per sushi.",
+    tr3: "<strong>Dopo una dura lotta scappa lasciando solo le «labbra»:</strong><br>La sua combattività lo rende un bersaglio amatissimo dai pescatori, ma il tessuto della bocca è sottile come la carta e delicatissimo. Se il pescatore si lascia prendere dalla foga e recupera a forza bruta, la bocca si lacera e il pesce fugge: sull'amo non restano che le labbra, una scena frequente quanto amara.",
+    src3: "Fonte: Honda Fishing Picture Book"
+  },
+  "vi": {
+    title: "Cá cam sọc (Shimaaji) | ZAUO Meguro",
+    video_fallback: "Trình duyệt của bạn không hỗ trợ phát video.",
+    ruby: "shimaaji",
+    name: "Cá cam sọc (Shimaaji)",
+    catch: "Một vạch vàng óng — đỉnh cao của họ cá khế",
+    cook_h2: "Các cách chế biến ZAUO gợi ý",
+    cook_lead: "Những cách chế biến giúp cảm nhận vị ngọt thanh của phần thịt trắng.",
+    legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
+    photo_soon: "Ảnh sắp có",
+    what_h2: "Đây là cá gì?",
+    what_text: "Dấu hiệu nhận biết là dải màu vàng chạy thẳng giữa thân, từ mang cho tới gốc đuôi. Đây được xem là loài cao cấp nhất trong họ cá khế, vừa có sự thanh nhã của cá thịt trắng vừa có vị đậm đà của cá nục. Cá tự nhiên rất hiếm, từng có thời được gọi là «loài cá trong mơ».",
+    w_b1: "Dài 40-80 cm", w_b2: "Một vạch vàng", w_b3: "Cá cao cấp họ cá khế",
+    where_h2: "Sống ở đâu? / Mùa ngon nhất là khi nào?",
+    where_text: "Phân bố từ khoảng tỉnh Iwate trở xuống phía nam ở phía Thái Bình Dương, và từ bán đảo Noto trở xuống ở phía biển Nhật Bản; quanh quần đảo Izu và Ogasawara thì rất thường gặp. Cá tụ đàn ở các rạn đá nơi dòng chảy thông thoáng, và xuống tới tầng đáy sâu khoảng 200 m. Mùa ngon là từ hè sang thu (khoảng tháng 6 đến tháng 10), cá tích mỡ để chuẩn bị cho mùa sinh sản mùa đông. Sản lượng đánh bắt tự nhiên ít nên phần lớn cá bán trên thị trường là cá nuôi.",
+    trivia_h2: "Có thể bạn chưa biết",
+    tr1: "<strong>Một vạch vàng từ mang tới đuôi:</strong><br>Cá trưởng thành có một dải vàng chạy thẳng giữa thân — dấu hiệu chắc chắn nhất để nhận ra loài này. Tuy vậy, càng lớn tuổi vạch càng nhạt, có con gần như không còn thấy.",
+    tr2: "<strong>Là «cá khế» mà giá tới hơn 10.000 yên một ki-lô:</strong><br>Tuy thuộc họ cá khế vốn mang tiếng là cá bình dân, cá tự nhiên có thể được trả hơn 10.000 yên cho mỗi ki-lô-gam. Vị ngọt thanh nhã cùng lớp mỡ chất lượng khiến nó được xem là đỉnh cao của nguyên liệu sushi.",
+    tr3: "<strong>Sau trận chiến ác liệt, nó bỏ lại mỗi «đôi môi» rồi chạy mất:</strong><br>Sức kéo dữ dội khiến nó rất được dân câu ưa chuộng, nhưng thực ra mô ở miệng cá mỏng như giấy và cực kỳ mỏng manh. Người câu hăng lên mà cứ thế dùng sức quay dây thì miệng cá sẽ rách toạc và cá thoát mất — trên lưỡi câu chỉ còn lại đôi môi, một cảnh tượng vừa quen thuộc vừa tiếc nuối.",
+    src3: "Nguồn: Honda Fishing Picture Book"
+  },
+  "tl": {
+    title: "Talakitok na Guhit (Shimaaji) | ZAUO Meguro",
+    video_fallback: "Hindi sinusuportahan ng iyong browser ang pag-play ng video.",
+    ruby: "shimaaji",
+    name: "Talakitok na Guhit (Shimaaji)",
+    catch: "Isang gintong guhit — ang pinakamahusay sa mga talakitok",
+    cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
+    cook_lead: "Mga paraan ng pagluluto na naglalabas ng malinamnam na lasa ng puti nitong laman.",
+    legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
+    photo_soon: "Malapit nang mailagay ang larawan",
+    what_h2: "Anong klaseng isda ito?",
+    what_text: "Makikilala ito sa dilaw na guhit na tuwid na tumatakbo sa gitna ng katawan, mula hasang hanggang puno ng buntot. Itinuturing itong pinakamainam sa pamilya ng talakitok: taglay nito ang kinis ng isdang puti ang laman at ang lalim ng lasa ng talakitok. Bihira ang ligaw na huli, kaya minsan itong tinawag na «isdang mailap».",
+    w_b1: "Haba 40-80 cm", w_b2: "Iisang dilaw na guhit", w_b3: "Mamahaling talakitok",
+    where_h2: "Saan ito nakatira? / Kailan ang panahon nito?",
+    where_text: "Matatagpuan ito pababa sa timog mula sa may Iwate sa gawing Pasipiko, at mula sa Tangway ng Noto sa gawing Dagat ng Hapon; karaniwan itong nakikita sa paligid ng mga pulo ng Izu at Ogasawara. Nagkakawan ito sa mabatong bahura na malakas ang agos, hanggang sa lalim na mga 200 m. Pinakamasarap ito mula tag-init hanggang taglagas (mga Hunyo hanggang Oktubre), at tumataba bago sumapit ang panahon ng pangingitlog sa taglamig. Kakaunti ang nahuhuling ligaw, kaya halos lahat ng nasa palengke ay inaalagaan sa palaisdaan.",
+    trivia_h2: "Alam mo ba?",
+    tr1: "<strong>Isang dilaw na guhit mula hasang hanggang buntot:</strong><br>May tuwid na dilaw na guhit sa gitna ng katawan ang mga malalaki nang isda — ito ang pinakatiyak na palatandaan. Ngunit habang tumatanda, kumukupas ito at halos hindi na makita sa ilang isda.",
+    tr2: "<strong>Isang talakitok, ngunit mahigit ¥10,000 kada kilo:</strong><br>Kabilang ito sa pamilya ng talakitok na karaniwang itinuturing na pangkaraniwang isda, ngunit ang ligaw na huli ay maaaring umabot nang mahigit 10,000 yen kada kilo. Dahil sa pinong linamnam at dekalidad na taba nito, itinuturing itong pinakarurok ng mga sangkap sa sushi.",
+    tr3: "<strong>Pagkatapos ng mahabang laban, tumatakas ito na «labi» lang ang naiiwan:</strong><br>Dahil sa napakalakas nitong paghatak, paborito itong pakay ng mga mangingisda, ngunit napakanipis ng himaymay ng bibig nito — parang papel at lubhang marupok. Kapag sa sobrang gigil ay puwersahang hinila ng mangingisda, napupunit ang bibig at nakakatakas ang isda: ang natitira na lang sa kawil ay ang labi, isang tagpong pamilyar ngunit nakakapanghinayang.",
+    src3: "Pinagmulan: Honda Fishing Picture Book"
+  }
+};
+
+function setLang(lang){
+  var dict = I18N[lang];
+  if(!dict){ return; }
+
+  document.documentElement.setAttribute("lang", lang);
+  document.title = dict.title;
+
+  var i, key;
+  var nodes = document.querySelectorAll("[data-i18n]");
+  for(i = 0; i < nodes.length; i++){
+    key = nodes[i].getAttribute("data-i18n");
+    if(dict[key] !== undefined){ nodes[i].textContent = dict[key]; }
+  }
+  var htmlNodes = document.querySelectorAll("[data-i18n-html]");
+  for(i = 0; i < htmlNodes.length; i++){
+    key = htmlNodes[i].getAttribute("data-i18n-html");
+    if(dict[key] !== undefined){ htmlNodes[i].innerHTML = dict[key]; }
+  }
+
+  var btns = document.querySelectorAll(".lang-btn");
+  for(i = 0; i < btns.length; i++){
+    if(btns[i].getAttribute("data-lang") === lang){
+      btns[i].classList.add("is-active");
+    } else {
+      btns[i].classList.remove("is-active");
+    }
+  }
+}
+
+(function(){
+  var btns = document.querySelectorAll(".lang-btn");
+  for(var i = 0; i < btns.length; i++){
+    btns[i].addEventListener("click", function(){
+      setLang(this.getAttribute("data-lang"));
+    });
+  }
+  /* 開いたときは常に日本語（選択は保存しない） */
+  setLang("ja");
+})();
+</script>
+
+</body>
+</html>

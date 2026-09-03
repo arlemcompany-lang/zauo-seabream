@@ -22,10 +22,13 @@ https://arlemcompany-lang.github.io/zauo-seabream/%E5%B9%B3%E7%9B%AE/
 ■ 鯛（タイ）★多言語対応ずみ（8言語）
 https://arlemcompany-lang.github.io/zauo-seabream/%E9%AF%9B/
 
+■ 縞鯵（シマアジ）★多言語対応ずみ（8言語）
+https://arlemcompany-lang.github.io/zauo-seabream/%E7%B8%9E%E9%AF%B5/
+
 
 --------------------------------------------------
 【多言語について】
-・7ページとも8言語対応（釣りゲームと同じ言語・同じ並び順）。
+・8ページとも8言語対応（釣りゲームと同じ言語・同じ並び順）。
 　日本語／English／中文／한국어／Español／Italiano／Tiếng Việt／Tagalog
 ・開くと必ず日本語。動画の上に並ぶ国旗をタップすると切り替わります。
 ・選んだ言語は保存されないため、開き直すとまた日本語で表示されます。
@@ -43,5 +46,6 @@ https://arlemcompany-lang.github.io/zauo-seabream/%E9%AF%9B/
 　　https://arlemcompany-lang.github.io/zauo-seabream/栄螺/
 　　https://arlemcompany-lang.github.io/zauo-seabream/鮑/
 　　https://arlemcompany-lang.github.io/zauo-seabream/車海老/
+　　https://arlemcompany-lang.github.io/zauo-seabream/縞鯵/
 
 ・リポジトリ: https://github.com/arlemcompany-lang/zauo-seabream
