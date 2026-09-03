@@ -250,20 +250,24 @@
   <h1><span class="ruby" data-i18n="ruby">しまあじ</span><span data-i18n="name">縞鯵（シマアジ）</span></h1>
   <p class="catch" data-i18n="catch">黄金のひとすじ、アジの最高峰</p>
 
-  <!-- ===== TODO: 調理法カード（店舗に確認中のため非表示） =====
-       メニューと評価記号（◎〇△✕）は店舗固有情報。確定するまで出さない。
-       確定したらこのコメントを外し、badge-row の中身と I18N の b_* キーを埋める。
-       cook_h2 / cook_lead / legend / photo_soon は8言語とも I18N に用意済み。
   <div class="card">
     <h2 data-i18n="cook_h2">おすすめのざうお調理法</h2>
     <p data-i18n="cook_lead">上品な白身のうまみを楽しめる調理法をご用意しています</p>
     <div class="badge-row">
       <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> ◎</span>
+      <span class="badge ok"><span data-i18n="b_shioyaki">塩焼き</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_nitsuke">煮付け</span> 〇<span data-i18n="ex330">（追加料金 330円）</span></span>
+      <span class="badge ok"><span data-i18n="b_fry">フライ</span> 〇<span data-i18n="ex220">（追加料金 220円）</span></span>
+      <span class="badge ok"><span data-i18n="b_butter">バターソテー</span> 〇<span data-i18n="ex220">（追加料金 220円）</span></span>
+    </div>
+    <p class="sub-label" data-i18n="bones_label">骨・アラを使って（刺身に姿が付いているとき）</p>
+    <div class="badge-row">
+      <span class="badge ok"><span data-i18n="b_misoshiru">みそ汁</span> 〇<span data-i18n="p220">（220円）</span></span>
+      <span class="badge ok"><span data-i18n="b_kabutoni">かぶと煮</span> 〇<span data-i18n="p330">（330円）</span></span>
     </div>
     <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
     <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
   </div>
-  ===== /TODO ===== -->
 
   <div class="card">
     <h2 data-i18n="what_h2">どんな魚？</h2>
@@ -303,7 +307,7 @@
 <script>
 /* 言語コードは釣りゲーム(ざうおスマホゲーム/index.html)と同じ ja/en/zh/ko/es/it/vi/tl。
    魚の名称もゲームの FISH_NAMES.shimaaji と揃えてある。
-   b_*（調理法のメニュー名）は店舗確認後に追加する。 */
+   調理法カードの b_* / ex* / p* は実メニュー写真（調理方法1・2.jpg）に基づく。記号は暫定。 */
 var I18N = {
   "ja": {
     title: "縞鯵（シマアジ） | ざうお目黒店",
@@ -315,6 +319,10 @@ var I18N = {
     cook_lead: "上品な白身のうまみを楽しめる調理法をご用意しています",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
     photo_soon: "写真準備中",
+    b_sashimi: "刺身", b_shioyaki: "塩焼き", b_nitsuke: "煮付け", b_fry: "フライ", b_butter: "バターソテー",
+    ex330: "（追加料金 330円）", ex220: "（追加料金 220円）",
+    bones_label: "骨・アラを使って（刺身に姿が付いているとき）",
+    b_misoshiru: "みそ汁", b_kabutoni: "かぶと煮", p220: "（220円）", p330: "（330円）",
     what_h2: "どんな魚？",
     what_text: "エラから尾の付け根まで、体の中央を黄色い帯がまっすぐ一本走るのが目印です。アジの仲間のなかでもとくに高級とされ、白身魚の上品さとアジのうまみをあわせ持った味わい。天然ものは数が少なく、かつては「幻の魚」と呼ばれたこともあります。",
     w_b1: "体長 40〜80cm", w_b2: "黄色い一本線", w_b3: "アジ科の高級魚",
@@ -336,6 +344,10 @@ var I18N = {
     cook_lead: "Cooking styles that bring out the delicate savour of its white flesh.",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
     photo_soon: "Photo coming soon",
+    b_sashimi: "Sashimi", b_shioyaki: "Salt-grilled", b_nitsuke: "Simmered", b_fry: "Fry (breaded cutlet)", b_butter: "Butter sauté",
+    ex330: " (extra charge ¥330)", ex220: " (extra charge ¥220)",
+    bones_label: "Using the bones and trimmings (when sashimi is served with the whole fish)",
+    b_misoshiru: "Miso soup", b_kabutoni: "Simmered fish head", p220: " (¥220)", p330: " (¥330)",
     what_h2: "What kind of fish is it?",
     what_text: "You can spot it by the yellow band running straight down the middle of its body, from the gills to the base of the tail. It is regarded as the finest of the jacks, combining the refinement of a white-fleshed fish with the savoury depth of a horse mackerel. Wild fish are scarce, and it was once known as a «phantom fish».",
     w_b1: "Length 40-80 cm", w_b2: "A single yellow line", w_b3: "A prized member of the jack family",
@@ -357,6 +369,10 @@ var I18N = {
     cook_lead: "为您准备了能品尝其白肉细腻鲜味的做法。",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
     photo_soon: "照片准备中",
+    b_sashimi: "生鱼片", b_shioyaki: "盐烤", b_nitsuke: "炖煮", b_fry: "炸鱼排（面包糠）", b_butter: "黄油煎",
+    ex330: "（需另加费用 330日元）", ex220: "（需另加费用 220日元）",
+    bones_label: "用鱼骨和边角料来做（生鱼片附整鱼时）",
+    b_misoshiru: "味噌汤", b_kabutoni: "炖鱼头", p220: "（220日元）", p330: "（330日元）",
     what_h2: "这是什么鱼？",
     what_text: "从鳃部一直延伸到尾柄、笔直贯穿体侧中央的黄色带纹，就是它的标志。它被视为竹荚鱼家族中的顶级食材，兼具白肉鱼的清雅与竹荚鱼的鲜甜。野生鱼数量稀少，过去甚至被称为「梦幻之鱼」。",
     w_b1: "体长 40〜80cm", w_b2: "一道黄色纵线", w_b3: "鲹科高级鱼",
@@ -378,6 +394,10 @@ var I18N = {
     cook_lead: "담백한 흰살의 감칠맛을 즐길 수 있는 조리법을 준비했습니다.",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
     photo_soon: "사진 준비 중",
+    b_sashimi: "회", b_shioyaki: "소금구이", b_nitsuke: "조림", b_fry: "후라이(빵가루 튀김)", b_butter: "버터 소테",
+    ex330: " (추가 요금 330엔)", ex220: " (추가 요금 220엔)",
+    bones_label: "뼈와 서더리를 활용해서 (회에 생선 모양이 함께 나올 때)",
+    b_misoshiru: "된장국", b_kabutoni: "생선 머리 조림", p220: " (220엔)", p330: " (330엔)",
     what_h2: "어떤 생선인가요?",
     what_text: "아가미에서 꼬리자루까지, 몸통 한가운데를 곧게 가로지르는 노란 띠가 표식입니다. 전갱이 무리 중에서도 특히 고급으로 꼽히며, 흰살 생선의 담백함과 전갱이의 감칠맛을 함께 지니고 있습니다. 자연산은 수가 적어 한때 「환상의 물고기」라 불리기도 했습니다.",
     w_b1: "몸길이 40〜80cm", w_b2: "노란 한 줄", w_b3: "전갱이과의 고급 어종",
@@ -399,6 +419,10 @@ var I18N = {
     cook_lead: "Preparaciones pensadas para disfrutar el sabor delicado de su carne blanca.",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
     photo_soon: "Foto próximamente",
+    b_sashimi: "Sashimi", b_shioyaki: "A la parrilla con sal", b_nitsuke: "Guisado", b_fry: "Empanado y frito", b_butter: "Salteado a la mantequilla",
+    ex330: " (coste adicional ¥330)", ex220: " (coste adicional ¥220)",
+    bones_label: "Aprovechando las espinas y los recortes (cuando el sashimi se sirve con el pescado entero)",
+    b_misoshiru: "Sopa de miso", b_kabutoni: "Cabeza de pescado guisada", p220: " (¥220)", p330: " (¥330)",
     what_h2: "¿Qué pescado es?",
     what_text: "Se reconoce por la banda amarilla que recorre recta el centro del cuerpo, desde las agallas hasta la base de la cola. Está considerado el más selecto de los jureles: reúne la finura de un pescado de carne blanca y el sabor intenso del jurel. Los ejemplares salvajes son escasos y en su día se le llegó a llamar «el pez fantasma».",
     w_b1: "Longitud 40-80 cm", w_b2: "Una sola línea amarilla", w_b3: "Un jurel de alta gama",
@@ -420,6 +444,10 @@ var I18N = {
     cook_lead: "Preparazioni pensate per gustare il sapore delicato delle sue carni bianche.",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
     photo_soon: "Foto in arrivo",
+    b_sashimi: "Sashimi", b_shioyaki: "Alla griglia con sale", b_nitsuke: "In umido", b_fry: "Impanato e fritto", b_butter: "Trancio al burro",
+    ex330: " (supplemento ¥330)", ex220: " (supplemento ¥220)",
+    bones_label: "Usando le lische e i ritagli (quando il sashimi viene servito con il pesce intero)",
+    b_misoshiru: "Zuppa di miso", b_kabutoni: "Testa di pesce in umido", p220: " (¥220)", p330: " (¥330)",
     what_h2: "Che pesce è?",
     what_text: "Si riconosce dalla fascia gialla che corre dritta al centro del corpo, dalle branchie fino alla base della coda. È considerato il più pregiato dei carangidi: unisce la finezza di un pesce a carne bianca alla sapidità del suro. Gli esemplari selvatici sono rari e un tempo veniva chiamato «il pesce fantasma».",
     w_b1: "Lunghezza 40-80 cm", w_b2: "Un'unica linea gialla", w_b3: "Un carangide di pregio",
@@ -441,6 +469,10 @@ var I18N = {
     cook_lead: "Những cách chế biến giúp cảm nhận vị ngọt thanh của phần thịt trắng.",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
     photo_soon: "Ảnh sắp có",
+    b_sashimi: "Sashimi (cá sống)", b_shioyaki: "Nướng muối", b_nitsuke: "Kho", b_fry: "Chiên xù (tẩm bột)", b_butter: "Áp chảo bơ",
+    ex330: " (phụ thu ¥330)", ex220: " (phụ thu ¥220)",
+    bones_label: "Tận dụng xương và phần thừa (khi món sashimi được bày cả con)",
+    b_misoshiru: "Canh miso", b_kabutoni: "Đầu cá kho", p220: " (¥220)", p330: " (¥330)",
     what_h2: "Đây là cá gì?",
     what_text: "Dấu hiệu nhận biết là dải màu vàng chạy thẳng giữa thân, từ mang cho tới gốc đuôi. Đây được xem là loài cao cấp nhất trong họ cá khế, vừa có sự thanh nhã của cá thịt trắng vừa có vị đậm đà của cá nục. Cá tự nhiên rất hiếm, từng có thời được gọi là «loài cá trong mơ».",
     w_b1: "Dài 40-80 cm", w_b2: "Một vạch vàng", w_b3: "Cá cao cấp họ cá khế",
@@ -462,6 +494,10 @@ var I18N = {
     cook_lead: "Mga paraan ng pagluluto na naglalabas ng malinamnam na lasa ng puti nitong laman.",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
     photo_soon: "Malapit nang mailagay ang larawan",
+    b_sashimi: "Sashimi (hilaw)", b_shioyaki: "Inihaw na may asin", b_nitsuke: "Nilaga sa toyo", b_fry: "Breaded fry", b_butter: "Butter sauté",
+    ex330: " (dagdag na bayad ¥330)", ex220: " (dagdag na bayad ¥220)",
+    bones_label: "Gamit ang mga tinik at tira (kapag buo ang isda sa sashimi)",
+    b_misoshiru: "Miso soup", b_kabutoni: "Nilagang ulo ng isda", p220: " (¥220)", p330: " (¥330)",
     what_h2: "Anong klaseng isda ito?",
     what_text: "Makikilala ito sa dilaw na guhit na tuwid na tumatakbo sa gitna ng katawan, mula hasang hanggang puno ng buntot. Itinuturing itong pinakamainam sa pamilya ng talakitok: taglay nito ang kinis ng isdang puti ang laman at ang lalim ng lasa ng talakitok. Bihira ang ligaw na huli, kaya minsan itong tinawag na «isdang mailap».",
     w_b1: "Haba 40-80 cm", w_b2: "Iisang dilaw na guhit", w_b3: "Mamahaling talakitok",
