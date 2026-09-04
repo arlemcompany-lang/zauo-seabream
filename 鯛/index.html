@@ -243,16 +243,17 @@
     <p data-i18n="cook_lead">鯛は万能でなんでもおいしくいただけます(半身ずつの調理もできます)</p>
     <div class="badge-row">
       <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> ◎</span>
-      <span class="badge ok"><span data-i18n="b_yaki">焼き</span> 〇</span>
-      <span class="badge ok"><span data-i18n="b_nitsuke">煮付け</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_shioyaki">塩焼き</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_nitsuke">煮付け</span> 〇<span data-i18n="ex330">（追加料金 330円）</span></span>
       <span class="badge ok"><span data-i18n="b_karaage">唐揚げ</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_fry">フライ</span> 〇<span data-i18n="ex220">（追加料金 220円）</span></span>
+      <span class="badge ok"><span data-i18n="b_butter">バターソテー</span> 〇<span data-i18n="ex220">（追加料金 220円）</span></span>
+      <span class="badge ok"><span data-i18n="b_ryoshimeshi">漁師飯セット</span> 〇<span data-i18n="ex440">（追加料金 440円）</span></span>
     </div>
-    <p class="sub-label" data-i18n="bones_label">骨を使って（刺身に姿が付いているとき）</p>
+    <p class="sub-label" data-i18n="bones_label">骨・アラを使って（刺身に姿が付いているとき）</p>
     <div class="badge-row">
-      <span class="badge ok"><span data-i18n="b_kabuto">兜焼き</span> 〇</span>
-      <span class="badge ok"><span data-i18n="b_aradaki">あら炊き</span> 〇</span>
-      <span class="badge ng"><span data-i18n="b_honesenbei">骨せんべい</span> △</span>
-      <span class="badge ok"><span data-i18n="b_misoshiru">みそ汁</span> 〇</span>
+      <span class="badge ok"><span data-i18n="b_misoshiru">みそ汁</span> 〇<span data-i18n="p220">（220円）</span></span>
+      <span class="badge ok"><span data-i18n="b_kabutoni">かぶと煮</span> 〇<span data-i18n="p330">（330円）</span></span>
     </div>
     <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
     <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
@@ -301,9 +302,11 @@ var I18N = {
     catch: "お祝いの席の主役、「魚の王様」",
     cook_h2: "おすすめのざうお調理法",
     cook_lead: "鯛は万能でなんでもおいしくいただけます(半身ずつの調理もできます)",
-    b_sashimi: "刺身", b_yaki: "焼き", b_nitsuke: "煮付け", b_karaage: "唐揚げ",
-    bones_label: "骨を使って（刺身に姿が付いているとき）",
-    b_kabuto: "兜焼き", b_aradaki: "あら炊き", b_honesenbei: "骨せんべい", b_misoshiru: "みそ汁",
+    b_sashimi: "刺身", b_shioyaki: "塩焼き", b_karaage: "唐揚げ", b_nitsuke: "煮付け", b_fry: "フライ", b_butter: "バターソテー",
+    b_ryoshimeshi: "漁師飯セット",
+    ex330: "（追加料金 330円）", ex220: "（追加料金 220円）", ex440: "（追加料金 440円）",
+    bones_label: "骨・アラを使って（刺身に姿が付いているとき）",
+    b_misoshiru: "みそ汁", b_kabutoni: "かぶと煮", p220: "（220円）", p330: "（330円）",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
     photo_soon: "写真準備中",
     what_h2: "どんな魚？",
@@ -324,10 +327,11 @@ var I18N = {
     catch: "The star of every celebration - the king of fish",
     cook_h2: "Recommended ZAUO Cooking Styles",
     cook_lead: "Sea bream is versatile and delicious however you cook it (each half can even be prepared a different way).",
-    b_sashimi: "Sashimi", b_yaki: "Grilled", b_nitsuke: "Simmered", b_karaage: "Karaage (deep-fried)",
-    bones_label: "Using the bones (when sashimi is served with the whole fish)",
-    b_kabuto: "Grilled head (kabuto-yaki)", b_aradaki: "Simmered head & bones (ara-daki)",
-    b_honesenbei: "Crispy bone crackers", b_misoshiru: "Miso soup",
+    b_sashimi: "Sashimi", b_shioyaki: "Salt-grilled", b_karaage: "Karaage (deep-fried)", b_nitsuke: "Simmered", b_fry: "Fry (breaded cutlet)", b_butter: "Butter sauté",
+    b_ryoshimeshi: "Fisherman's rice set",
+    ex330: " (extra charge ¥330)", ex220: " (extra charge ¥220)", ex440: " (extra charge ¥440)",
+    bones_label: "Using the bones and trimmings (when sashimi is served with the whole fish)",
+    b_misoshiru: "Miso soup", b_kabutoni: "Simmered fish head", p220: " (¥220)", p330: " (¥330)",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
     photo_soon: "Photo coming soon",
     what_h2: "What kind of fish is it?",
@@ -348,10 +352,11 @@ var I18N = {
     catch: "喜宴上的主角，「鱼中之王」",
     cook_h2: "推荐的 ZAUO 烹饪方式",
     cook_lead: "鲷鱼十分万能，怎么做都好吃（也可以半边一种做法）。",
-    b_sashimi: "生鱼片", b_yaki: "烧烤", b_nitsuke: "炖煮", b_karaage: "唐扬炸",
-    bones_label: "用鱼骨来做（生鱼片附整鱼时）",
-    b_kabuto: "烤鱼头（兜烧）", b_aradaki: "炖鱼头鱼骨（荒炊）",
-    b_honesenbei: "香脆炸鱼骨", b_misoshiru: "味噌汤",
+    b_sashimi: "生鱼片", b_shioyaki: "盐烤", b_karaage: "唐扬炸", b_nitsuke: "炖煮", b_fry: "炸鱼排（面包糠）", b_butter: "黄油煎",
+    b_ryoshimeshi: "渔夫饭套餐",
+    ex330: "（需另加费用 330日元）", ex220: "（需另加费用 220日元）", ex440: "（需另加费用 440日元）",
+    bones_label: "用鱼骨和边角料来做（生鱼片附整鱼时）",
+    b_misoshiru: "味噌汤", b_kabutoni: "炖鱼头", p220: "（220日元）", p330: "（330日元）",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
     photo_soon: "照片准备中",
     what_h2: "这是什么鱼？",
@@ -372,10 +377,11 @@ var I18N = {
     catch: "잔칫상의 주인공, 「생선의 왕」",
     cook_h2: "추천 ZAUO 조리법",
     cook_lead: "도미는 만능이라 어떻게 조리해도 맛있습니다(반쪽씩 다르게 조리하는 것도 가능합니다).",
-    b_sashimi: "회", b_yaki: "구이", b_nitsuke: "조림", b_karaage: "가라아게(튀김)",
-    bones_label: "뼈를 활용해서 (회에 생선 모양이 함께 나올 때)",
-    b_kabuto: "머리 구이(가부토야키)", b_aradaki: "머리·뼈 조림(아라다키)",
-    b_honesenbei: "뼈 센베(뼈 튀김)", b_misoshiru: "된장국",
+    b_sashimi: "회", b_shioyaki: "소금구이", b_karaage: "가라아게(튀김)", b_nitsuke: "조림", b_fry: "후라이(빵가루 튀김)", b_butter: "버터 소테",
+    b_ryoshimeshi: "어부밥 세트",
+    ex330: " (추가 요금 330엔)", ex220: " (추가 요금 220엔)", ex440: " (추가 요금 440엔)",
+    bones_label: "뼈와 서더리를 활용해서 (회에 생선 모양이 함께 나올 때)",
+    b_misoshiru: "된장국", b_kabutoni: "생선 머리 조림", p220: " (220엔)", p330: " (330엔)",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
     photo_soon: "사진 준비 중",
     what_h2: "어떤 생선인가요?",
@@ -396,10 +402,11 @@ var I18N = {
     catch: "El protagonista de las celebraciones: «el rey de los pescados»",
     cook_h2: "Preparaciones recomendadas en ZAUO",
     cook_lead: "El besugo es tan versátil que está bueno de cualquier forma (incluso se puede preparar cada mitad de una manera distinta).",
-    b_sashimi: "Sashimi", b_yaki: "A la parrilla", b_nitsuke: "Guisado", b_karaage: "Karaage (frito)",
-    bones_label: "Aprovechando las espinas (cuando el sashimi se sirve con el pescado entero)",
-    b_kabuto: "Cabeza a la parrilla (kabuto-yaki)", b_aradaki: "Cabeza y espinas guisadas (ara-daki)",
-    b_honesenbei: "Espinas crujientes fritas", b_misoshiru: "Sopa de miso",
+    b_sashimi: "Sashimi", b_shioyaki: "A la parrilla con sal", b_karaage: "Karaage (frito)", b_nitsuke: "Guisado", b_fry: "Empanado y frito", b_butter: "Salteado a la mantequilla",
+    b_ryoshimeshi: "Set de arroz del pescador",
+    ex330: " (coste adicional ¥330)", ex220: " (coste adicional ¥220)", ex440: " (coste adicional ¥440)",
+    bones_label: "Aprovechando las espinas y los recortes (cuando el sashimi se sirve con el pescado entero)",
+    b_misoshiru: "Sopa de miso", b_kabutoni: "Cabeza de pescado guisada", p220: " (¥220)", p330: " (¥330)",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
     photo_soon: "Foto próximamente",
     what_h2: "¿Qué pescado es?",
@@ -420,10 +427,11 @@ var I18N = {
     catch: "La protagonista delle feste: «il re dei pesci»",
     cook_h2: "Preparazioni consigliate da ZAUO",
     cook_lead: "L'orata è versatile ed è buona in qualsiasi preparazione (si può anche cucinare ciascuna metà in modo diverso).",
-    b_sashimi: "Sashimi", b_yaki: "Alla griglia", b_nitsuke: "In umido", b_karaage: "Karaage (fritto)",
-    bones_label: "Usando le lische (quando il sashimi viene servito con il pesce intero)",
-    b_kabuto: "Testa alla griglia (kabuto-yaki)", b_aradaki: "Testa e lische in umido (ara-daki)",
-    b_honesenbei: "Lische fritte croccanti", b_misoshiru: "Zuppa di miso",
+    b_sashimi: "Sashimi", b_shioyaki: "Alla griglia con sale", b_karaage: "Karaage (fritto)", b_nitsuke: "In umido", b_fry: "Impanato e fritto", b_butter: "Trancio al burro",
+    b_ryoshimeshi: "Set di riso del pescatore",
+    ex330: " (supplemento ¥330)", ex220: " (supplemento ¥220)", ex440: " (supplemento ¥440)",
+    bones_label: "Usando le lische e i ritagli (quando il sashimi viene servito con il pesce intero)",
+    b_misoshiru: "Zuppa di miso", b_kabutoni: "Testa di pesce in umido", p220: " (¥220)", p330: " (¥330)",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
     photo_soon: "Foto in arrivo",
     what_h2: "Che pesce è?",
@@ -444,10 +452,11 @@ var I18N = {
     catch: "Nhân vật chính của các bữa tiệc mừng - «vua của các loài cá»",
     cook_h2: "Các cách chế biến ZAUO gợi ý",
     cook_lead: "Cá tráp rất đa năng, chế biến kiểu nào cũng ngon (có thể làm mỗi nửa con một kiểu).",
-    b_sashimi: "Sashimi (cá sống)", b_yaki: "Nướng", b_nitsuke: "Kho", b_karaage: "Karaage (chiên giòn)",
-    bones_label: "Tận dụng xương cá (khi món sashimi được bày cả con)",
-    b_kabuto: "Nướng đầu cá (kabuto-yaki)", b_aradaki: "Kho đầu và xương cá (ara-daki)",
-    b_honesenbei: "Xương cá chiên giòn", b_misoshiru: "Canh miso",
+    b_sashimi: "Sashimi (cá sống)", b_shioyaki: "Nướng muối", b_karaage: "Karaage (chiên giòn)", b_nitsuke: "Kho", b_fry: "Chiên xù (tẩm bột)", b_butter: "Áp chảo bơ",
+    b_ryoshimeshi: "Set cơm ngư dân",
+    ex330: " (phụ thu ¥330)", ex220: " (phụ thu ¥220)", ex440: " (phụ thu ¥440)",
+    bones_label: "Tận dụng xương và phần thừa (khi món sashimi được bày cả con)",
+    b_misoshiru: "Canh miso", b_kabutoni: "Đầu cá kho", p220: " (¥220)", p330: " (¥330)",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
     photo_soon: "Ảnh sắp có",
     what_h2: "Đây là cá gì?",
@@ -468,10 +477,11 @@ var I18N = {
     catch: "Ang bida sa mga handaan - «hari ng mga isda»",
     cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
     cook_lead: "Napaka-versatile ng isdang tai at masarap ito sa anumang paraan ng pagluluto (puwede ring magkaiba ang luto ng bawat kalahati).",
-    b_sashimi: "Sashimi (hilaw)", b_yaki: "Inihaw", b_nitsuke: "Nilaga sa toyo", b_karaage: "Karaage (pinirito)",
-    bones_label: "Gamit ang mga tinik (kapag buo ang isda sa sashimi)",
-    b_kabuto: "Inihaw na ulo (kabuto-yaki)", b_aradaki: "Nilagang ulo at tinik (ara-daki)",
-    b_honesenbei: "Malutong na piniritong tinik", b_misoshiru: "Miso soup",
+    b_sashimi: "Sashimi (hilaw)", b_shioyaki: "Inihaw na may asin", b_karaage: "Karaage (pinirito)", b_nitsuke: "Nilaga sa toyo", b_fry: "Breaded fry", b_butter: "Butter sauté",
+    b_ryoshimeshi: "Set ng kanin ng mangingisda",
+    ex330: " (dagdag na bayad ¥330)", ex220: " (dagdag na bayad ¥220)", ex440: " (dagdag na bayad ¥440)",
+    bones_label: "Gamit ang mga tinik at tira (kapag buo ang isda sa sashimi)",
+    b_misoshiru: "Miso soup", b_kabutoni: "Nilagang ulo ng isda", p220: " (¥220)", p330: " (¥330)",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
     photo_soon: "Malapit nang mailagay ang larawan",
     what_h2: "Anong klaseng isda ito?",
