@@ -189,16 +189,29 @@
     color: var(--accent);
   }
   .note + .note{ margin-top: 4px; }
-  .photo-placeholder{
+  .photo-grid{
     margin-top: 16px;
-    height: 160px;
-    border: 2px dashed var(--main);
-    border-radius: 12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color: var(--sub);
-    font-size: .9rem;
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .photo-grid figure{
+    margin:0;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  .photo-grid img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:12px;
+  }
+  .photo-grid figcaption{
+    margin-top:6px;
+    text-align:center;
+    font-size:.85rem;
+    font-weight:bold;
+    color: var(--accent);
   }
 </style>
 </head>
@@ -262,7 +275,12 @@
     </div>
     <p class="note" data-i18n="note1">お子様はフライがおすすめ！</p>
     <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
-    <div class="photo-placeholder" data-i18n="photo_soon">写真準備中</div>
+    <div class="photo-grid">
+      <figure>
+        <img src="kuruma-ebi-sashimi.jpg" alt="車海老の刺身 / Kuruma-ebi sashimi" loading="lazy">
+        <figcaption data-i18n="cap_sashimi">刺身</figcaption>
+      </figure>
+    </div>
   </div>
 
   <div class="card">
@@ -312,7 +330,7 @@ var I18N = {
     b_sashimi: "刺身", b_shioyaki: "塩焼き", b_fry: "フライ", b_tenpura: "天婦羅", b_sushi: "寿司", sushi_price: "（1貫 60円）",
     note1: "お子様はフライがおすすめ！",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
-    photo_soon: "写真準備中",
+    cap_sashimi: "刺身",
     what_h2: "どんなエビ？",
     what_text: "体に走る褐色の縞模様が目印。ふだんは内湾の砂泥にひそみ、暗くなると動き出す夜行性のエビです。加熱すると鮮やかな赤に染まり、身はぷりぷりと締まって上品な甘みが広がります。",
     w_b1: "体長 15〜20cm", w_b2: "夜行性", w_b3: "砂泥底にすむ",
@@ -335,7 +353,7 @@ var I18N = {
     b_sashimi: "Sashimi", b_shioyaki: "Grilled with salt", b_fry: "Fry (breaded cutlet)", b_tenpura: "Tempura", b_sushi: "Sushi", sushi_price: " (¥60 per piece)",
     note1: "For children, we recommend the fry!",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
-    photo_soon: "Photo coming soon",
+    cap_sashimi: "Sashimi",
     what_h2: "What kind of prawn is it?",
     what_text: "You can spot it by the brown stripes running across its body. It normally hides in the sandy mud of sheltered bays and comes out after dark, a thoroughly nocturnal creature. Cooked, it turns a brilliant red, and the flesh becomes firm, snappy and delicately sweet.",
     w_b1: "Length 15-20 cm", w_b2: "Nocturnal", w_b3: "Lives on sandy-muddy bottoms",
@@ -358,7 +376,7 @@ var I18N = {
     b_sashimi: "生虾片", b_shioyaki: "盐烤", b_fry: "炸虾排（面包糠）", b_tenpura: "天妇罗", b_sushi: "寿司", sushi_price: "（每贯 60日元）",
     note1: "小朋友推荐点炸虾排！",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
-    photo_soon: "照片准备中",
+    cap_sashimi: "生虾片",
     what_h2: "这是什么虾？",
     what_text: "身上一道道褐色条纹是它的标志。平时藏身于内湾的沙泥之中，天黑后才出来活动，是不折不扣的夜行性虾类。加热后会变成鲜艳的红色，虾肉紧实弹牙，带着上品的甘甜。",
     w_b1: "体长 15〜20cm", w_b2: "夜行性", w_b3: "栖息于沙泥底",
@@ -381,7 +399,7 @@ var I18N = {
     b_sashimi: "회", b_shioyaki: "소금구이", b_fry: "후라이(빵가루 튀김)", b_tenpura: "덴푸라(튀김옷 튀김)", b_sushi: "초밥", sushi_price: " (1개 60엔)",
     note1: "어린이 손님께는 후라이를 추천합니다!",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
-    photo_soon: "사진 준비 중",
+    cap_sashimi: "회",
     what_h2: "어떤 새우인가요?",
     what_text: "몸에 난 갈색 줄무늬가 특징입니다. 평소에는 만 안쪽의 모래펄에 숨어 있다가 어두워지면 움직이기 시작하는 야행성 새우입니다. 익히면 선명한 붉은색으로 물들고, 살은 탱글탱글하게 조여져 은은한 단맛이 퍼집니다.",
     w_b1: "몸길이 15〜20cm", w_b2: "야행성", w_b3: "모래펄 바닥에 서식",
@@ -404,7 +422,7 @@ var I18N = {
     b_sashimi: "Sashimi", b_shioyaki: "A la parrilla con sal", b_fry: "Empanado y frito", b_tenpura: "Tempura", b_sushi: "Sushi", sushi_price: " (¥60 por pieza)",
     note1: "\u00a1Para los ni\u00f1os recomendamos el empanado!",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
-    photo_soon: "Foto próximamente",
+    cap_sashimi: "Sashimi",
     what_h2: "¿Qué langostino es?",
     what_text: "Se reconoce por las franjas marrones que recorren su cuerpo. Normalmente se esconde en el fango arenoso de las bahías y sale al caer la noche: es un animal plenamente nocturno. Al cocinarlo adquiere un rojo intenso y su carne queda prieta, con un dulzor delicado.",
     w_b1: "Longitud 15-20 cm", w_b2: "Nocturno", w_b3: "Vive en fondos de arena y fango",
@@ -427,7 +445,7 @@ var I18N = {
     b_sashimi: "Sashimi", b_shioyaki: "Alla griglia con sale", b_fry: "Impanato e fritto", b_tenpura: "Tempura", b_sushi: "Sushi", sushi_price: " (¥60 al pezzo)",
     note1: "Ai bambini consigliamo l'impanato fritto!",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
-    photo_soon: "Foto in arrivo",
+    cap_sashimi: "Sashimi",
     what_h2: "Che gambero è?",
     what_text: "Si riconosce dalle striature brune che percorrono il corpo. Di solito si nasconde nel fango sabbioso delle baie e si muove dopo il tramonto: è un animale spiccatamente notturno. In cottura assume un rosso brillante e la polpa diventa soda, con una dolcezza delicata.",
     w_b1: "Lunghezza 15-20 cm", w_b2: "Notturno", w_b3: "Vive su fondali sabbioso-fangosi",
@@ -450,7 +468,7 @@ var I18N = {
     b_sashimi: "Sashimi (tôm sống)", b_shioyaki: "Nướng muối", b_fry: "Chiên xù (tẩm bột)", b_tenpura: "Tempura (chiên bột)", b_sushi: "Sushi", sushi_price: " (¥60/miếng)",
     note1: "Với các bé, chúng tôi gợi ý món chiên xù!",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
-    photo_soon: "Ảnh sắp có",
+    cap_sashimi: "Sashimi (tôm sống)",
     what_h2: "Đây là loại tôm gì?",
     what_text: "Dấu hiệu nhận biết là những vằn nâu chạy dọc thân. Bình thường tôm vùi mình trong đáy cát bùn của các vịnh kín và chỉ hoạt động khi trời tối - một loài ăn đêm thực thụ. Khi nấu chín, tôm chuyển sang màu đỏ rực, thịt săn chắc và ngọt thanh.",
     w_b1: "Dài 15-20 cm", w_b2: "Ăn đêm", w_b3: "Sống ở đáy cát bùn",
@@ -473,7 +491,7 @@ var I18N = {
     b_sashimi: "Sashimi (hilaw)", b_shioyaki: "Inihaw na may asin", b_fry: "Breaded fry", b_tenpura: "Tempura", b_sushi: "Sushi", sushi_price: " (¥60 kada piraso)",
     note1: "Para sa mga bata, inirerekomenda namin ang breaded fry!",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
-    photo_soon: "Malapit nang mailagay ang larawan",
+    cap_sashimi: "Sashimi (hilaw)",
     what_h2: "Anong klaseng hipon ito?",
     what_text: "Makikilala ito sa kayumangging mga guhit sa katawan. Karaniwan itong nagtatago sa maputik-mabuhanging sahig ng mga look at lumalabas lamang kapag dilim - tunay itong gabi gumagala. Kapag niluto, nagiging matingkad na pula ito at ang laman ay nagiging makapal, malutong at may pinong tamis.",
     w_b1: "Haba 15-20 cm", w_b2: "Gabi gumagala", w_b3: "Nakatira sa mabuhanging putik",
