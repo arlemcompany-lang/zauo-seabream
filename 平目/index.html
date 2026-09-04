@@ -249,15 +249,14 @@
     <p data-i18n="cook_lead">白身のうまみと歯ごたえを楽しめる調理法をご用意しています</p>
     <div class="badge-row">
       <span class="badge ok"><span data-i18n="b_sashimi">刺身</span> ◎</span>
-      <span class="badge ok"><span data-i18n="b_nitsuke">煮付け</span> 〇</span>
-      <span class="badge ok"><span data-i18n="b_karaage">唐揚げ</span> 〇</span>
-      <span class="badge ok"><span data-i18n="b_fry">フライ</span> 〇<span data-i18n="fry_extra">（追加料金あり）</span></span>
-      <span class="badge ok"><span data-i18n="b_butter">バターソテー</span> 〇<span data-i18n="fry_extra">（追加料金あり）</span></span>
+      <span class="badge ok"><span data-i18n="b_nitsuke">煮付け</span> 〇<span data-i18n="ex330">（追加料金 330円）</span></span>
+      <span class="badge ok"><span data-i18n="b_fry">フライ</span> ◎<span data-i18n="ex220">（追加料金 220円）</span></span>
+      <span class="badge ok"><span data-i18n="b_butter">バターソテー</span> 〇<span data-i18n="ex220">（追加料金 220円）</span></span>
     </div>
-    <p class="sub-label" data-i18n="bones_label">骨を使って（刺身に姿が付いているとき）</p>
+    <p class="sub-label" data-i18n="bones_label">骨・アラを使って（刺身に姿が付いているとき）</p>
     <div class="badge-row">
-      <span class="badge ok"><span data-i18n="b_honesenbei">骨せんべい</span> ◎</span>
-      <span class="badge ng"><span data-i18n="b_misoshiru">みそ汁</span> △</span>
+      <span class="badge ok"><span data-i18n="b_honesenbei">骨せんべい</span> ◎<span data-i18n="p280">（280円）</span></span>
+      <span class="badge ng"><span data-i18n="b_misoshiru">みそ汁</span> △<span data-i18n="p220">（220円）</span></span>
     </div>
     <p class="note" data-i18n="note1">お子様はフライもおすすめです！</p>
     <p class="legend" data-i18n="legend">◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可</p>
@@ -308,10 +307,11 @@ var I18N = {
     catch: "砂に化ける、海底のハンター",
     cook_h2: "おすすめのざうお調理法",
     cook_lead: "コリコリした歯ごたえの刺身が一番のおすすめ。骨は骨せんべいが絶品です",
-    b_sashimi: "刺身", b_nitsuke: "煮付け", b_karaage: "唐揚げ", b_fry: "フライ", fry_extra: "（追加料金あり）", b_butter: "バターソテー",
+    b_sashimi: "刺身", b_nitsuke: "煮付け", b_fry: "フライ", b_butter: "バターソテー",
+    ex330: "（追加料金 330円）", ex220: "（追加料金 220円）",
     note1: "お子様はフライもおすすめです！",
-    bones_label: "骨を使って（刺身に姿が付いているとき）",
-    b_honesenbei: "骨せんべい", b_misoshiru: "みそ汁",
+    bones_label: "骨・アラを使って（刺身に姿が付いているとき）",
+    b_honesenbei: "骨せんべい", b_misoshiru: "みそ汁", p280: "（280円）", p220: "（220円）",
     legend: "◎＝とてもおすすめ　〇＝おすすめ　△＝調理できるがおすすめではない　✕＝提供不可",
     photo_soon: "写真準備中",
     what_h2: "どんな魚？",
@@ -332,10 +332,11 @@ var I18N = {
     catch: "The seabed hunter that disappears into the sand",
     cook_h2: "Recommended ZAUO Cooking Styles",
     cook_lead: "Sashimi is the top choice for its firm, springy bite, and the bones make superb crispy bone crackers.",
-    b_sashimi: "Sashimi", b_nitsuke: "Simmered", b_karaage: "Karaage (deep-fried)", b_fry: "Fry (breaded cutlet)", fry_extra: " (extra charge)", b_butter: "Butter sauté",
+    b_sashimi: "Sashimi", b_nitsuke: "Simmered", b_fry: "Fry (breaded cutlet)", b_butter: "Butter sauté",
+    ex330: " (extra charge ¥330)", ex220: " (extra charge ¥220)",
     note1: "For children, we also recommend the fry!",
-    bones_label: "Using the bones (when sashimi is served with the whole fish)",
-    b_honesenbei: "Crispy bone crackers", b_misoshiru: "Miso soup",
+    bones_label: "Using the bones and trimmings (when sashimi is served with the whole fish)",
+    b_honesenbei: "Crispy bone crackers", b_misoshiru: "Miso soup", p280: " (¥280)", p220: " (¥220)",
     legend: "◎ = Highly recommended　〇 = Recommended　△ = Possible, but not our recommendation　✕ = Not available",
     photo_soon: "Photo coming soon",
     what_h2: "What kind of fish is it?",
@@ -356,10 +357,11 @@ var I18N = {
     catch: "潜入沙中的海底猎手",
     cook_h2: "推荐的 ZAUO 烹饪方式",
     cook_lead: "最推荐口感爽脆弹牙的生鱼片，鱼骨则做成香脆炸鱼骨最美味。",
-    b_sashimi: "生鱼片", b_nitsuke: "炖煮", b_karaage: "唐扬炸", b_fry: "炸鱼排（面包糠）", fry_extra: "（需另加费用）", b_butter: "黄油煎",
+    b_sashimi: "生鱼片", b_nitsuke: "炖煮", b_fry: "炸鱼排（面包糠）", b_butter: "黄油煎",
+    ex330: "（需另加费用 330日元）", ex220: "（需另加费用 220日元）",
     note1: "小朋友也很推荐炸鱼排！",
-    bones_label: "用鱼骨来做（生鱼片附整鱼时）",
-    b_honesenbei: "香脆炸鱼骨", b_misoshiru: "味噌汤",
+    bones_label: "用鱼骨和边角料来做（生鱼片附整鱼时）",
+    b_honesenbei: "香脆炸鱼骨", b_misoshiru: "味噌汤", p280: "（280日元）", p220: "（220日元）",
     legend: "◎＝非常推荐　〇＝推荐　△＝可以做但不太推荐　✕＝无法提供",
     photo_soon: "照片准备中",
     what_h2: "这是什么鱼？",
@@ -380,10 +382,11 @@ var I18N = {
     catch: "모래로 변신하는 바다 밑바닥의 사냥꾼",
     cook_h2: "추천 ZAUO 조리법",
     cook_lead: "쫄깃한 식감의 회를 가장 추천하며, 뼈는 뼈 센베로 만들면 일품입니다.",
-    b_sashimi: "회", b_nitsuke: "조림", b_karaage: "가라아게(튀김)", b_fry: "후라이(빵가루 튀김)", fry_extra: " (추가 요금)", b_butter: "버터 소테",
+    b_sashimi: "회", b_nitsuke: "조림", b_fry: "후라이(빵가루 튀김)", b_butter: "버터 소테",
+    ex330: " (추가 요금 330엔)", ex220: " (추가 요금 220엔)",
     note1: "어린이 손님께는 후라이도 추천합니다!",
-    bones_label: "뼈를 활용해서 (회에 생선 모양이 함께 나올 때)",
-    b_honesenbei: "뼈 센베(뼈 튀김)", b_misoshiru: "된장국",
+    bones_label: "뼈와 서더리를 활용해서 (회에 생선 모양이 함께 나올 때)",
+    b_honesenbei: "뼈 센베(뼈 튀김)", b_misoshiru: "된장국", p280: " (280엔)", p220: " (220엔)",
     legend: "◎＝매우 추천　〇＝추천　△＝조리 가능하지만 추천하지 않음　✕＝제공 불가",
     photo_soon: "사진 준비 중",
     what_h2: "어떤 생선인가요?",
@@ -404,10 +407,11 @@ var I18N = {
     catch: "El cazador del fondo marino que se camufla en la arena",
     cook_h2: "Preparaciones recomendadas en ZAUO",
     cook_lead: "El sashimi es la mejor opción por su mordida firme, y con las espinas salen unas espinas crujientes fritas excelentes.",
-    b_sashimi: "Sashimi", b_nitsuke: "Guisado", b_karaage: "Karaage (frito)", b_fry: "Empanado y frito", fry_extra: " (coste adicional)", b_butter: "Salteado a la mantequilla",
+    b_sashimi: "Sashimi", b_nitsuke: "Guisado", b_fry: "Empanado y frito", b_butter: "Salteado a la mantequilla",
+    ex330: " (coste adicional ¥330)", ex220: " (coste adicional ¥220)",
     note1: "¡Para los niños también recomendamos el empanado!",
-    bones_label: "Aprovechando las espinas (cuando el sashimi se sirve con el pescado entero)",
-    b_honesenbei: "Espinas crujientes fritas", b_misoshiru: "Sopa de miso",
+    bones_label: "Aprovechando las espinas y los recortes (cuando el sashimi se sirve con el pescado entero)",
+    b_honesenbei: "Espinas crujientes fritas", b_misoshiru: "Sopa de miso", p280: " (¥280)", p220: " (¥220)",
     legend: "◎ = Muy recomendado　〇 = Recomendado　△ = Posible, pero no lo recomendamos　✕ = No disponible",
     photo_soon: "Foto próximamente",
     what_h2: "¿Qué pescado es?",
@@ -428,10 +432,11 @@ var I18N = {
     catch: "Il cacciatore dei fondali che si mimetizza nella sabbia",
     cook_h2: "Preparazioni consigliate da ZAUO",
     cook_lead: "Il sashimi è la scelta migliore per la sua consistenza soda, e dalle lische si ricavano lische fritte croccanti eccellenti.",
-    b_sashimi: "Sashimi", b_nitsuke: "In umido", b_karaage: "Karaage (fritto)", b_fry: "Impanato e fritto", fry_extra: " (supplemento)", b_butter: "Trancio al burro",
+    b_sashimi: "Sashimi", b_nitsuke: "In umido", b_fry: "Impanato e fritto", b_butter: "Trancio al burro",
+    ex330: " (supplemento ¥330)", ex220: " (supplemento ¥220)",
     note1: "Ai bambini consigliamo anche l'impanato fritto!",
-    bones_label: "Usando le lische (quando il sashimi viene servito con il pesce intero)",
-    b_honesenbei: "Lische fritte croccanti", b_misoshiru: "Zuppa di miso",
+    bones_label: "Usando le lische e i ritagli (quando il sashimi viene servito con il pesce intero)",
+    b_honesenbei: "Lische fritte croccanti", b_misoshiru: "Zuppa di miso", p280: " (¥280)", p220: " (¥220)",
     legend: "◎ = Molto consigliato　〇 = Consigliato　△ = Possibile, ma non lo consigliamo　✕ = Non disponibile",
     photo_soon: "Foto in arrivo",
     what_h2: "Che pesce è?",
@@ -452,10 +457,11 @@ var I18N = {
     catch: "Thợ săn đáy biển ẩn mình trong cát",
     cook_h2: "Các cách chế biến ZAUO gợi ý",
     cook_lead: "Ngon nhất là món sashimi với thớ thịt dai giòn, còn xương cá chiên giòn thì tuyệt hảo.",
-    b_sashimi: "Sashimi (cá sống)", b_nitsuke: "Kho", b_karaage: "Karaage (chiên giòn)", b_fry: "Chiên xù (tẩm bột)", fry_extra: " (có phụ thu)", b_butter: "Áp chảo bơ",
+    b_sashimi: "Sashimi (cá sống)", b_nitsuke: "Kho", b_fry: "Chiên xù (tẩm bột)", b_butter: "Áp chảo bơ",
+    ex330: " (phụ thu ¥330)", ex220: " (phụ thu ¥220)",
     note1: "Với các bé, chúng tôi cũng gợi ý món chiên xù!",
-    bones_label: "Tận dụng xương cá (khi món sashimi được bày cả con)",
-    b_honesenbei: "Xương cá chiên giòn", b_misoshiru: "Canh miso",
+    bones_label: "Tận dụng xương và phần thừa (khi món sashimi được bày cả con)",
+    b_honesenbei: "Xương cá chiên giòn", b_misoshiru: "Canh miso", p280: " (¥280)", p220: " (¥220)",
     legend: "◎ = Rất khuyên dùng　〇 = Khuyên dùng　△ = Làm được nhưng không khuyến khích　✕ = Không phục vụ",
     photo_soon: "Ảnh sắp có",
     what_h2: "Đây là cá gì?",
@@ -476,10 +482,11 @@ var I18N = {
     catch: "Ang mangangaso sa sahig ng dagat na nagtatago sa buhangin",
     cook_h2: "Mga inirerekomendang lutuin sa ZAUO",
     cook_lead: "Ang sashimi ang pinakamainam dahil sa matatag nitong kagat, at napakasarap ng malutong na piniritong tinik.",
-    b_sashimi: "Sashimi (hilaw)", b_nitsuke: "Nilaga sa toyo", b_karaage: "Karaage (pinirito)", b_fry: "Breaded fry", fry_extra: " (may dagdag na bayad)", b_butter: "Butter sauté",
+    b_sashimi: "Sashimi (hilaw)", b_nitsuke: "Nilaga sa toyo", b_fry: "Breaded fry", b_butter: "Butter sauté",
+    ex330: " (dagdag na bayad ¥330)", ex220: " (dagdag na bayad ¥220)",
     note1: "Para sa mga bata, inirerekomenda rin namin ang breaded fry!",
-    bones_label: "Gamit ang mga tinik (kapag buo ang isda sa sashimi)",
-    b_honesenbei: "Malutong na piniritong tinik", b_misoshiru: "Miso soup",
+    bones_label: "Gamit ang mga tinik at tira (kapag buo ang isda sa sashimi)",
+    b_honesenbei: "Malutong na piniritong tinik", b_misoshiru: "Miso soup", p280: " (¥280)", p220: " (¥220)",
     legend: "◎ = Lubos na inirerekomenda　〇 = Inirerekomenda　△ = Kayang lutuin ngunit hindi inirerekomenda　✕ = Hindi available",
     photo_soon: "Malapit nang mailagay ang larawan",
     what_h2: "Anong klaseng isda ito?",
